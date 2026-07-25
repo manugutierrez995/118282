@@ -4,6 +4,24 @@ const IMAGE_PATTERN = /\.(avif|bmp|gif|jpe?g|png|svg|webp)(\?.*)?$/i;
 const HTML_PATTERN = /\.html?(\?.*)?$/i;
 const PLACEMENTS = ["left", "center", "right"];
 const activeSessions = new WeakMap();
+const SAFETY_BACKGROUND = "#000000";
+
+function isValidBackground(value) {
+    if (typeof value !== "string" || !value.trim()) return false;
+    const color = value.trim();
+    if (typeof CSS !== "undefined" && typeof CSS.supports === "function") {
+        return CSS.supports("color", color);
+    }
+
+    // Keep non-browser test environments safe without treating arbitrary CSS as a color.
+    return /^(#(?:[\da-f]{3}|[\da-f]{4}|[\da-f]{6}|[\da-f]{8})|(?:rgb|hsl)a?\([^()]+\)|transparent|currentcolor)$/i.test(color);
+}
+
+export function resolveBlockBackground(item, defaults) {
+    if (isValidBackground(item?.background)) return item.background.trim();
+    if (isValidBackground(defaults?.background)) return defaults.background.trim();
+    return SAFETY_BACKGROUND;
+}
 
 async function loadText(path) {
     const response = await fetch(path);
@@ -33,9 +51,10 @@ function isEnabled(item, page) {
     return true;
 }
 
-function block(className, item = {}) {
+function block(className, item = {}, background = SAFETY_BACKGROUND) {
     const element = document.createElement("section");
     element.className = ["site-block", className, item.className || item.class || ""].filter(Boolean).join(" ");
+    element.style.backgroundColor = background;
     if (item.sticky) element.classList.add("site-block-sticky");
     return element;
 }
@@ -56,8 +75,8 @@ function appendHtml(target, html) {
     target.appendChild(template.content.cloneNode(true));
 }
 
-function imageBlock(item) {
-    const element = block("image-block", item);
+function imageBlock(item, background) {
+    const element = block("image-block", item, background);
     const image = document.createElement("img");
     image.className = "block-image";
     image.src = item.image || item.src || item.url;
@@ -81,8 +100,8 @@ function imageBlock(item) {
     return element;
 }
 
-function textBlock(item) {
-    const element = block("text-block", item);
+function textBlock(item, background) {
+    const element = block("text-block", item, background);
     if (item.title) {
         const title = document.createElement("h3");
         title.textContent = item.title;
@@ -99,15 +118,17 @@ function textBlock(item) {
     return element;
 }
 
-async function renderBlock(target, rawItem) {
+async function renderBlock(target, rawItem, defaults) {
     const item = normalizeBlock(rawItem);
     if (!item) return;
+    const background = resolveBlockBackground(item, defaults);
 
     try {
         if (item.type === "rail-ad") {
-            const element = block("rail-ad-block", item);
+            const element = block("rail-ad-block", item, background);
             const frame = document.createElement("div");
             frame.className = "rail-ad-frame";
+            frame.style.backgroundColor = background;
             const iframe = document.createElement("iframe");
             iframe.className = "block-iframe rail-ad-iframe";
             iframe.src = item.src;
@@ -120,19 +141,22 @@ async function renderBlock(target, rawItem) {
             iframe.setAttribute("marginwidth", "0");
             iframe.setAttribute("marginheight", "0");
             iframe.style.border = "0";
+            iframe.style.backgroundColor = background;
             frame.appendChild(iframe);
             element.appendChild(frame);
             target.appendChild(element);
         } else if (item.html) {
-            appendHtml(target, await loadText(item.html));
+            const element = block("html-block", item, background);
+            appendHtml(element, await loadText(item.html));
+            target.appendChild(element);
         } else if (item.image || item.src || IMAGE_PATTERN.test(item.url || "")) {
-            target.appendChild(imageBlock(item));
+            target.appendChild(imageBlock(item, background));
         } else if (item.embed || item.code) {
-            const element = block("embed-block", item);
+            const element = block("embed-block", item, background);
             appendHtml(element, item.embed || item.code);
             target.appendChild(element);
         } else if (item.iframe || item.page) {
-            const element = block("iframe-block", item);
+            const element = block("iframe-block", item, background);
             const iframe = document.createElement("iframe");
             iframe.className = "block-iframe";
             iframe.src = item.iframe || item.page;
@@ -140,29 +164,30 @@ async function renderBlock(target, rawItem) {
             iframe.loading = "lazy";
             iframe.scrolling = "no";
             iframe.style.border = "0";
+            iframe.style.backgroundColor = background;
             if (item.width) iframe.width = item.width;
             if (item.height) iframe.height = item.height;
             element.appendChild(iframe);
             target.appendChild(element);
         } else if (item.title || item.body || item.text || item.content) {
-            target.appendChild(textBlock(item));
+            target.appendChild(textBlock(item, background));
         }
     } catch (error) {
         console.warn("Block failed:", item, error);
     }
 }
 
-async function buildBlock(rawItem) {
+async function buildBlock(rawItem, defaults) {
     const fragment = document.createDocumentFragment();
-    await renderBlock(fragment, rawItem);
+    await renderBlock(fragment, rawItem, defaults);
     return fragment;
 }
 
-async function renderBlocks(target, items = [], page = "landing") {
+async function renderBlocks(target, items = [], page = "landing", defaults) {
     if (!target) return;
     activeSessions.get(target)?.();
     const filtered = items.filter(item => isEnabled(item, page));
-    const rendered = await Promise.all(filtered.map(buildBlock));
+    const rendered = await Promise.all(filtered.map(item => buildBlock(item, defaults)));
     target.replaceChildren(...rendered);
     const cleanup = () => target.replaceChildren();
     activeSessions.set(target, cleanup);
@@ -208,7 +233,8 @@ export async function renderBlocksIntoContainers(options = {}) {
     const cleanups = await Promise.all(PLACEMENTS.map(placement => renderBlocks(
         containers[placement],
         itemsForPlacement(config, placement),
-        page
+        page,
+        config.defaults
     )));
     return () => cleanups.forEach(cleanup => cleanup?.());
 }
