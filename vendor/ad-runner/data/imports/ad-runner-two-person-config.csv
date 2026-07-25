@@ -1,0 +1,36 @@
+OWNER BLOCK 1,VALUE,WHAT TO ENTER
+Website / Domain,PASTE_WEBSITE_OR_DOMAIN,Example: animeplex.lol
+Owner Name,My Account,Name of the person or advertising account
+Enabled,true,Use true or false
+Traffic Share,50%,Share of eligible traffic assigned to this block
+Ad Traffic Name,My ExoClick Ads,Any helpful name for this complete ad setup
+Client Hints Meta Tag(s),"<meta http-equiv=""Delegate-CH"" content=""Sec-CH-UA https://s.pemsrv.com; Sec-CH-UA-Mobile https://s.pemsrv.com; Sec-CH-UA-Arch https://s.pemsrv.com; Sec-CH-UA-Model https://s.pemsrv.com; Sec-CH-UA-Platform https://s.pemsrv.com; Sec-CH-UA-Platform-Version https://s.pemsrv.com; Sec-CH-UA-Bitness https://s.pemsrv.com; Sec-CH-UA-Full-Version-List https://s.pemsrv.com; Sec-CH-UA-Full-Version https://s.pemsrv.com;"">
+<meta http-equiv=""Delegate-CH"" content=""Sec-CH-UA https://s.magsrv.com; Sec-CH-UA-Mobile https://s.magsrv.com; Sec-CH-UA-Arch https://s.magsrv.com; Sec-CH-UA-Model https://s.magsrv.com; Sec-CH-UA-Platform https://s.magsrv.com; Sec-CH-UA-Platform-Version https://s.magsrv.com; Sec-CH-UA-Bitness https://s.magsrv.com; Sec-CH-UA-Full-Version-List https://s.magsrv.com; Sec-CH-UA-Full-Version https://s.magsrv.com;"">",Paste the complete network-provided meta tag or tags without separating or rewriting them
+,,
+AD NAME,DIMENSIONS,COMPLETE AD CODE
+Mobile Interstitial,N/A,"<script async type=""application/javascript"" src=""https://a.pemsrv.com/ad-provider.js""></script>
+<ins class=""eas6a97888e33"" data-zoneid=""5880060""></ins>
+<script>(AdProvider = window.AdProvider || []).push({""serve"": {}});</script>"
+Banner,900x250,"<script async type=""application/javascript"" src=""https://a.magsrv.com/ad-provider.js""></script>
+<ins class=""eas6a97888e2"" data-zoneid=""5865240""></ins>
+<script>(AdProvider = window.AdProvider || []).push({""serve"": {}});</script>"
+Top Banner,728x90,"PASTE_COMPLETE_TOP_BANNER_CODE_OR_NONE"
+Between-Pages Banner,300x250,"PASTE_COMPLETE_BETWEEN_PAGES_CODE_OR_NONE"
+Desktop Video Slider,N/A,"PASTE_COMPLETE_DESKTOP_VIDEO_CODE_OR_NONE"
+Desktop Interstitial,N/A,"PASTE_COMPLETE_DESKTOP_INTERSTITIAL_CODE_OR_NONE"
+,,
+OWNER BLOCK 2,VALUE,WHAT TO ENTER
+Website / Domain,PASTE_BROTHERS_WEBSITE_OR_DOMAIN,It may be the same website or a completely different website
+Owner Name,My Brother's Account,Name of the person or advertising account
+Enabled,true,Use true or false
+Traffic Share,50%,Share of eligible traffic assigned to this block
+Ad Traffic Name,My Brother's Ads,Any helpful name for his complete ad setup
+Client Hints Meta Tag(s),"PASTE_HIS_COMPLETE_CLIENT_HINTS_META_TAG_OR_TAGS",Paste everything exactly as his advertising network provides it
+,,
+AD NAME,DIMENSIONS,COMPLETE AD CODE
+Mobile Interstitial,N/A,"PASTE_HIS_COMPLETE_MOBILE_INTERSTITIAL_CODE_OR_NONE"
+Banner,900x250,"PASTE_HIS_COMPLETE_BANNER_CODE_OR_NONE"
+Top Banner,728x90,"PASTE_HIS_COMPLETE_TOP_BANNER_CODE_OR_NONE"
+Between-Pages Banner,300x250,"PASTE_HIS_COMPLETE_BETWEEN_PAGES_CODE_OR_NONE"
+Desktop Video Slider,N/A,"PASTE_HIS_COMPLETE_DESKTOP_VIDEO_CODE_OR_NONE"
+Desktop Interstitial,N/A,"PASTE_HIS_COMPLETE_DESKTOP_INTERSTITIAL_CODE_OR_NONE"

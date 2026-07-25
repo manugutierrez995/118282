@@ -1,0 +1,2 @@
+import type { AdNetworkAdapter } from "./registry.js";
+export const unsafeRawScriptAdapter: AdNetworkAdapter={id:"unsafe-raw-script",async mount(unit,container,context){ if(!context.manifest.settings.allow_unsafe_scripts) return {outcome:"error",reason:"unsafe raw scripts are disabled"}; container.innerHTML=unit.markup??""; if(unit.execute) (0,eval)(String(unit.execute)); return {outcome:"unknown",reason:"raw script cannot verify fill"}; }};

@@ -1,25 +1,11 @@
 {
   "left": [
     { "html": "/blocks/top_left_meme.html", "reader": false },
-    {
-      "type": "rail-ad",
-      "src": "https://a.magsrv.com/iframe.php?idzone=5865238&size=160x600",
-      "width": 160,
-      "height": 600,
-      "title": "Sponsored content left rail"
-    },
     { "html": "/blocks/penultimate_left_meme.html", "reader": false }
   ],
   "center": [],
   "right": [
     { "html": "/blocks/top_right_meme.html", "reader": false },
-    {
-      "type": "rail-ad",
-      "src": "https://a.magsrv.com/iframe.php?idzone=5865238&size=160x600",
-      "width": 160,
-      "height": 600,
-      "title": "Sponsored content right rail"
-    },
     { "html": "/blocks/penultimate_right_meme.html", "reader": false }
   ]
 }

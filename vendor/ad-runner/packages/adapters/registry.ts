@@ -1,0 +1,4 @@
+import type { AdUnit, CandidateResult, NetworkConfiguration } from "../specification/types.js";
+export interface RuntimeContext { manifest:any; site:string; version?:string; emit:(name:string,detail:Record<string,unknown>)=>void; }
+export interface AdNetworkAdapter { id:string; load?(network:NetworkConfiguration, context:RuntimeContext):Promise<void>; mount(unit:AdUnit, container:HTMLElement, context:RuntimeContext, signal:AbortSignal):Promise<CandidateResult>; refresh?(unit:AdUnit, container:HTMLElement, context:RuntimeContext):Promise<CandidateResult>; destroy?(unit:AdUnit, container:HTMLElement, context:RuntimeContext):Promise<void>; }
+const registry=new Map<string,AdNetworkAdapter>(); export function registerAdapter(a:AdNetworkAdapter){registry.set(a.id,a)} export function hasAdapter(id:string){return registry.has(id)} export function getAdapter(id:string){const a=registry.get(id); if(!a) throw new Error(`Missing Ad Runner adapter ${id}`); return a;}

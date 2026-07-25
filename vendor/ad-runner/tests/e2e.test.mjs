@@ -1,0 +1,2 @@
+import test from 'node:test'; import assert from 'node:assert/strict'; import { publishManifest } from '../dist/packages/compiler/publisher.js'; import { compileWorkbook } from '../dist/packages/compiler/compiler.js';
+test('publishing creates bootstrap and versions',async()=>{const r=await compileWorkbook('examples/ad-runner-template.xlsx'); const boot=await publishManifest('data-test',r.sites[0].manifest); assert.equal(boot.site,'animeplex.lol'); assert.ok(boot.manifest.includes('/manifests/'));});

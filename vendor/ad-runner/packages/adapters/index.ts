@@ -1,0 +1,2 @@
+import { registerAdapter } from "./registry.js"; import { simulatedAdapter } from "./simulated.js"; import { directSponsorAdapter } from "./direct-sponsor.js"; import { houseAdAdapter } from "./house-ad.js"; import { externalTagAdapter } from "./external-tag.js"; import { exoclickAdapter } from "./exoclick.js"; import { unsafeRawScriptAdapter } from "./raw-script.js";
+[simulatedAdapter,directSponsorAdapter,houseAdAdapter,externalTagAdapter,exoclickAdapter,unsafeRawScriptAdapter].forEach(registerAdapter); export * from "./registry.js";

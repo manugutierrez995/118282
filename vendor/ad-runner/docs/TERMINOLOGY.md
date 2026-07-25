@@ -1,0 +1,21 @@
+# Ad Runner Terminology
+
+- **Iterative Partner Model (IPM):** The complete Ad Runner model for distributing advertisement opportunities among multiple revenue participants and then iterating through each participant’s available networks.
+- **Partner:** A person, company, team, publisher account owner, or internal revenue destination eligible to receive advertisement opportunities.
+- **Partner Lane:** The ordered set of advertisement candidates belonging to one partner for one slot.
+- **Opportunity Cycle:** One complete attempt to fill one advertisement slot for one page or eligible slot request.
+- **Opportunity Ownership:** The partner selected to receive the first right to monetize an Opportunity Cycle. This is an internal routing term, not legal ownership.
+- **Share Target:** The intended percentage of eligible opportunities or confirmed fills allocated to a partner.
+- **Share Ledger:** The persistent record used to compare each partner’s Share Target with assigned opportunities and confirmed fills.
+- **Fill Credit:** One confirmed filled impression credited to the partner whose advertisement successfully rendered.
+- **Share Debt:** The amount by which a partner is behind their Share Target.
+- **Partner Selection:** The process that chooses which partner receives Opportunity Ownership.
+- **Network Step:** One network, account, direct sponsor, or house unit attempted inside a Partner Lane.
+- **Revenue Route:** The complete sequence of Network Steps available to monetize an Opportunity Cycle.
+- **Recovery Pass:** A second routing stage that begins when the selected partner’s complete Partner Lane fails.
+- **Protected Share (`protected-share`):** A policy that protects the selected partner’s share and does not give the opportunity to another partner after lane failure.
+- **Open Yield (`open-yield`):** A policy that prioritizes slot utilization and may begin a Recovery Pass through other partners.
+- **Direct Credit Routing:** Each partner supplies ad code from their own network account so revenue is credited directly by the network.
+- **Neutral Fallback:** A publisher-controlled advertisement that is not counted toward partner Fill Credit unless configured otherwise.
+- **Format Identity:** The standardized format name and dimensions, such as `wide-skyscraper:160x600`.
+- **Slot Contract:** The stable agreement between a website and Ad Runner describing slot name, accepted dimensions, devices, formats, and layout behavior.
