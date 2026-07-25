@@ -1,4 +1,7 @@
 {
+  "defaults": {
+    "background": "#000000"
+  },
   "left": [
     { "html": "/blocks/top_left_meme.html", "reader": false },
     {
