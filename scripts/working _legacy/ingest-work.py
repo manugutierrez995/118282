@@ -8,7 +8,6 @@ subfolder becomes one work. Slug/display/parent_work_id are inferred automatical
 from __future__ import annotations
 
 import argparse
-import csv
 import getpass
 import json
 import os
@@ -45,196 +44,6 @@ HARDCODED_R2_BUCKET = "extended"
 HARDCODED_R2_PREFIX = "works"
 HARDCODED_R2_ENDPOINT = ""
 HARDCODED_TOKEN_VALUE = ""
-
-STORAGE_MAP_JSON = "storage-map.json"
-STORAGE_MAP_JSONL = "storage-map.jsonl"
-STORAGE_MAP_CSV = "storage-map.csv"
-
-
-def script_dir() -> Path:
-    return Path(__file__).resolve().parent
-
-
-def atomic_write_text(path: Path, text: str) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
-    fd, tmp = tempfile.mkstemp(prefix=f".{path.name}.", suffix=".tmp", dir=path.parent)
-    try:
-        with os.fdopen(fd, "w", encoding="utf-8", newline="") as f:
-            f.write(text)
-            f.flush()
-            os.fsync(f.fileno())
-        os.replace(tmp, path)
-    except BaseException:
-        Path(tmp).unlink(missing_ok=True)
-        raise
-
-
-def storage_map_paths() -> tuple[Path, Path, Path]:
-    base = script_dir()
-    return base / STORAGE_MAP_JSON, base / STORAGE_MAP_JSONL, base / STORAGE_MAP_CSV
-
-
-def load_storage_map_records(path: Path) -> list[dict[str, Any]]:
-    data = load_json(path, {"schema_version": 1, "works": []})
-    if isinstance(data, dict) and isinstance(data.get("works"), list):
-        return [item for item in data["works"] if isinstance(item, dict) and item.get("slug")]
-    if isinstance(data, list):
-        return [item for item in data if isinstance(item, dict) and item.get("slug")]
-    return []
-
-
-def build_storage_record(
-    spec: WorkSpec,
-    manifest: dict[str, Any],
-    chapters: list[Chapter],
-    details: dict[str, Any] | None,
-    args: argparse.Namespace,
-    uploaded: bool,
-) -> dict[str, Any]:
-    cdn = args.cdn_base.rstrip("/")
-    work_url = f"{cdn}/{spec.slug}/"
-    details_rel = companion_rel(DEFAULT_DETAILS_FILENAME, chapters, args.thumb_location) if args.generate_details else None
-    archive_rel = None
-    archive_meta = details.get("archive") if isinstance(details, dict) else None
-    if spec.original_input and is_supported_archive(spec.original_input) and args.upload_zip:
-        archive_rel = companion_rel(spec.original_input.name, chapters, args.thumb_location)
-
-    item_urls = [f"{cdn}/{spec.slug}/{chapter.rel}/item.json" for chapter in chapters]
-    generated_at = utc_iso()
-    return {
-        "schema_version": 1,
-        "slug": spec.slug,
-        "display": spec.display,
-        "parent_work_id": spec.parent_work_id,
-        "source": args.source,
-        "public": manifest.get("public") is not False,
-        "tags": normalize_tags(manifest.get("tags")),
-        "storage": {
-            "provider": "cloudflare-r2" if args.upload == "rclone" else (args.upload or "local"),
-            "remote": f"{args.remote.rstrip('/')}/{spec.slug}" if args.remote else None,
-            "prefix": f"works/{spec.slug}",
-            "cdn_base_url": cdn,
-        },
-        "urls": {
-            "work": work_url,
-            "manifest": f"works/{spec.slug}.json",
-            "thumb": manifest.get("thumb"),
-            "details": f"{cdn}/{spec.slug}/{details_rel}" if details_rel else None,
-            "archive": f"{cdn}/{spec.slug}/{archive_rel}" if archive_rel else None,
-        },
-        "item_json": {
-            "count": len(item_urls),
-            "urls": item_urls,
-        },
-        "content": {
-            "chapter_count": len(chapters),
-            "page_count": sum(chapter.pages for chapter in chapters),
-            "page_bytes": details.get("content", {}).get("page_bytes") if isinstance(details, dict) else None,
-        },
-        "archive": {
-            "exists": bool(archive_rel),
-            "filename": spec.original_input.name if archive_rel and spec.original_input else None,
-            "format": archive_format(spec.original_input) if archive_rel and spec.original_input else None,
-            "size_bytes": archive_meta.get("size_bytes") if isinstance(archive_meta, dict) else None,
-            "sha256": archive_meta.get("sha256") if isinstance(archive_meta, dict) else None,
-        },
-        "files": {
-            "thumb_exists": bool(manifest.get("thumb")),
-            "details_exists": bool(details_rel),
-            "archive_exists": bool(archive_rel),
-            "item_json_count": len(item_urls),
-            "non_image_file_count": len(item_urls) + int(bool(details_rel)) + int(bool(archive_rel)) + int(bool(manifest.get("thumb"))),
-        },
-        "fingerprints": details.get("fingerprints") if isinstance(details, dict) else None,
-        "upload": {
-            "method": args.upload,
-            "remote": f"{args.remote.rstrip('/')}/{spec.slug}" if args.remote else None,
-            "uploaded_at": generated_at if uploaded else None,
-            "status": "uploaded" if uploaded else "not-uploaded",
-        },
-        "generated_at": generated_at,
-        "generator": "ingest-work.py",
-    }
-
-
-def write_storage_maps(records: list[dict[str, Any]], dry: bool = False) -> list[Path]:
-    json_path, jsonl_path, csv_path = storage_map_paths()
-    records = sorted(records, key=lambda item: str(item.get("slug", "")).lower())
-    payload = {
-        "schema_version": 1,
-        "generated_at": utc_iso(),
-        "generator": "ingest-work.py",
-        "work_count": len(records),
-        "works": records,
-    }
-    if dry:
-        print(f"DRY write {json_path}")
-        print(f"DRY write {jsonl_path}")
-        print(f"DRY write {csv_path}")
-        return [json_path, jsonl_path, csv_path]
-
-    atomic_write_json(json_path, payload)
-    jsonl_text = "".join(json.dumps(record, ensure_ascii=False, separators=(",", ":")) + "\n" for record in records)
-    atomic_write_text(jsonl_path, jsonl_text)
-
-    fields = [
-        "slug", "display", "parent_work_id", "source", "public", "tags",
-        "work_url", "manifest", "thumb_url", "details_url", "archive_url",
-        "archive_exists", "archive_filename", "archive_format", "archive_size_bytes", "archive_sha256",
-        "item_json_count", "item_json_urls", "chapter_count", "page_count", "page_bytes",
-        "upload_status", "upload_method", "upload_remote", "uploaded_at", "generated_at",
-    ]
-    rows: list[dict[str, Any]] = []
-    for record in records:
-        urls = record.get("urls") or {}
-        archive = record.get("archive") or {}
-        item_json = record.get("item_json") or {}
-        content = record.get("content") or {}
-        upload = record.get("upload") or {}
-        rows.append({
-            "slug": record.get("slug"),
-            "display": record.get("display"),
-            "parent_work_id": record.get("parent_work_id"),
-            "source": record.get("source"),
-            "public": record.get("public"),
-            "tags": json.dumps(record.get("tags") or [], ensure_ascii=False),
-            "work_url": urls.get("work"),
-            "manifest": urls.get("manifest"),
-            "thumb_url": urls.get("thumb"),
-            "details_url": urls.get("details"),
-            "archive_url": urls.get("archive"),
-            "archive_exists": archive.get("exists"),
-            "archive_filename": archive.get("filename"),
-            "archive_format": archive.get("format"),
-            "archive_size_bytes": archive.get("size_bytes"),
-            "archive_sha256": archive.get("sha256"),
-            "item_json_count": item_json.get("count"),
-            "item_json_urls": json.dumps(item_json.get("urls") or [], ensure_ascii=False),
-            "chapter_count": content.get("chapter_count"),
-            "page_count": content.get("page_count"),
-            "page_bytes": content.get("page_bytes"),
-            "upload_status": upload.get("status"),
-            "upload_method": upload.get("method"),
-            "upload_remote": upload.get("remote"),
-            "uploaded_at": upload.get("uploaded_at"),
-            "generated_at": record.get("generated_at"),
-        })
-    import io
-    buf = io.StringIO(newline="")
-    writer = csv.DictWriter(buf, fieldnames=fields)
-    writer.writeheader()
-    writer.writerows(rows)
-    atomic_write_text(csv_path, buf.getvalue())
-    return [json_path, jsonl_path, csv_path]
-
-
-def upsert_storage_records(entries: list[dict[str, Any]], dry: bool = False) -> list[Path]:
-    json_path, _, _ = storage_map_paths()
-    existing = {str(item.get("slug")): item for item in load_storage_map_records(json_path)}
-    for entry in entries:
-        existing[str(entry["slug"])] = entry
-    return write_storage_maps(list(existing.values()), dry)
-
 
 @dataclass
 class Chapter:
@@ -1624,13 +1433,11 @@ def main() -> None:
 
     all_written: list[Path] = []
     all_summaries: list[tuple[WorkSpec, list[Chapter]]] = []
-    ingested_results: list[tuple[WorkSpec, dict[str, Any], list[Chapter], dict[str, Any] | None]] = []
     for spec in specs:
         print(f"\n=== Ingesting {spec.display} ===")
-        manifest, written, chapters, details = ingest_one_work(spec, args)
+        _manifest, written, chapters, _details = ingest_one_work(spec, args)
         all_written.extend(written)
         all_summaries.append((spec, chapters))
-        ingested_results.append((spec, manifest, chapters, details))
         print_work_summary(spec, chapters, args)
 
     if args.generate_search and not args.no_search:
@@ -1673,16 +1480,6 @@ def main() -> None:
                 uploaded_zips += int(zip_uploaded)
                 deleted_local_zips += int(zip_deleted)
         uploaded = True
-
-    storage_records = [
-        build_storage_record(spec, manifest, chapters, details, args, uploaded)
-        for spec, manifest, chapters, details in ingested_results
-    ]
-    storage_map_files = upsert_storage_records(storage_records, args.dry_run)
-    all_written.extend(storage_map_files)
-    print("Storage maps updated:")
-    for path in storage_map_files:
-        print(f"- {path}")
 
     if args.commit_push:
         token = token_value or os.getenv(args.github_token_env or DEFAULT_TOKEN_ENV) or HARDCODED_GITHUB_TOKEN or None
