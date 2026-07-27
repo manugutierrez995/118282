@@ -1,9 +1,72 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-07-27T14:49:36Z",
+  "generated_at": "2026-07-27T22:19:34Z",
   "generator": "ingest-work.py",
-  "work_count": 43,
+  "work_count": 44,
   "works": [
+    {
+      "schema_version": 1,
+      "slug": "-_-",
+      "display": "-俺が女（メス）に堕ちるまで-",
+      "parent_work_id": 6314308190,
+      "source": "e",
+      "public": true,
+      "tags": [
+        "manifest"
+      ],
+      "storage": {
+        "provider": "cloudflare-r2",
+        "remote": "animeplex.lol:extended/works/-_-",
+        "prefix": "works/-_-",
+        "cdn_base_url": "https://cdn.564578634.xyz/works"
+      },
+      "urls": {
+        "work": "https://cdn.564578634.xyz/works/-_-/",
+        "manifest": "works/-_-.json",
+        "thumb": "https://cdn.564578634.xyz/works/-_-/chapter_1/thumb.webp",
+        "details": "https://cdn.564578634.xyz/works/-_-/chapter_1/details.json",
+        "archive": null
+      },
+      "item_json": {
+        "count": 1,
+        "urls": [
+          "https://cdn.564578634.xyz/works/-_-/chapter_1/item.json"
+        ]
+      },
+      "content": {
+        "chapter_count": 1,
+        "page_count": 50,
+        "page_bytes": 10121104
+      },
+      "archive": {
+        "exists": false,
+        "filename": null,
+        "format": null,
+        "size_bytes": 10126224,
+        "sha256": "1d2cd57197b9667700b1c25d9f5c3ed01e50e6606b46d909cdbe294bd82ddaea"
+      },
+      "files": {
+        "thumb_exists": true,
+        "details_exists": true,
+        "archive_exists": false,
+        "item_json_count": 1,
+        "non_image_file_count": 3
+      },
+      "fingerprints": {
+        "work_identity_sha256": "4307f224c538871629c89c2dad8680fdce1e618cd830218734e18619b0b968ff",
+        "archive_sha256": "1d2cd57197b9667700b1c25d9f5c3ed01e50e6606b46d909cdbe294bd82ddaea",
+        "archive_structure_sha256": "89e4be8b590f9995f2ab8e6985a84a25e652a9cc8fd931677afe426b18e7ea12",
+        "page_tree_sha256": "cdfbee58174ae517fcd3ab2cea252c7f43202515c69f7a9b0fc054b49b6028a3"
+      },
+      "upload": {
+        "method": "rclone",
+        "remote": "animeplex.lol:extended/works/-_-",
+        "uploaded_at": "2026-07-27T22:19:34Z",
+        "status": "uploaded"
+      },
+      "generated_at": "2026-07-27T22:19:34Z",
+      "generator": "ingest-work.py"
+    },
     {
       "schema_version": 1,
       "slug": "A_Careless_Mother_Who_Casually_Comes_Alone_to_Her_Sons_Apartment_After_He_Moves_Out_on_His_Own",

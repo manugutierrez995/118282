@@ -1,6 +1,15 @@
 {
   "version": 1,
   "works": {
+    "-_-": {
+      "tags": [
+        "manifest"
+      ],
+      "sources": [
+        "ingest"
+      ],
+      "updated_at": null
+    },
     "1000_Yen_Cut_no_Onee-san_ni_Suite_Morau_Hon._III_A_Lady_Giving_Me_a_1000_yen_Haircut_3": {
       "tags": [],
       "sources": [
