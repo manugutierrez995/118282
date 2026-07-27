@@ -49,39 +49,10 @@ HARDCODED_TOKEN_VALUE = ""
 STORAGE_MAP_JSON = "storage-map.json"
 STORAGE_MAP_JSONL = "storage-map.jsonl"
 STORAGE_MAP_CSV = "storage-map.csv"
-ERROR_LOG_FILENAME = "error.log"
 
 
 def script_dir() -> Path:
     return Path(__file__).resolve().parent
-
-
-def error_log_path() -> Path:
-    return script_dir() / ERROR_LOG_FILENAME
-
-
-def append_ingest_errors(errors: list[tuple[Path, str]], dry: bool = False) -> Path:
-    """Append skipped-input errors to error.log without erasing earlier runs."""
-    path = error_log_path()
-    if not errors:
-        return path
-
-    timestamp = utc_iso()
-    lines = [
-        f"[{timestamp}] skipped {len(errors)} input(s)\n",
-        *(f"- {input_path}: {reason}\n" for input_path, reason in errors),
-        "\n",
-    ]
-    if dry:
-        print(f"DRY append {len(errors)} error(s) to {path}")
-        return path
-
-    path.parent.mkdir(parents=True, exist_ok=True)
-    with path.open("a", encoding="utf-8", newline="") as f:
-        f.writelines(lines)
-        f.flush()
-        os.fsync(f.fileno())
-    return path
 
 
 def atomic_write_text(path: Path, text: str) -> None:
@@ -529,12 +500,7 @@ def prepare_work_root(path: Path, args: argparse.Namespace, slug_source: str | N
         else:
             extraction_dir = Path(tempfile.mkdtemp(prefix=f"animeplex_{slugify_name(base)}_"))
             temporary = True
-        try:
-            safe_extract_zip(path, extraction_dir, args.dry_run)
-        except zipfile.BadZipFile:
-            if extraction_dir.exists() and (temporary or args.cleanup_extracted):
-                shutil.rmtree(extraction_dir, ignore_errors=True)
-            raise
+        safe_extract_zip(path, extraction_dir, args.dry_run)
         path = extraction_dir if not args.dry_run else extraction_dir
     root = resolve_work_root(path) if path.exists() else path
     chapters = valid_chapter_dirs(root) if root.exists() else []
@@ -1625,7 +1591,6 @@ def main() -> None:
     data = resolve_repo_path(args.repo_data)
     args.repo_data = str(data)
     prepared_specs: list[WorkSpec] = []
-    skipped_inputs: list[tuple[Path, str]] = []
     try:
         if args.multi:
             if root_page_images(root):
@@ -1636,22 +1601,12 @@ def main() -> None:
                 raise SystemExit(f"No work folders or ZIP/CBZ archives found under {root}")
             for p in paths:
                 slug_src = p.stem if is_supported_archive(p) else p.name
-                try:
-                    prepared, exdir, temp = prepare_work_root(p, args, slug_src)
-                except zipfile.BadZipFile as exc:
-                    reason = f"invalid ZIP/CBZ archive ({exc})"
-                    skipped_inputs.append((p, reason))
-                    print(f"SKIP invalid archive: {p}", file=sys.stderr)
-                    continue
+                prepared, exdir, temp = prepare_work_root(p, args, slug_src)
                 prepared_specs.append(make_work_spec(prepared, data, slugify_name(slug_src), display_from_folder_name(slug_src), auto_id=True))
                 prepared_specs[-1].original_input = p
                 prepared_specs[-1].extraction_dir = exdir
                 prepared_specs[-1].temporary_extraction = temp
             specs = prepared_specs
-            if not specs:
-                log_path = append_ingest_errors(skipped_inputs, args.dry_run)
-                print(f"All discovered inputs were skipped. See: {log_path}", file=sys.stderr)
-                return
         else:
             slug_src = args.slug or (root.stem if is_supported_archive(root) else root.name)
             prepared, exdir, temp = prepare_work_root(root, args, slug_src)
@@ -1744,16 +1699,8 @@ def main() -> None:
 
     cleanup_extractions(specs, args)
 
-    error_path = append_ingest_errors(skipped_inputs, args.dry_run)
-
     print("\nDoku-Doujin ingest complete.")
-    print(f"Works ingested: {len(specs)}")
-    print(f"Inputs skipped: {len(skipped_inputs)}")
-    if skipped_inputs:
-        print("\nSkipped inputs:")
-        for skipped_path, reason in skipped_inputs:
-            print(f"- {skipped_path}: {reason}")
-        print(f"Error log: {error_path}")
+    print(f"Works: {len(specs)}")
     print(f"Uploaded: {'yes' if uploaded else 'skipped'}")
     print(f"Source archives uploaded: {uploaded_zips}")
     print(f"Verified local archives deleted: {deleted_local_zips}")
