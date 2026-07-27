@@ -9,6 +9,8 @@
   ],
   "details": "https://cdn.564578634.xyz/works/Cleaning/chapter_1/details.json",
   "archive": "https://cdn.564578634.xyz/works/Cleaning/chapter_1/Cleaning.cbz",
-  "tags": [],
+  "tags": [
+    "manifest"
+  ],
   "parent_work_id": 8582885609
 }

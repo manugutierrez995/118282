@@ -9,6 +9,8 @@
   ],
   "details": "https://cdn.564578634.xyz/works/Nut_Pose/chapter_1/details.json",
   "archive": "https://cdn.564578634.xyz/works/Nut_Pose/chapter_1/Nut Pose.cbz",
-  "tags": [],
+  "tags": [
+    "manifest"
+  ],
   "parent_work_id": 8332046388
 }

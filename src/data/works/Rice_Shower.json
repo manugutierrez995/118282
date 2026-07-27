@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "slug": "Rice_Shower",
+  "display": "Rice Shower",
+  "source": "e",
+  "thumb": "https://cdn.564578634.xyz/works/Rice_Shower/chapter_1/thumb.webp",
+  "chapters": [
+    "chapter_1"
+  ],
+  "details": "https://cdn.564578634.xyz/works/Rice_Shower/chapter_1/details.json",
+  "archive": "https://cdn.564578634.xyz/works/Rice_Shower/chapter_1/Rice Shower.cbz",
+  "tags": [
+    "manifest"
+  ],
+  "parent_work_id": 7536288692
+}

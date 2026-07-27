@@ -9,6 +9,8 @@
   ],
   "details": "https://cdn.564578634.xyz/works/Sora/chapter_1/details.json",
   "archive": "https://cdn.564578634.xyz/works/Sora/chapter_1/Sora.cbz",
-  "tags": [],
+  "tags": [
+    "manifest"
+  ],
   "parent_work_id": 1670475573
 }

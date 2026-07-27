@@ -9,6 +9,8 @@
   ],
   "details": "https://cdn.564578634.xyz/works/21/chapter_1/details.json",
   "archive": "https://cdn.564578634.xyz/works/21/chapter_1/剣道少女21.cbz",
-  "tags": [],
+  "tags": [
+    "manifest"
+  ],
   "parent_work_id": 2158074789
 }

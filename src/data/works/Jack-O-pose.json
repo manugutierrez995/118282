@@ -9,6 +9,8 @@
   ],
   "details": "https://cdn.564578634.xyz/works/Jack-O-pose/chapter_1/details.json",
   "archive": "https://cdn.564578634.xyz/works/Jack-O-pose/chapter_1/Jack-O-pose.cbz",
-  "tags": [],
+  "tags": [
+    "manifest"
+  ],
   "parent_work_id": 4539070115
 }

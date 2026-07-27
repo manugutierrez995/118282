@@ -9,6 +9,8 @@
   ],
   "details": "https://cdn.564578634.xyz/works/Happy_New_Year/chapter_1/details.json",
   "archive": "https://cdn.564578634.xyz/works/Happy_New_Year/chapter_1/Happy New Year!.cbz",
-  "tags": [],
+  "tags": [
+    "manifest"
+  ],
   "parent_work_id": 2717773709
 }
