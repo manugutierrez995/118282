@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "beep-boop-hentai",
+  "name": "10-year",
   "compatibility_date": "2026-07-13",
   "compatibility_flags": ["nodejs_compat"],
   "assets": {
