@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "slug": "Double_D_Fiesta",
+  "display": "Double D Fiesta",
+  "source": "e",
+  "thumb": "https://cdn.564578634.xyz/works/Double_D_Fiesta/chapter_1/thumb.webp",
+  "chapters": [
+    "chapter_1"
+  ],
+  "details": "https://cdn.564578634.xyz/works/Double_D_Fiesta/chapter_1/details.json",
+  "archive": "https://cdn.564578634.xyz/works/Double_D_Fiesta/chapter_1/Double D Fiesta.cbz",
+  "tags": [
+    "manifest"
+  ],
+  "parent_work_id": 4464221434
+}

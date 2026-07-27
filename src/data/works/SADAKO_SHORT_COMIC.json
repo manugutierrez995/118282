@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "slug": "SADAKO_SHORT_COMIC",
+  "display": "SADAKO SHORT COMIC!",
+  "source": "e",
+  "thumb": "https://cdn.564578634.xyz/works/SADAKO_SHORT_COMIC/chapter_1/thumb.webp",
+  "chapters": [
+    "chapter_1"
+  ],
+  "details": "https://cdn.564578634.xyz/works/SADAKO_SHORT_COMIC/chapter_1/details.json",
+  "archive": "https://cdn.564578634.xyz/works/SADAKO_SHORT_COMIC/chapter_1/SADAKO SHORT COMIC!.cbz",
+  "tags": [
+    "manifest"
+  ],
+  "parent_work_id": 2018315932
+}
