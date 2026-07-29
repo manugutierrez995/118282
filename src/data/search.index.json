@@ -1,6 +1,6 @@
 {
     "version": 2,
-    "generated": "2026-07-27T22:24:32.776428+00:00",
+    "generated": "2026-07-29T03:51:17.023900+00:00",
     "environment": "production",
     "source": "e",
     "source_root": "https://cdn.564578634.xyz/works",
@@ -29521,6 +29521,74 @@
                 "manifest"
             ],
             "compact": "アコのbbc堕ちbbcchapter1"
+        },
+        {
+            "id": 1250,
+            "type": "work",
+            "source": "e",
+            "display": "Black Rose",
+            "work": "Black_Rose",
+            "chapter": "chapter_1",
+            "reader_url": "/reader?source=e&work=Black_Rose&chapter=chapter_1",
+            "manifest_url": "https://cdn.564578634.xyz/works/Black_Rose/chapter_1/item.json",
+            "normalized": "black rose",
+            "tokens": [
+                "black",
+                "rose"
+            ],
+            "compact": "blackrose"
+        },
+        {
+            "id": 1251,
+            "type": "chapter",
+            "source": "e",
+            "display": "Black Rose Chapter 1",
+            "work": "Black_Rose",
+            "chapter": "chapter_1",
+            "reader_url": "/reader?source=e&work=Black_Rose&chapter=chapter_1",
+            "manifest_url": "https://cdn.564578634.xyz/works/Black_Rose/chapter_1/item.json",
+            "normalized": "black rose chapter 1",
+            "tokens": [
+                "black",
+                "rose",
+                "chapter",
+                "1"
+            ],
+            "compact": "blackrosechapter1"
+        },
+        {
+            "id": 1252,
+            "type": "work",
+            "source": "e",
+            "display": "Petit Tomo",
+            "work": "Petit_Tomo",
+            "chapter": "chapter_1",
+            "reader_url": "/reader?source=e&work=Petit_Tomo&chapter=chapter_1",
+            "manifest_url": "https://cdn.564578634.xyz/works/Petit_Tomo/chapter_1/item.json",
+            "normalized": "petit tomo",
+            "tokens": [
+                "petit",
+                "tomo"
+            ],
+            "compact": "petittomo"
+        },
+        {
+            "id": 1253,
+            "type": "chapter",
+            "source": "e",
+            "display": "Petit Tomo Chapter 1",
+            "work": "Petit_Tomo",
+            "chapter": "chapter_1",
+            "reader_url": "/reader?source=e&work=Petit_Tomo&chapter=chapter_1",
+            "manifest_url": "https://cdn.564578634.xyz/works/Petit_Tomo/chapter_1/item.json",
+            "normalized": "petit tomo chapter 1",
+            "tokens": [
+                "petit",
+                "tomo",
+                "chapter",
+                "1"
+            ],
+            "compact": "petittomochapter1"
         }
     ],
     "tokens": {
@@ -30299,7 +30367,9 @@
             1243,
             1245,
             1247,
-            1249
+            1249,
+            1251,
+            1253
         ],
         "1": [
             1,
@@ -30963,7 +31033,9 @@
             1243,
             1245,
             1247,
-            1249
+            1249,
+            1251,
+            1253
         ],
         "kanako": [
             2,
@@ -37347,7 +37419,9 @@
             200,
             201,
             742,
-            743
+            743,
+            1250,
+            1251
         ],
         "homeroom": [
             198,
@@ -43435,7 +43509,9 @@
         ],
         "tomo": [
             832,
-            833
+            833,
+            1252,
+            1253
         ],
         "koudou": [
             832,
@@ -46108,6 +46184,14 @@
         "アコのbbc堕ち": [
             1248,
             1249
+        ],
+        "rose": [
+            1250,
+            1251
+        ],
+        "petit": [
+            1252,
+            1253
         ]
     },
     "prefixes": {
@@ -46927,7 +47011,9 @@
             1243,
             1245,
             1247,
-            1249
+            1249,
+            1251,
+            1253
         ],
         "ch": [
             0,
@@ -47659,7 +47745,9 @@
             1243,
             1245,
             1247,
-            1249
+            1249,
+            1251,
+            1253
         ],
         "chu": [
             0,
@@ -47987,7 +48075,9 @@
             1246,
             1247,
             1248,
-            1249
+            1249,
+            1250,
+            1251
         ],
         "be": [
             0,
@@ -50378,7 +50468,9 @@
             1243,
             1245,
             1247,
-            1249
+            1249,
+            1251,
+            1253
         ],
         "chap": [
             1,
@@ -51029,7 +51121,9 @@
             1243,
             1245,
             1247,
-            1249
+            1249,
+            1251,
+            1253
         ],
         "chapt": [
             1,
@@ -51680,7 +51774,9 @@
             1243,
             1245,
             1247,
-            1249
+            1249,
+            1251,
+            1253
         ],
         "chapte": [
             1,
@@ -52331,7 +52427,9 @@
             1243,
             1245,
             1247,
-            1249
+            1249,
+            1251,
+            1253
         ],
         "chapter": [
             1,
@@ -52982,7 +53080,9 @@
             1243,
             1245,
             1247,
-            1249
+            1249,
+            1251,
+            1253
         ],
         "1": [
             1,
@@ -53653,7 +53753,9 @@
             1243,
             1245,
             1247,
-            1249
+            1249,
+            1251,
+            1253
         ],
         "k": [
             2,
@@ -54785,7 +54887,9 @@
             1236,
             1237,
             1238,
-            1239
+            1239,
+            1252,
+            1253
         ],
         "to": [
             2,
@@ -55059,7 +55163,9 @@
             1214,
             1215,
             1234,
-            1235
+            1235,
+            1252,
+            1253
         ],
         "o": [
             2,
@@ -56765,7 +56871,9 @@
             1238,
             1239,
             1246,
-            1247
+            1247,
+            1252,
+            1253
         ],
         "po": [
             4,
@@ -59019,7 +59127,9 @@
             1234,
             1235,
             1240,
-            1241
+            1241,
+            1250,
+            1251
         ],
         "ra": [
             8,
@@ -69743,7 +69853,9 @@
             922,
             923,
             1166,
-            1167
+            1167,
+            1250,
+            1251
         ],
         "blo": [
             26,
@@ -70317,7 +70429,9 @@
             1212,
             1213,
             1246,
-            1247
+            1247,
+            1252,
+            1253
         ],
         "per": [
             28,
@@ -80143,7 +80257,9 @@
             1004,
             1005,
             1016,
-            1017
+            1017,
+            1252,
+            1253
         ],
         "tomo": [
             92,
@@ -80153,7 +80269,9 @@
             832,
             833,
             1016,
-            1017
+            1017,
+            1252,
+            1253
         ],
         "tomod": [
             92,
@@ -84469,7 +84587,9 @@
             700,
             701,
             926,
-            927
+            927,
+            1250,
+            1251
         ],
         "rou": [
             168,
@@ -86031,7 +86151,9 @@
             650,
             651,
             742,
-            743
+            743,
+            1250,
+            1251
         ],
         "blac": [
             198,
@@ -86041,7 +86163,9 @@
             650,
             651,
             742,
-            743
+            743,
+            1250,
+            1251
         ],
         "black": [
             198,
@@ -86051,7 +86175,9 @@
             650,
             651,
             742,
-            743
+            743,
+            1250,
+            1251
         ],
         "homer": [
             198,
@@ -103819,7 +103945,9 @@
         ],
         "ros": [
             694,
-            695
+            695,
+            1250,
+            1251
         ],
         "rosh": [
             694,
@@ -108695,7 +108823,9 @@
             950,
             951,
             1036,
-            1037
+            1037,
+            1252,
+            1253
         ],
         "pett": [
             886,
@@ -115330,6 +115460,18 @@
         "アコのbbc堕ち": [
             1248,
             1249
+        ],
+        "rose": [
+            1250,
+            1251
+        ],
+        "peti": [
+            1252,
+            1253
+        ],
+        "petit": [
+            1252,
+            1253
         ]
     },
     "compact": {
@@ -119062,6 +119204,18 @@
         ],
         "アコのbbc堕ちbbcchapter1": [
             1249
+        ],
+        "blackrose": [
+            1250
+        ],
+        "blackrosechapter1": [
+            1251
+        ],
+        "petittomo": [
+            1252
+        ],
+        "petittomochapter1": [
+            1253
         ]
     },
     "skipped": []

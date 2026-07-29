@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-07-27T23:10:27Z",
+  "generated_at": "2026-07-29T03:51:39Z",
   "generator": "ingest-work.py",
-  "work_count": 270,
+  "work_count": 272,
   "works": [
     {
       "schema_version": 1,
@@ -1829,6 +1829,67 @@
         "status": "uploaded"
       },
       "generated_at": "2026-07-27T23:10:27Z",
+      "generator": "ingest-work.py"
+    },
+    {
+      "schema_version": 1,
+      "slug": "Black_Rose",
+      "display": "Black Rose",
+      "parent_work_id": 3874696121,
+      "source": "e",
+      "public": true,
+      "tags": [],
+      "storage": {
+        "provider": "cloudflare-r2",
+        "remote": "animeplex.lol:extended/works/Black_Rose",
+        "prefix": "works/Black_Rose",
+        "cdn_base_url": "https://cdn.564578634.xyz/works"
+      },
+      "urls": {
+        "work": "https://cdn.564578634.xyz/works/Black_Rose/",
+        "manifest": "works/Black_Rose.json",
+        "thumb": "https://cdn.564578634.xyz/works/Black_Rose/chapter_1/thumb.webp",
+        "details": "https://cdn.564578634.xyz/works/Black_Rose/chapter_1/details.json",
+        "archive": "https://cdn.564578634.xyz/works/Black_Rose/chapter_1/Black Rose.cbz"
+      },
+      "item_json": {
+        "count": 1,
+        "urls": [
+          "https://cdn.564578634.xyz/works/Black_Rose/chapter_1/item.json"
+        ]
+      },
+      "content": {
+        "chapter_count": 1,
+        "page_count": 29,
+        "page_bytes": 15940564
+      },
+      "archive": {
+        "exists": true,
+        "filename": "Black Rose.cbz",
+        "format": "cbz",
+        "size_bytes": 15943196,
+        "sha256": "939e4b5a0028a851b707aaa49562c51b196e175778c64b17682e3b9cd83bff2b"
+      },
+      "files": {
+        "thumb_exists": true,
+        "details_exists": true,
+        "archive_exists": true,
+        "item_json_count": 1,
+        "non_image_file_count": 4
+      },
+      "fingerprints": {
+        "work_identity_sha256": "0e8dbf2f9f75936fa7493beb531ed4b8adac9f173f2592eb22f6a05e93c6a593",
+        "archive_sha256": "939e4b5a0028a851b707aaa49562c51b196e175778c64b17682e3b9cd83bff2b",
+        "archive_structure_sha256": "c7b0a31aa541fb1b92cdc9f7d843fc4a4d0a8897de1569fed970211fbd0208e2",
+        "page_tree_sha256": "41538d95025f5628498e8a014d38587222bf3ede66368fe97bad830a316a000d"
+      },
+      "upload": {
+        "method": "rclone",
+        "remote": "animeplex.lol:extended/works/Black_Rose",
+        "uploaded_at": "2026-07-29T03:51:39Z",
+        "status": "uploaded"
+      },
+      "generated_at": "2026-07-29T03:51:39Z",
       "generator": "ingest-work.py"
     },
     {
@@ -12476,6 +12537,67 @@
         "status": "uploaded"
       },
       "generated_at": "2026-07-27T23:10:27Z",
+      "generator": "ingest-work.py"
+    },
+    {
+      "schema_version": 1,
+      "slug": "Petit_Tomo",
+      "display": "Petit Tomo",
+      "parent_work_id": 7871555807,
+      "source": "e",
+      "public": true,
+      "tags": [],
+      "storage": {
+        "provider": "cloudflare-r2",
+        "remote": "animeplex.lol:extended/works/Petit_Tomo",
+        "prefix": "works/Petit_Tomo",
+        "cdn_base_url": "https://cdn.564578634.xyz/works"
+      },
+      "urls": {
+        "work": "https://cdn.564578634.xyz/works/Petit_Tomo/",
+        "manifest": "works/Petit_Tomo.json",
+        "thumb": "https://cdn.564578634.xyz/works/Petit_Tomo/chapter_1/thumb.webp",
+        "details": "https://cdn.564578634.xyz/works/Petit_Tomo/chapter_1/details.json",
+        "archive": "https://cdn.564578634.xyz/works/Petit_Tomo/chapter_1/Petit Tomo.cbz"
+      },
+      "item_json": {
+        "count": 1,
+        "urls": [
+          "https://cdn.564578634.xyz/works/Petit_Tomo/chapter_1/item.json"
+        ]
+      },
+      "content": {
+        "chapter_count": 1,
+        "page_count": 25,
+        "page_bytes": 6703146
+      },
+      "archive": {
+        "exists": true,
+        "filename": "Petit Tomo.cbz",
+        "format": "cbz",
+        "size_bytes": 6705418,
+        "sha256": "bb79e27aecb95aa75edd61c9811d22a97c1f52f5a6e38b039b32033e6a8cb944"
+      },
+      "files": {
+        "thumb_exists": true,
+        "details_exists": true,
+        "archive_exists": true,
+        "item_json_count": 1,
+        "non_image_file_count": 4
+      },
+      "fingerprints": {
+        "work_identity_sha256": "fba15b09b54722010759014dd5fe7b9e5c53ff93ed28adf265d614b2221b34e2",
+        "archive_sha256": "bb79e27aecb95aa75edd61c9811d22a97c1f52f5a6e38b039b32033e6a8cb944",
+        "archive_structure_sha256": "0ef932c0ab948346c8ec9d121798ba4723428ff39fc9e202155585a4e5891782",
+        "page_tree_sha256": "ea71ac95d9fe3fa89e573761199590915758a7e5a81d819fe9645ce5c5f9596f"
+      },
+      "upload": {
+        "method": "rclone",
+        "remote": "animeplex.lol:extended/works/Petit_Tomo",
+        "uploaded_at": "2026-07-29T03:51:39Z",
+        "status": "uploaded"
+      },
+      "generated_at": "2026-07-29T03:51:39Z",
       "generator": "ingest-work.py"
     },
     {

@@ -5822,6 +5822,24 @@
         "manifest"
       ],
       "public": true
+    },
+    {
+      "slug": "Black_Rose",
+      "display": "Black Rose",
+      "source": "e",
+      "manifest": "works/Black_Rose.json",
+      "thumb": "https://cdn.564578634.xyz/works/Black_Rose/chapter_1/thumb.webp",
+      "tags": [],
+      "public": true
+    },
+    {
+      "slug": "Petit_Tomo",
+      "display": "Petit Tomo",
+      "source": "e",
+      "manifest": "works/Petit_Tomo.json",
+      "thumb": "https://cdn.564578634.xyz/works/Petit_Tomo/chapter_1/thumb.webp",
+      "tags": [],
+      "public": true
     }
   ]
 }
