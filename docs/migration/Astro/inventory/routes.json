@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "current": [
+    {
+      "url": "/",
+      "behavior": "landing unless work+chapter query"
+    },
+    {
+      "url": "/reader?source=<id>&work=<slug>&chapter=<path>",
+      "behavior": "SPA fallback shell/query reader"
+    },
+    {
+      "url": "/work/<slug>/",
+      "behavior": "fallback shell ignores pathname"
+    }
+  ],
+  "target": [
+    {
+      "url": "/work/<slug>/",
+      "behavior": "generated canonical work"
+    },
+    {
+      "url": "/work/<slug>/#page-<n>",
+      "behavior": "client page state"
+    },
+    {
+      "url": "/work/<slug>/#page=<n>&annotation=<id>",
+      "behavior": "reserved future structured hash"
+    }
+  ]
+}

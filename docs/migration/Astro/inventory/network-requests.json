@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "requests": [
+    {
+      "url": "/data/search.index.json",
+      "caller": "search.js",
+      "cache_mode": "no-store",
+      "duplicate": "promise-deduped"
+    },
+    {
+      "url": "/data/side_column_images_cycle.json",
+      "caller": "four block HTML files",
+      "cache_mode": "no-store",
+      "duplicate": "up to four"
+    },
+    {
+      "url": "/header-ticker.json",
+      "caller": "landing.js",
+      "cache_mode": "default"
+    },
+    {
+      "url": "<cdn>/<work>/<chapter>/item.json",
+      "caller": "reader.js",
+      "cache_mode": "default",
+      "duplicate": "each render"
+    },
+    {
+      "url": "<cdn>/<base>/<padded-page>.<extension>",
+      "caller": "reader image elements",
+      "cache_mode": "native",
+      "window": 21
+    },
+    {
+      "url": "Supabase",
+      "caller": "discussion",
+      "class": "dynamic-non-R2"
+    }
+  ],
+  "worker_handler_found": false,
+  "reader_r2_list_found": false
+}
