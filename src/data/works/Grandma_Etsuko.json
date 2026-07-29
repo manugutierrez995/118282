@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "slug": "Grandma_Etsuko",
+  "display": "Grandma Etsuko",
+  "source": "e",
+  "thumb": "https://cdn.564578634.xyz/works/Grandma_Etsuko/chapter_1/thumb.webp",
+  "chapters": [
+    "chapter_1"
+  ],
+  "details": "https://cdn.564578634.xyz/works/Grandma_Etsuko/chapter_1/details.json",
+  "archive": "https://cdn.564578634.xyz/works/Grandma_Etsuko/chapter_1/Grandma Etsuko.cbz",
+  "tags": [
+    "manifest"
+  ],
+  "parent_work_id": 6328446992
+}

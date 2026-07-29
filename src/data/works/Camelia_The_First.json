@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "slug": "Camelia_The_First",
+  "display": "Camelia The First",
+  "source": "e",
+  "thumb": "https://cdn.564578634.xyz/works/Camelia_The_First/chapter_1/thumb.webp",
+  "chapters": [
+    "chapter_1"
+  ],
+  "details": "https://cdn.564578634.xyz/works/Camelia_The_First/chapter_1/details.json",
+  "archive": "https://cdn.564578634.xyz/works/Camelia_The_First/chapter_1/Camelia The First.cbz",
+  "tags": [
+    "manifest"
+  ],
+  "parent_work_id": 9659428430
+}

@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "slug": "EggCandy",
+  "display": "EggCandy",
+  "source": "e",
+  "thumb": "https://cdn.564578634.xyz/works/EggCandy/chapter_1/thumb.webp",
+  "chapters": [
+    "chapter_1"
+  ],
+  "details": "https://cdn.564578634.xyz/works/EggCandy/chapter_1/details.json",
+  "archive": "https://cdn.564578634.xyz/works/EggCandy/chapter_1/EggCandy.cbz",
+  "tags": [
+    "manifest"
+  ],
+  "parent_work_id": 4542100699
+}
