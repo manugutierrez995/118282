@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Safely remove AnimePlex work metadata from local JSON catalogs."""
+"""Delete works or hide/unhide them in the public AnimePlex rotunda."""
 from __future__ import annotations
 
 import argparse, copy, hashlib, json, os, re, shutil, subprocess, sys, tempfile, time
@@ -534,11 +534,83 @@ def duplicate_group_map(works: list[Work]) -> dict[str, tuple[int, str, bool]]:
 
     return result
 
-def choose_interactive(works: list[Work]) -> list[str]:
+
+# ---------------------------------------------------------------------------
+# Public rotunda visibility
+# ---------------------------------------------------------------------------
+
+def set_rotunda_omissions(
+    root: Path,
+    data_dir: Path,
+    slugs: list[str],
+    *,
+    hidden: bool,
+    dry_run: bool = False,
+) -> tuple[Path, Path | None, list[str]]:
+    """Hide or unhide works through public_rotunda.omit_works.
+
+    This intentionally does not alter each work's broader ``public`` value.
+    It only controls appearance in the public rotunda. The JSON is replaced
+    atomically and a timestamped backup is made before a real write.
+    """
+    rotunda_path = data_dir / "rotunda.json"
+    if not rotunda_path.is_file():
+        raise FileNotFoundError(f"rotunda.json not found: {rotunda_path}")
+
+    with rotunda_path.open("r", encoding="utf-8") as handle:
+        payload = json.load(handle)
+
+    public_rotunda = payload.setdefault("public_rotunda", {})
+    current = public_rotunda.setdefault("omit_works", [])
+    if not isinstance(current, list):
+        raise ValueError("public_rotunda.omit_works must be a JSON array")
+
+    requested = {str(slug) for slug in slugs}
+    before = {str(slug) for slug in current}
+
+    if hidden:
+        after = before | requested
+    else:
+        after = before - requested
+
+    ordered = sorted(after, key=str.casefold)
+    changed = sorted(before ^ after, key=str.casefold)
+
+    if not changed or dry_run:
+        return rotunda_path, None, changed
+
+    stamp = datetime.now().strftime("%Y%m%d-%H%M%S")
+    backup_dir = root / ".deletor-backups" / f"rotunda-{stamp}"
+    backup_dir.mkdir(parents=True, exist_ok=True)
+    backup_path = backup_dir / "rotunda.json"
+    shutil.copy2(rotunda_path, backup_path)
+
+    public_rotunda["omit_works"] = ordered
+
+    fd, temporary_name = tempfile.mkstemp(
+        prefix=".rotunda.",
+        suffix=".json.tmp",
+        dir=rotunda_path.parent,
+    )
+    temporary = Path(temporary_name)
+    try:
+        with os.fdopen(fd, "w", encoding="utf-8") as handle:
+            json.dump(payload, handle, ensure_ascii=False, indent=4)
+            handle.write("\n")
+            handle.flush()
+            os.fsync(handle.fileno())
+        os.replace(temporary, rotunda_path)
+    except BaseException:
+        temporary.unlink(missing_ok=True)
+        raise
+
+    return rotunda_path, backup_path, changed
+
+def choose_interactive(works: list[Work]) -> tuple[str, list[str]]:
     try:
         import curses
     except Exception:
-        return choose_numbered(works)
+        return ("delete", choose_numbered(works))
 
     selected: set[str] = set()
     query = ""
@@ -613,7 +685,8 @@ def choose_interactive(works: list[Work]) -> list[str]:
             draw(
                 0, 0,
                 "AnimePlex deletor — ↑/↓ move, Space toggle, PgUp/PgDn, "
-                r"Home/End, / search (type \dedupe), a all, n none, Enter review, q quit",
+                r"Home/End, / search (type \dedupe), a all, n none, "
+                "Enter DELETE, h HIDE, u UNHIDE, q quit",
                 max(0, width - 1),
             )
 
@@ -656,7 +729,7 @@ def choose_interactive(works: list[Work]) -> list[str]:
             ch = stdscr.getch()
 
             if ch in (ord("q"), 27):
-                return []
+                return ("quit", [])
 
             if ch in (curses.KEY_DOWN, ord("j")):
                 if filtered:
@@ -704,7 +777,13 @@ def choose_interactive(works: list[Work]) -> list[str]:
                 selected.clear()
 
             elif ch in (10, 13, curses.KEY_ENTER):
-                return list(selected)
+                return ("delete", list(selected))
+
+            elif ch in (ord("h"), ord("H")):
+                return ("hide", list(selected))
+
+            elif ch in (ord("u"), ord("U")):
+                return ("unhide", list(selected))
 
             elif ch == ord("/"):
                 curses.echo()
@@ -770,8 +849,61 @@ def main(argv=None) -> int:
         print(json.dumps(metadata, ensure_ascii=False, indent=2)); return 0
     if args.list:
         [print(f"{w.slug}\t{w.title}\t{w.manifest or ''}") for w in works]; return 0
-    slugs=args.slug or choose_interactive(works)
-    if not slugs: print("No works selected; nothing changed."); return 0
+    if args.slug:
+        action, slugs = "delete", args.slug
+    else:
+        action, slugs = choose_interactive(works)
+
+    if not slugs:
+        print("No works selected; nothing changed.")
+        return 0
+
+    if action in {"hide", "unhide"}:
+        verb = "HIDE" if action == "hide" else "UNHIDE"
+        known = {work.slug: work for work in works}
+        selected_works = [known[slug] for slug in slugs if slug in known]
+
+        print(f"{verb} from public rotunda:")
+        for work in selected_works:
+            print(f"- {work.title} ({work.slug})")
+
+        if args.dry_run:
+            _, _, changed = set_rotunda_omissions(
+                root,
+                data_dir,
+                slugs,
+                hidden=(action == "hide"),
+                dry_run=True,
+            )
+            print(f"Dry run: {len(changed)} rotunda omission(s) would change.")
+            return 0
+
+        expected = f"{verb} {len(selected_works)}"
+        if input(f'Type exactly "{expected}" to continue: ') != expected:
+            print("Confirmation failed; nothing changed.")
+            return 1
+
+        rotunda_path, backup_path, changed = set_rotunda_omissions(
+            root,
+            data_dir,
+            slugs,
+            hidden=(action == "hide"),
+        )
+        state = "Hidden from" if action == "hide" else "Restored to"
+        print(f"{state} public rotunda: {len(changed)} work(s)")
+        print(f"Modified: {rotunda_path.relative_to(root)}")
+        if backup_path:
+            print(f"Backup: {backup_path.relative_to(root)}")
+        print(
+            "Suggested Git commands:\n"
+            "git diff -- src/data/rotunda.json scripts/deletor.py\n"
+            "git status\n"
+            "git add scripts/deletor.py src/data/rotunda.json\n"
+            f'git commit -m "{verb.title()} selected works in public rotunda"\n'
+            "git push origin main"
+        )
+        return 0
+
     plan=build_plan(data_dir, slugs); print_plan(plan, root)
     if args.dry_run: print("Dry run only; nothing changed."); return 0
     if not (args.yes and args.slug):
