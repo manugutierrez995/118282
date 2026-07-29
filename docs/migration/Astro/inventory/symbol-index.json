@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "symbols": [
+    {
+      "symbol": "Page.start",
+      "path": "src/page/page.js",
+      "lines": "6-20",
+      "action": "replace-route"
+    },
+    {
+      "symbol": "renderManifestInto",
+      "path": "src/page/reader.js",
+      "lines": "373-458",
+      "network": "chapter item.json",
+      "action": "retain-and-adapt"
+    },
+    {
+      "symbol": "createVirtualReader",
+      "path": "src/page/reader.js",
+      "lines": "180-326",
+      "network": "page images",
+      "action": "retain-and-measure"
+    },
+    {
+      "symbol": "loadWork",
+      "path": "src/storage/work_manifest.js",
+      "lines": "44-78",
+      "cache": "40 promises",
+      "action": "typed-loader"
+    },
+    {
+      "symbol": "Rotunda.start",
+      "path": "src/components/rotunda.js",
+      "lines": "103-523",
+      "action": "retain-client"
+    },
+    {
+      "symbol": "loadSearchIndex",
+      "path": "src/components/search.js",
+      "lines": "6-18",
+      "cache": "promise plus no-store",
+      "action": "version-and-cache"
+    }
+  ]
+}

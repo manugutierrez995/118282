@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "canonical_unchanged": true,
+  "contracts": [
+    {
+      "pattern": "src/data/fetch.json",
+      "class": "public-pointer-input",
+      "consumer": "work_manifest.js"
+    },
+    {
+      "pattern": "src/data/works/*.json",
+      "class": "work-manifest",
+      "consumer": "work_manifest.js"
+    },
+    {
+      "pattern": "<cdn>/<work>/<chapter>/item.json",
+      "class": "chapter-manifest",
+      "consumer": "reader.js"
+    },
+    {
+      "pattern": "src/data/tags.json",
+      "class": "administrative-canonical",
+      "consumer": "visibility/generators"
+    },
+    {
+      "pattern": "src/data/rotunda.json",
+      "class": "public-editorial-input",
+      "consumer": "rotunda.js"
+    },
+    {
+      "pattern": "public/data/search.index.json",
+      "class": "browser-index",
+      "consumer": "search.js"
+    },
+    {
+      "pattern": "scripts/storage-map.jsonl",
+      "class": "administrative-inventory",
+      "consumer": "operators"
+    }
+  ]
+}

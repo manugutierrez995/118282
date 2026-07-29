@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "entries": [
+    {
+      "current": "index.html",
+      "target": "SiteLayout.astro/index.astro",
+      "action": "WRAP",
+      "risk": "high"
+    },
+    {
+      "current": "src/page/reader.js",
+      "target": "client/reader/index.ts",
+      "action": "CONVERT TO TYPESCRIPT",
+      "risk": "high"
+    },
+    {
+      "current": "src/styles/*.css",
+      "target": "styles/*",
+      "action": "KEEP UNCHANGED",
+      "risk": "high"
+    },
+    {
+      "current": "src/data/*.json",
+      "target": "same + adapters",
+      "action": "KEEP UNCHANGED",
+      "risk": "high"
+    },
+    {
+      "current": "scripts/deletor.py",
+      "target": "same",
+      "action": "DO NOT MIGRATE",
+      "risk": "high"
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "observed": "2026-07-29",
+  "entries": [
+    {
+      "path": "src/main.js",
+      "role": "browser-entry",
+      "action": "WRAP"
+    },
+    {
+      "path": "src/page/reader.js",
+      "role": "reader",
+      "action": "CONVERT TO TYPESCRIPT"
+    },
+    {
+      "path": "src/components/rotunda.js",
+      "role": "rotunda",
+      "action": "IMPORT"
+    },
+    {
+      "path": "src/data",
+      "role": "canonical-and-generated-input",
+      "action": "KEEP UNCHANGED"
+    },
+    {
+      "path": "scripts",
+      "role": "ingestion-admin-generation",
+      "action": "KEEP"
+    },
+    {
+      "path": "wrangler.jsonc",
+      "role": "static-deploy",
+      "action": "REVIEW"
+    }
+  ]
+}

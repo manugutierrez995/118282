@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "policies": [
+    {
+      "class": "hashed-assets",
+      "cache_control": "public, max-age=31536000, immutable"
+    },
+    {
+      "class": "versioned-release-data-media",
+      "cache_control": "public, max-age=31536000, immutable"
+    },
+    {
+      "class": "astro-html",
+      "cache_control": "public, max-age=0, s-maxage=300, stale-while-revalidate=86400, must-revalidate",
+      "etag": true
+    },
+    {
+      "class": "release-pointer",
+      "cache_control": "public, max-age=60, s-maxage=300, stale-while-revalidate=3600",
+      "etag": true
+    },
+    {
+      "class": "compatibility",
+      "cache_control": "public, max-age=300, s-maxage=3600, stale-while-revalidate=86400",
+      "etag": true
+    },
+    {
+      "class": "private-admin",
+      "cache_control": "private, no-store"
+    }
+  ]
+}
