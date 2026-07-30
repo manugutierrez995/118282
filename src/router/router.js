@@ -1,4 +1,5 @@
-const KNOWN = new Set(["/", "/login", "/signup", "/forgot-password", "/reset-password", "/account/profile", "/account/bookmarks", "/account/settings"]);
+const KNOWN = new Set(["/", "/profiles", "/profiles/new", "/account/profile", "/account/bookmarks", "/account/settings"]);
+const LEGACY_PROFILE_ROUTES = new Set(["/login", "/signup", "/forgot-password", "/reset-password"]);
 export const PRIVATE_ROUTES = new Set(["/account/profile", "/account/bookmarks", "/account/settings"]);
 
 export function safeNext(value, fallback = "/account/profile") {
@@ -15,6 +16,7 @@ export function resolveRoute(locationLike) {
     const params = new URLSearchParams(locationLike.search || "");
     if (params.get("work") && params.get("chapter")) return { kind: "legacy-reader", pathname };
     if (pathname === "/account") return { kind: "redirect", to: "/account/profile" };
+    if (LEGACY_PROFILE_ROUTES.has(pathname)) return { kind: "redirect", to: "/profiles?from=legacy-account" };
     if (KNOWN.has(pathname)) return { kind: pathname === "/" ? "home" : pathname.slice(1).replaceAll("/", "-"), pathname, private: PRIVATE_ROUTES.has(pathname) };
     if (pathname.startsWith("/account/")) return { kind: "account-not-found", pathname };
     return { kind: "not-found", pathname };

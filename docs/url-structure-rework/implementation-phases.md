@@ -1,3 +1,5 @@
+> **HISTORICAL / SUPERSEDED:** This document records the former remote-account architecture. Runtime accounts, bookmarks, preferences, and discussion posting were replaced by local browser profiles; see [`docs/local-first-browser-profiles.md`](../local-first-browser-profiles.md).
+
 # Safe implementation phases
 
 Each phase is independently reviewable and reversible. Do not apply database changes until the remote schema/config has been inventoried and the migration phase is explicitly approved.

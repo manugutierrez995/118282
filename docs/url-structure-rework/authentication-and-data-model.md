@@ -1,3 +1,5 @@
+> **HISTORICAL / SUPERSEDED:** This document records the former remote-account architecture. Runtime accounts, bookmarks, preferences, and discussion posting were replaced by local browser profiles; see [`docs/local-first-browser-profiles.md`](../local-first-browser-profiles.md).
+
 # Authentication, authorization, and proposed data model
 
 > **Status:** Everything under “Proposed SQL” is design pseudocode. It was not applied in this run. The only checked-in migration is discussion MVP SQL, and repository presence does not prove remote application.

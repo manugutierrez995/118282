@@ -1,3 +1,5 @@
+> **HISTORICAL / SUPERSEDED:** This document records the former remote-account architecture. Runtime accounts, bookmarks, preferences, and discussion posting were replaced by local browser profiles; see [`docs/local-first-browser-profiles.md`](../local-first-browser-profiles.md).
+
 # Accounts and per-work discussion setup
 
 1. Create a Supabase project and apply `supabase/migrations/202607170001_discussion_mvp.sql` with the SQL editor or CLI.

@@ -1,4 +1,7 @@
 import { normalize } from "../utils/normalize.js";
+import tagCatalog from "../data/tags.json";
+import { getLocalProfileState, subscribeLocalProfiles } from "../local-profile/store.js";
+import { personalizeWorks } from "../local-profile/personalization.js";
 
 const SEARCH_INDEX_URL = "/data/search.index.json";
 let searchIndexPromise = null;
@@ -42,6 +45,10 @@ function renderResults(container, matches) {
     }));
 }
 
+export function personalizeSearchResults(entries, profile, maximum = 12, catalog = tagCatalog) {
+    return personalizeWorks(entries, profile, catalog, maximum);
+}
+
 export class Search {
     static async start(options = {}) {
         const mount = options instanceof Element
@@ -67,6 +74,7 @@ export class Search {
 
         let activeMatches = [];
         let activeIndex = -1;
+        let lastQuery = "";
 
         const announceState = () => mount.dispatchEvent(new CustomEvent("search-state-change", {
             bubbles: true,
@@ -146,9 +154,10 @@ export class Search {
             for (const entry of index) {
                 if (tokens.every(token => entry.normalized?.includes(token))) {
                     activeMatches.push(entry);
-                    if (activeMatches.length === 12) break;
                 }
             }
+            activeMatches = personalizeSearchResults(activeMatches, getLocalProfileState().status === "ready" ? getLocalProfileState().profile : null);
+            lastQuery = query;
 
             renderResults(results, activeMatches);
             activeIndex = -1;
@@ -174,7 +183,9 @@ export class Search {
         }, { signal });
 
         mount.dataset.searchContext = context;
+        const unsubscribe = subscribeLocalProfiles(() => { if (lastQuery && input.value === lastQuery) input.dispatchEvent(new Event("input")); });
         return () => {
+            unsubscribe();
             controller.abort();
             clearTimeout(hideTimer);
             mount.replaceChildren();
