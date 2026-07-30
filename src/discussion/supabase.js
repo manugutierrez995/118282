@@ -1,49 +1,5 @@
-let clientPromise;
-
-export const isDiscussionConfigured = () => Boolean(
-    import.meta.env.VITE_SUPABASE_URL && import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY
-);
-
-export async function getSupabase() {
-    if (!isDiscussionConfigured()) return null;
-    if (!clientPromise) {
-        clientPromise = import("@supabase/supabase-js").then(({ createClient }) => createClient(
-            import.meta.env.VITE_SUPABASE_URL,
-            import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
-            { auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true } }
-        ));
-    }
-    return clientPromise;
-}
-
-export async function session() {
-    const client = await getSupabase();
-    if (!client) return null;
-    const { data, error } = await client.auth.getSession();
-    if (error) throw error;
-    return data.session;
-}
-
-export async function ensureAnonymousSession() {
-    const existing = await session();
-    if (existing) return existing;
-    const client = await getSupabase();
-    const { data, error } = await client.auth.signInAnonymously();
-    if (error) throw error;
-    return data.session;
-}
-
-export async function continueWithGoogle() {
-    const client = await getSupabase();
-    if (!client) throw new Error("Discussion is not configured.");
-    const existing = await session();
-    const options = {
-        provider: "google",
-        options: { scopes: "openid email profile", redirectTo: window.location.href }
-    };
-    const result = existing?.user?.is_anonymous
-        ? await client.auth.linkIdentity(options)
-        : await client.auth.signInWithOAuth(options);
-    if (result.error) throw result.error;
-    return result.data;
-}
+// Compatibility facade: discussion and account surfaces share one client.
+export { getSupabase, isSupabaseConfigured as isDiscussionConfigured } from "../auth/supabase.js";
+export { ensureAnonymousSession, continueWithGoogle } from "../auth/session.js";
+import { getAuthState, initializeAuth } from "../auth/session.js";
+export async function session() { await initializeAuth(); return getAuthState().session; }

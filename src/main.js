@@ -2,10 +2,12 @@ import "./styles/landing.css";
 import { Page } from "./page/page.js";
 import { Footer } from "./components/footer.js";
 import { startGhostText } from "./effects/ghost_text.js";
+import { initializeAuth } from "./auth/session.js";
 
 async function boot() {
     try {
         startGhostText().catch(error => console.warn("Ghost text failed to start.", error));
+        await initializeAuth();
         await Page.start();
         Footer.start();
         document.documentElement.dataset.appState = "ready";

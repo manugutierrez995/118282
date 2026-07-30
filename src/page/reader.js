@@ -4,6 +4,7 @@ import { loadWork } from "../storage/work_manifest.js";
 import { Blocks } from "../components/blocks.js";
 import { Search } from "../components/search.js";
 import { mountDiscussion } from "../discussion/discussion.js";
+import { mountAccountNavigation } from "../account/navigation.js";
 
 // At most WINDOW_BEFORE + the active page + WINDOW_AFTER images are retained.
 // Keep these deliberately conservative for Safari's decoded-image memory budget.
@@ -126,7 +127,11 @@ function buildReaderNavBar(source, work, chapter, chapters, options = {}) {
     middleGroup.appendChild(select);
     middleGroup.appendChild(nextButton);
 
-    rightGroup.appendChild(lastButton);
+    const accountMount = document.createElement("nav");
+    accountMount.setAttribute("aria-label", "Account controls");
+    const cleanupAccount = mountAccountNavigation(accountMount, { compact: true });
+    options.session?.cleanups?.push(cleanupAccount);
+    rightGroup.append(lastButton, accountMount);
 
     homeBar.appendChild(leftGroup);
     homeBar.appendChild(middleGroup);
@@ -418,7 +423,7 @@ async function renderManifestInto(root, manifestUrl, source, work, chapter) {
     const wrapper = document.createElement("div");
     wrapper.className = "reader-pages";
 
-    const { homeBar: readerBar, searchMount } = buildReaderTopBar(source, work, chapter, chapters);
+    const { homeBar: readerBar, searchMount } = buildReaderNavBar(source, work, chapter, chapters, { session });
     wrapper.appendChild(readerBar);
     const destroySearch = await Search.start({ mount: searchMount, context: "reader" });
     if (destroySearch) session.cleanups.push(destroySearch);
@@ -432,7 +437,8 @@ async function renderManifestInto(root, manifestUrl, source, work, chapter) {
 
     const { homeBar: bottomReaderBar } = buildReaderNavBar(source, work, chapter, chapters, {
         className: "reader-bottom-bar",
-        search: false
+        search: false,
+        session
     });
     wrapper.appendChild(bottomReaderBar);
 

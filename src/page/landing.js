@@ -1,6 +1,8 @@
 import { Rotunda } from "../components/rotunda.js";
 import { Search } from "../components/search.js";
 import { Blocks } from "../components/blocks.js";
+import { mountAccountNavigation } from "../account/navigation.js";
+let accountCleanup;
 async function startHeaderTicker() {
     const ticker = document.getElementById("header-ticker-track");
     if (!ticker) return;
@@ -64,6 +66,7 @@ export class Landing {
             <header class="landing-header" aria-label="Doku-Doujin site header">
                 <a class="landing-brand" href="/" aria-label="Doku-Doujin home">Doku-Doujin</a>
                 <div class="landing-search" aria-label="Site search"></div>
+                <nav class="landing-account" aria-label="Account controls"></nav>
             </header>
 
             <section class="rotunda-layer">
@@ -79,6 +82,9 @@ export class Landing {
             <section id="blocks-root"></section>
         </div>
         `;
+
+        accountCleanup?.();
+        accountCleanup = mountAccountNavigation(container.querySelector(".landing-account"));
 
         await Promise.all([
             safeStart("search", Search.start),
