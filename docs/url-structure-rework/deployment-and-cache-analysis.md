@@ -1,96 +1,72 @@
-> **HISTORICAL / SUPERSEDED:** This document records the former remote-account architecture. Runtime accounts, bookmarks, preferences, and discussion posting were replaced by local browser profiles; see [`docs/local-first-browser-profiles.md`](../local-first-browser-profiles.md).
+# Deployment, direct navigation, and cache analysis
 
-# Deployment and cache analysis
+## Active deployment facts
 
-## Verified deployment model
+Vite emits static assets. `vite.config.js` has three HTML inputs; there is no static route generation. `wrangler.jsonc` serves `./dist` with `not_found_handling: "single-page-application"`, so Cloudflare's asset runtime can return the application shell for an unknown nested pathname. There is no custom Worker handler, Pages Functions directory, `_redirects`, service worker, middleware, Cache API usage, or checked-in cache headers.
 
-The application is built by Vite. `vite.config.js` declares HTML inputs for main, mobile maintenance, and reveal shells. Wrangler publishes `dist` as static assets and uses `not_found_handling: "single-page-application"` (`wrangler.jsonc`). No Worker script, Pages Function, middleware, `_redirects`, `_headers`, service worker, or Cache API usage is checked in. R2/media origins are selected from `src/data/storage.json`; production source `e` uses the custom CDN host.
+The repository has no GitHub Pages deployment workflow, Vite `base`, CNAME, or SPA `404.html`. Root architecture documents discuss GitHub Pages historically/futuristically, but it is **not an active supported target proven by configuration**. R2/CDN is the public media/metadata store addressed by `src/data/storage.json` and `src/storage/storage.js`.
 
-The GitHub workflow is a deadman switch that copies placeholder/reveal content and pushes to main. It is not a GitHub Pages deployment. No Pages action/config, `404.html`, CNAME, base path, or nested-route fallback exists. Documents discuss GitHub Pages as an architectural option, but current support is unproven.
+## Direct navigation requirements
 
-## Direct navigation
+Cloudflare's fallback is necessary but insufficient: the client parser must recognize the path. After each route phase, test fresh direct GET and refresh for `/account/profile`, bookmarks, settings, a real work detail, and `/read#page=3`; a shell that silently renders home is failure.
 
-### Cloudflare Wrangler static assets
+For Cloudflare static assets:
 
-SPA not-found handling should return `index.html` for `/account/profile` and `/works/...` while preserving the requested browser URL. The new router must then recognize it. Verify with `wrangler dev`/deployed preview because asset precedence, status, and fallback behavior are platform behavior, not guaranteed merely by client tests. A fallback shell typically returns 200 and generic metadata even for missing works; true 404/301/social cards require generated route HTML or an edge resolver later.
+1. Retain SPA not-found handling for client routes.
+2. Ensure real asset requests containing dots still return asset 404s, not misleading HTML where possible.
+3. Use root-absolute asset paths (current `/src` is transformed by Vite); keep no base-path assumption.
+4. Normalize no trailing slash and encoded segments in the client initially. If an edge handler is later added, mirror rules exactly.
+5. Recognize that fallback responses may have HTTP 200. True 301/308, HTTP 404/403, per-work canonical metadata/social cards, and bot-friendly HTML require prebuilt files or a thin Worker/Pages Function later.
 
-Ensure actual assets (`/data/*`, bundled chunks, favicon, blocks) win over fallback. A route parser must not treat file-like unknown requests as app pages. Refresh and paste tests are mandatory for every nested route.
+Do not add hundreds of manually maintained HTML files. A generated work identity manifest plus SPA resolution is the first safe step; measure SEO/share requirements before prebuilding/edge rendering.
 
-### Cloudflare Pages (if separately configured)
+## GitHub Pages compatibility
 
-No Pages `_redirects` is present. If the target is Pages rather than Wrangler Worker Assets, add/test an SPA fallback such as a platform-supported rewrite only in the deployment phase; do not assume `wrangler.jsonc` applies to a different Pages pipeline. Avoid redirect loops and ensure missing static assets do not receive HTML with status 200 unnoticed.
+GitHub Pages does not provide arbitrary SPA rewrites. Supporting project Pages later requires all of:
 
-### GitHub Pages
+- decide custom-domain root versus `/repository/` base and configure Vite consistently;
+- emit/copy a `404.html` fallback that restores the original path, or prebuild route directories (`route/index.html`);
+- ensure scripts, public data, icons, and R2 URLs honor the chosen base;
+- test direct navigation, refresh, query and fragment preservation on the actual Pages URL.
 
-Project Pages cannot rewrite arbitrary nested paths to `index.html` by default. Hash positions help only after the document path resolves; `/works/.../read#page=3` still requests the nested pathname first. Options if Pages is truly required:
-
-1. generate `index.html` at each supported public route and a safe account shell/fallback;
-2. use a copied `404.html` SPA bootstrap that restores the original path (status remains 404 and has SEO/asset-base limitations);
-3. use only hash routing (rejected because it compromises the canonical structure);
-4. declare GitHub Pages unsupported and use Cloudflare canonical hosting (recommended default now).
-
-Configure Vite `base`, router basename, root/project asset paths, and custom domain explicitly before claiming support. Account routes can use generic static shells; work count affects generated-file feasibility.
-
-## Static export limitations and strategy
-
-Current Vite build is a static bundle, not per-route SSG. The smallest safe solution is one shell plus client resolver, taking advantage of Cloudflare fallback. This preserves build speed/cache-first behavior. Later, generate detail HTML for public works if SEO/share previews/real 404s warrant it. Do not prebuild every page-position URL; fragments never reach the host.
-
-Public work page HTML can be prebuilt from a public metadata projection and cached. Account page shell contains no user data and may be cached, but its private fetches and rendered state are client-only. An edge auth implementation is optional later, not required to protect Supabase data because RLS does that.
-
-## Cache matrix
-
-| Resource | Shared edge/browser policy | Notes |
-|---|---|---|
-| versioned JS/CSS/assets | public, long-lived, immutable | Vite hashed assets |
-| HTML shell | public, revalidate/short TTL | must contain no private state |
-| public work identity/catalog/tag vocabulary | public, versioned, revalidate or immutable release | atomic release pointer/version |
-| public work detail projection | public, cacheable | no user bookmark/preference fields |
-| R2 `item.json`/work manifests | public cacheable; version/revalidate according to publication | page counts/chapter metadata |
-| page images/thumbs/archives | public long-lived when immutable | R2/CDN; no auth tokens in public URL |
-| Supabase profile/bookmark/preference/progress | `Cache-Control: private, no-store`; browser memory scoped to user | never Cache API/shared CDN |
-| OAuth/session/token endpoints | no-store/private per provider | never log tokens/fragments |
-| personalized work list | compute locally from public catalog + private prefs | never shared URL/cache |
-
-Do not put user UUID/access tokens into public cache keys or analytics URLs. Clear in-memory private query caches on sign-out/user change. If IndexedDB caching of private state is introduced later, namespace by user ID, encrypting is not equivalent to authorization, and remove it on sign-out/account deletion according to policy.
-
-## R2 and Supabase request behavior
-
-Public reading currently fetches a chapter `item.json`, bounded image window, bundled/static work manifest, and blocks. R2 is media/static metadata only; keep it that way. Resolve work visibility and chapter membership before forming R2 URLs. Public CDN cache hits should not vary by user preference.
-
-Supabase calls should begin only after session resolution and only for current-view private needs. Account shell may parallelize owner profile/preferences after auth; bookmarks paginate. Landing can fetch compact preferences, then compute locally. Reader discussion remains independently resilient: public pages should load when Supabase is unavailable.
-
-## Service workers
-
-None exists. Do not add one merely for routing. If introduced later:
-
-- navigation fallback must understand deployed base and exclude auth callbacks/static/API URLs;
-- never Cache Storage private Supabase responses/account HTML;
-- version public catalogs atomically to avoid code/schema mismatch;
-- OAuth responses/fragments and no-store requests bypass cache;
-- sign-out posts a clear-private-cache message to all controlled tabs;
-- test offline missing/hidden work behavior and stale catalogs.
-
-Browser HTTP cache/CDN, not a service worker, is the current cache architecture.
+A generic `404.html` hack often returns HTTP 404 and can break OAuth callback allowlists. Hash-routing the whole application would avoid rewrites but conflicts with clean work URLs and reader page fragments; do **not** introduce it. Until explicit support is chosen and tested, document GitHub Pages checks as skipped/not supported rather than claim parity.
 
 ## URL details
 
-- Canonical application paths have no trailing slash; `/` is the exception.
-- Slugs are lowercase ASCII kebab-case and percent-encoded by segment; IDs are constrained opaque values.
-- Route matching is case-sensitive and malformed encoding is a 404.
-- Use root-absolute assets on current Cloudflare custom-domain deployment; do not concatenate route-relative asset paths.
-- Hash is client-only; query affects the requested URL and analytics/cache semantics. Cloudflare never receives `#page=3`.
-- Sanitize `next` and OAuth redirects as same-origin relative routes.
+- Canonical path has no trailing slash except `/`.
+- Public slug is lowercase ASCII; percent-encode every dynamic path/query segment with URL APIs. Storage slug remains exact/case-sensitive and never comes directly from the public path without resolver lookup.
+- Preserve `#page=3` across OAuth `next` and legacy conversion; fragments are not sent to Cloudflare/Supabase.
+- Cloudflare/Linux/R2 keys are case-sensitive; do not lowercase storage paths.
+- Query order should be deterministic (`chapter`, then `mode`); strip unknown tracking/state parameters from canonical URLs where policy allows.
 
-## Cache-leak prevention tests
+## Public/private cache matrix
 
-1. Sign in as A, visit all private pages, sign out, sign in as B in the same browser: no A content flashes or remains in DOM/memory/storage.
-2. Inspect response/cache headers for Supabase/private proxy responses; ensure shared CDN cache status never reports a hit for private data.
-3. Compare account HTML source signed in/out: it is the same data-free shell.
-4. Fetch public work metadata with different auth cookies/headers: same public response and no private fields/Vary explosion.
-5. Attempt cross-user REST queries under RLS.
-6. Run two browser contexts through bookmarks/preferences and confirm isolation.
-7. Verify a service-worker registration remains absent unless deliberately introduced.
+| Resource | Shared edge/browser cache? | Notes |
+|---|---:|---|
+| hashed JS/CSS | Yes, immutable | Vite assets |
+| application shell | Yes, short/revalidated | Must contain no user state |
+| work identity/catalog/tags/search | Yes | version/fingerprint; one canonical source |
+| work detail public projection/cover | Yes | allowlisted metadata only |
+| R2 `item.json`, images, thumbnails | Yes | immutable/versioned preferred; CORS as needed |
+| auth callback/login response | No/shared bypass | `Cache-Control: no-store` where a dynamic layer exists |
+| profile/bookmark/preference/progress rows | **Never shared** | Supabase RLS + private/no-store; browser memory/IndexedDB only by explicit design |
+| personalized ordering | Not as a shared response | compute client-side from public list + private preferences |
 
-## Deployment verification matrix
+Never embed authenticated data in cacheable HTML, public JSON, build output, URL, analytics payload, or service-worker Cache Storage. Do not vary shared HTML solely on cookies unless the edge cache key/bypass is rigorously designed; simplest is a neutral shell plus private hydration.
 
-For Cloudflare preview/production, paste and refresh `/`, `/login`, `/signup`, all account routes, `/works`, valid detail/read, missing work, old slug, and deep-link pages. Verify assets MIME/status, canonical correction, back/forward, and real observed fallback status. Repeat on Pages only if that is an actual target. For GitHub Pages, mark nested routes unsupported until one of the explicit fallback/generation strategies passes; do not report click-only success as support.
+Supabase's public URL/publishable key may be shipped; service-role keys may not. RLS protects every request. Clear user-scoped memory on auth generation changes and cancel stale fetches so user A's results cannot paint after user B signs in.
+
+## Service-worker implications
+
+None exists now. If offline work later adds one:
+
+- precache only versioned public shell/assets/catalog;
+- use cache-first/stale-while-revalidate only for public resources;
+- network-only (or explicit encrypted/user-keyed local design) for Supabase Auth/private endpoints;
+- never cache OAuth callbacks, authorization headers, or responses with `Set-Cookie`/private/no-store;
+- delete incompatible caches on activate/logout and test account switching/offline leakage;
+- prevent fallback navigation cache from turning missing works into stale home/work pages.
+
+## Verification matrix
+
+Run production `vite build`/preview and Wrangler local/preview direct requests. Verify paths with duplicate titles, punctuation/Unicode, stale slug canonicalization, missing/hidden works, and reader fragments. Inspect response status/headers/body and browser Cache Storage/IndexedDB/network. For two accounts, prove a warm public edge cache never serves private data. GitHub Pages direct-route tests remain an explicit environment warning until configuration exists.
