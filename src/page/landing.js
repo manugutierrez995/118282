@@ -2,7 +2,9 @@ import { Rotunda } from "../components/rotunda.js";
 import { Search } from "../components/search.js";
 import { Blocks } from "../components/blocks.js";
 import { mountAccountNavigation } from "../account/navigation.js";
+import { renderAdRegion } from "../monetization/components/ad-region.js";
 let accountCleanup;
+let adCleanups = [];
 async function startHeaderTicker() {
     const ticker = document.getElementById("header-ticker-track");
     if (!ticker) return;
@@ -69,9 +71,12 @@ export class Landing {
                 <nav class="landing-account" aria-label="Account controls"></nav>
             </header>
 
-            <section class="rotunda-layer">
+            <section class="rotunda-layer landing-rotunda-frame">
                 <div class="landing-rotunda"></div>
+                <aside class="landing-ad-rail" aria-label="Sponsored and site promotions"></aside>
             </section>
+
+            <div class="landing-below-rotunda-ad"></div>
 
             <section class="ticker-layer" aria-label="Doku-Doujin updates">
                 <div class="header-ticker">
@@ -84,7 +89,12 @@ export class Landing {
         `;
 
         accountCleanup?.();
+        adCleanups.splice(0).forEach(cleanup => cleanup());
         accountCleanup = mountAccountNavigation(container.querySelector(".landing-account"));
+        adCleanups.push(
+            renderAdRegion({ placement: "rotunda_side_rail_right", mount: container.querySelector(".landing-ad-rail") }),
+            renderAdRegion({ placement: "landing_below_rotunda", mount: container.querySelector(".landing-below-rotunda-ad") })
+        );
 
         await Promise.all([
             safeStart("search", Search.start),

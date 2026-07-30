@@ -5,6 +5,7 @@ import { Blocks } from "../components/blocks.js";
 import { Search } from "../components/search.js";
 import { mountDiscussion } from "../discussion/discussion.js";
 import { mountAccountNavigation } from "../account/navigation.js";
+import { renderAdRegion } from "../monetization/components/ad-region.js";
 
 // At most WINDOW_BEFORE + the active page + WINDOW_AFTER images are retained.
 // Keep these deliberately conservative for Safari's decoded-image memory budget.
@@ -434,6 +435,12 @@ async function renderManifestInto(root, manifestUrl, source, work, chapter) {
     wrapper.appendChild(anchor);
 
     createVirtualReader(wrapper, manifest, session);
+
+    const chapterAd = document.createElement("aside");
+    chapterAd.className = "reader-chapter-ad";
+    chapterAd.setAttribute("aria-label", "Sponsored and site promotions");
+    wrapper.appendChild(chapterAd);
+    session.cleanups.push(renderAdRegion({ placement: "reader_chapter_end", mount: chapterAd }));
 
     const { homeBar: bottomReaderBar } = buildReaderNavBar(source, work, chapter, chapters, {
         className: "reader-bottom-bar",
