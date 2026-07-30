@@ -20,7 +20,13 @@
 
 The renderer parses the complete configured snippet in an inert `template`. It clones ordinary nodes and recreates each script with `document.createElement("script")`, copying every attribute and inline text in source order. External loader promises are registered by exact URL; every slot retains its own provider node and inline queue command. No `eval`, `Function`, targeting context, or local-profile data is used.
 
-A placement begins at `waiting`, becomes `loading`, and becomes `filled` only after an iframe, image, video, canvas, object, or embed has measurable width and height. Mutation and resize observers watch provider output until the finite configured timeout. Errors, blocking, invalid markup, and empty output become a black, responsive Doku-Doujins fallback. Failed interstitials and non-visible popunders collapse rather than blocking navigation. Cleanup disconnects all placement-owned observers and removes its DOM.
+A visible placement follows `configured` → `mounting` → `provider-loading` → (`provider-claimed` | `filled` | `genuinely-empty` | `failed`) → optional `fallback`. `filled` is terminal for the mounted lifecycle: observers and fallback timers are cancelled, and no resize, late mutation, render, or timeout may downgrade it. A meaningful provider mutation claims a slot. Claimed slots receive the centralized grace period and are never classified as completely empty.
+
+Fill inspection covers the entire stable provider host, because a provider may wrap, move, or replace its original `ins`. Any iframe is fill without reading `contentDocument` or `contentWindow`; this safely handles cross-origin creatives. Provider children, visible media, measurable descendants, and replacement of the original `ins` also fill. Verification labels and fallback DOM are marked and excluded. Immediately before fallback the renderer synchronously inspects the complete host; fallback is appended only when the provider subtree remains untouched and empty, never over or in place of live provider DOM.
+
+The exact external loader URL is the only shared resource. Magsrv and Pemsrv therefore have separate registry entries. Every mount creates a private host and fresh `ins`, attaches it before executing that placement's inline serve request, and executes that request exactly once. Labels remain outside the provider-owned host, and state changes retain the same host.
+
+The landing Rotunda has a dedicated full-width flex row whose only child is the centered Rotunda mount. Top and leaderboard advertisements occupy separate rows above or below it. Advertisements, verification labels, fallbacks, invisible columns, and reserved rails are prohibited beside the Rotunda.
 
 Delegate-CH head markup is parsed from the inventory and inserted into `document.head` only if an identical meta element is absent.
 

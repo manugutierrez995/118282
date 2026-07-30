@@ -71,9 +71,8 @@ export class Landing {
                 <nav class="landing-account" aria-label="Account controls"></nav>
             </header>
 
-            <section class="rotunda-layer landing-rotunda-frame">
+            <section class="rotunda-layer landing-rotunda-frame" data-rotunda-full-row="true">
                 <div class="landing-rotunda"></div>
-                <aside class="landing-ad-rail" aria-label="Sponsored and site promotions"></aside>
             </section>
 
             <div class="landing-below-rotunda-ad"></div>
