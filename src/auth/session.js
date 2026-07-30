@@ -1,9 +1,11 @@
 import { getSupabase } from "./supabase.js";
+import { reportAuthError } from "./errors.js";
 
 const listeners = new Set();
 let state = Object.freeze({ status: "loading", session: null, user: null, error: null });
 let initialization;
 let subscription;
+let identityGeneration = 0;
 
 function durableStatus(user) {
     return user?.is_anonymous ? "anonymous" : user ? "authenticated" : "signed-out";
@@ -11,10 +13,13 @@ function durableStatus(user) {
 function publish(session, error = null) {
     const next = Object.freeze({ status: error ? "error" : durableStatus(session?.user), session: session || null, user: session?.user || null, error });
     const identityChanged = state.user?.id !== next.user?.id;
+    if (identityChanged) identityGeneration++;
     state = next;
     listeners.forEach(listener => listener(state, { identityChanged }));
 }
 export const getAuthState = () => state;
+export const getIdentityGeneration = () => identityGeneration;
+export const isCurrentIdentity = (userId, generation) => state.user?.id === userId && identityGeneration === generation;
 export function subscribeAuth(listener) {
     listeners.add(listener);
     listener(state, { identityChanged: false });
@@ -26,11 +31,11 @@ export function initializeAuth() {
         try {
             const client = await getSupabase();
             if (!client) { publish(null); return state; }
+            const result = client.auth.onAuthStateChange((_event, session) => publish(session));
+            subscription = result.data.subscription;
             const { data, error } = await client.auth.getSession();
             if (error) throw error;
             publish(data.session);
-            const result = client.auth.onAuthStateChange((_event, session) => publish(session));
-            subscription = result.data.subscription;
         } catch (error) { publish(null, error); }
         return state;
     })();
@@ -50,24 +55,52 @@ export const signUpWithEmail = (email, password, redirectTo) => authCall("signUp
 export const signInWithEmail = (email, password) => authCall("signInWithPassword", { email, password });
 export const requestPasswordReset = (email, redirectTo) => authCall("resetPasswordForEmail", email, { redirectTo });
 export const completePasswordReset = password => authCall("updateUser", { password });
-export const signOut = () => authCall("signOut");
+export async function signOut() {
+    const data = await authCall("signOut");
+    // Supabase normally publishes SIGNED_OUT. Publishing is also an immediate,
+    // idempotent privacy boundary if the event is delayed.
+    publish(null);
+    return data;
+}
 export async function ensureAnonymousSession() {
     if (state.session) return state.session;
     const data = await authCall("signInAnonymously");
     return data.session;
 }
-export async function continueWithGoogle(redirectTo) {
+export function safeOAuthReturnPath(value, fallback = "/account/profile") {
+    if (typeof value !== "string" || !value.startsWith("/") || value.startsWith("//") || /[\\\u0000-\u001f]/.test(value)) return fallback;
+    try {
+        const candidate = new URL(value, "https://account.invalid");
+        const allowed = new Set(["/account/profile", "/account/bookmarks", "/account/settings"]);
+        return candidate.origin === "https://account.invalid" && !candidate.username && !candidate.password && allowed.has(candidate.pathname)
+            ? `${candidate.pathname}${candidate.search}${candidate.hash}` : fallback;
+    } catch { return fallback; }
+}
+export function oauthRedirectUrl(value, origin = window.location.origin) {
+    return new URL(safeOAuthReturnPath(value), origin).href;
+}
+export async function continueWithGoogle(returnPath = "/account/profile") {
     const client = await getSupabase();
     if (!client) throw new Error("Accounts are unavailable because Supabase is not configured.");
-    let safeRedirect = new URL("/", window.location.origin).href;
+    const path = safeOAuthReturnPath(returnPath);
+    const accountState = state.user?.is_anonymous ? "anonymous" : state.user ? "durable" : "signed-out";
+    const options = { provider: "google", options: { scopes: "openid email profile", redirectTo: oauthRedirectUrl(path) } };
     try {
-        const candidate = new URL(redirectTo || `${window.location.pathname}${window.location.search}`, window.location.origin);
-        if (candidate.origin === window.location.origin && !candidate.username && !candidate.password) safeRedirect = candidate.href;
-    } catch { /* retain the fixed same-origin fallback */ }
-    const options = { provider: "google", options: { scopes: "openid email profile", redirectTo: safeRedirect } };
-    const result = state.user?.is_anonymous ? await client.auth.linkIdentity(options) : await client.auth.signInWithOAuth(options);
-    if (result.error) throw result.error;
-    return result.data;
+        let result;
+        if (state.user?.is_anonymous) {
+            if (import.meta.env.VITE_ENABLE_ANONYMOUS_GOOGLE_LINKING !== "true") throw Object.assign(new Error("Manual identity linking is not enabled for this deployment."), { code: "identity_linking_disabled" });
+            result = await client.auth.linkIdentity(options);
+        } else {
+            if (state.user) await signOut();
+            result = await client.auth.signInWithOAuth(options);
+        }
+        if (result.error) throw result.error;
+        return result.data;
+    } catch (error) {
+        const diagnostic = reportAuthError(error, { operation: state.user?.is_anonymous ? "link-google-identity" : "google-sign-in", returnPath: path, accountState });
+        error.authDiagnostic = diagnostic;
+        throw error;
+    }
 }
 
 if (import.meta.hot) import.meta.hot.dispose(disposeAuth);
