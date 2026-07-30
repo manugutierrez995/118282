@@ -1,6 +1,6 @@
 import manifest from "../data/monetization/placements.json" with { type: "json" };
 export const placementManifest = manifest;
-export const monetizationConfig = Object.freeze({ enabled: manifest.enabled && manifest.global.enabled, providerTimeoutMs: manifest.global.fillTimeoutMs, developmentVisualization: manifest.verification.enabled });
+export const monetizationConfig = Object.freeze({ enabled: manifest.enabled && manifest.global.enabled, developmentVisualization: false });
 export function viewportCategory(width = globalThis.innerWidth || 1024) { return width < 600 ? "mobile" : width < 1100 ? "tablet" : "desktop"; }
 export function getPlacement(name) { return manifest.placements[name] || null; }
 export function placementEligible(name, width) { const p=getPlacement(name); return Boolean(monetizationConfig.enabled && p?.enabled && (!p.devices || p.devices.includes(viewportCategory(width)))); }

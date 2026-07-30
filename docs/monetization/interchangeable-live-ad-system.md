@@ -24,23 +24,28 @@ A placement begins at `waiting`, becomes `loading`, and becomes `filled` only af
 
 Delegate-CH head markup is parsed from the inventory and inserted into `document.head` only if an identical meta element is absent.
 
-## Verification labels
+## Verification and operator procedures
 
-`verification` in `placements.json` controls the labels without a source edit. Labels contain only placement ID, advertisement ID, declared size, provider, state, and (for fallback) a reason. Set `verification.enabled` or `verification.showPlacementLabels` to `false` to hide them; restore both to `true` to inspect failures. Provider state and fallback-reason fields have independent switches.
+Visible verification labels are disabled. Diagnostics belong in the browser console and network tooling, never in placement markup. Operators may replace a complete inventory snippet, change Reader frequency, or disable configuration before initialization. They must not inspect creative DOM to decide fill or trigger a replacement after initialization.
 
-## Operator procedures
-
-1. **Replace a provider or snippet:** open `ads.json`, locate the stable ID, replace its entire escaped `snippet`, validate JSON, test, and redeploy. No page, Reader, layout, or adapter edit is required. The snippet is authoritative; do not split its zone or URL into code.
-2. **Change size:** change the same ad entry's `size.width` and `size.height` (or `size.mode`). Reservation, fallback proportions, and label update automatically.
-3. **Change Reader frequency:** change `reader_between_pages.frequency.everyPages`. Fixed mode accepts `3`, `4`, or another positive interval. Ranged mode deterministically selects between `minimumPages` and `maximumPages`; `adsPerBreak` supports the same modes.
-4. **Disable one ad:** set that inventory entry's `enabled` to `false`.
-5. **Disable one placement:** set that placement's `enabled` to `false`.
-6. **Disable everything:** set top-level `enabled` to `false` in `placements.json` (or `ads.json`), or set `global.enabled` to `false`.
-7. **Inspect a failure:** enable all verification switches, inspect the state/reason label, Network panel, provider script response, iframe creation, and CSP or blocker messages. A visible region must resolve to a creative or branded fallback.
-8. **Replace ExoClick later:** replace each complete inventory snippet and provider/name metadata. Keep stable IDs and placement mappings; page components remain unchanged.
+To replace a provider snippet, update the complete escaped `snippet` and its declared size in `ads.json`, validate JSON, test, and redeploy. Stable placement IDs remain unchanged. To disable an advertisement, disable its inventory entry or placement before it mounts; top-level monetization switches remain available for operational shutdown.
 
 ## Known limitations and rollback
 
 Live fill cannot be established by unit tests or localhost because provider approval, browser policy, blockers, CSP, inventory, and network responses are external. Shared script deduplication assumes a provider loader can serve multiple independent `ins`/queue requests. The exact full provider-supplied popunder source was not present in this checkout or prompt beyond its declared configuration and boundary lines; deployment must not be treated as provider-verified until the authoritative full snippet is supplied and substituted.
 
 To roll back, revert the implementation commit, or disable top-level monetization first for immediate operational mitigation. Reverting restores the previous house-campaign placement system.
+
+## Simplified provider ownership rule
+
+Before initialization, the application owns an advertisement placement. It creates one permanent outer placement and one provider host, attaches that host to the live document, inserts a fresh configured `ins`, and executes that placement's serve command exactly once. The external network script loader may be shared, but every placement initialization, `ins`, zone ID, and serve request is independent.
+
+After successful initialization, the provider owns the host subtree. Application code must not inspect creative dimensions or structure, determine fill, clear, replace, hide, move, resize, or remount that content. There are no fill timeouts or creative observers. A provider no-fill remains a reserved black region so a late creative retains its host.
+
+Reader breaks are created deterministically from the configured page interval. Each break has an identity derived from work, chapter, page break, and break index; it is not a numbered image page and is never recycled by image virtualization. The Rotunda always occupies a dedicated full-width flex row whose only principal child is the centered Rotunda container; advertisement rows are separate. Full-page formats use the body-level `#doku-interstitial-root`, and only the device-appropriate interstitial is initialized.
+
+Fallback is deliberately limited to disabled or missing configuration and exceptions before provider initialization. Initialized placements are never automatically replaced. User-visible placement names, provider states, zone IDs, timeout reasons, and verification labels are disabled; development failures may be logged to the console.
+
+### Known limitations
+
+The application cannot promise provider fill, distinguish no-fill from a delayed creative, or validate live creative persistence without testing on an approved deployed domain. This is intentional: those decisions belong to the provider. Fixed-format hosts reserve their configured height and center content, but the site does not alter provider-created descendants.
