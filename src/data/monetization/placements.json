@@ -5,7 +5,16 @@
     "enabled": true,
     "headMarkup": ["exoclick_delegate_client_hints"],
     "fallback": { "enabled": true, "mode": "doku-doujins" },
-    "fillTimeoutMs": 3000
+    "fillDetection": {
+      "timeoutMs": 10000,
+      "claimedGracePeriodMs": 5000,
+      "filledStateIsTerminal": true,
+      "acceptIframeAsFill": true,
+      "acceptProviderChildAsFill": true,
+      "acceptProviderMutationAsClaimed": true,
+      "fallbackOnlyWhenCompletelyEmpty": true,
+      "retryUntouchedOnce": false
+    }
   },
   "verification": {
     "enabled": true,
