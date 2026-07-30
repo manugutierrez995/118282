@@ -52,7 +52,7 @@ export function mountDiscussion(parent, workId) {
         const google = el("button", "discussion-button", userSession?.user?.is_anonymous ? "Link Google account" : "Continue with Google"); google.type = "button";
         listen(google, "click", async () => { sessionStorage.setItem(draftKey(workId), section.querySelector("textarea")?.value || ""); try { await auth.continueWithGoogle(); } catch (e) { setStatus(e.message, true); } });
         bar.append(label, google);
-        if (userSession) { const signout = el("button", "discussion-button", "Sign out"); signout.type = "button"; listen(signout, "click", async () => { const db = await auth.getSupabase(); await db.auth.signOut(); userSession = null; section.querySelector(".discussion-account")?.remove(); renderAccount(auth); }); bar.append(signout); }
+        if (userSession) { const signout = el("button", "discussion-button", "Sign out"); signout.type = "button"; listen(signout, "click", async () => { const sessionService = await import("../auth/session.js"); await sessionService.signOut(); userSession = null; section.querySelector(".discussion-account")?.remove(); renderAccount(auth); }); bar.append(signout); }
         head.after(bar);
     }
 
