@@ -1,93 +1,77 @@
-> **HISTORICAL / SUPERSEDED:** This document records the former remote-account architecture. Runtime accounts, bookmarks, preferences, and discussion posting were replaced by local browser profiles; see [`docs/local-first-browser-profiles.md`](../local-first-browser-profiles.md).
+# Authenticated account pages and shared navigation
 
-# Private account pages and shared navigation
+## Boundary with current local profiles
 
-## Account shell
+Today `/account/*` renders a selected IndexedDB profile (`src/page/page.js`, `src/account/views.js`), and `/profiles` manages multiple device-local profiles. Target `/account/*` means the signed-in Supabase user. Preserve `/profiles` as explicitly local/offline management until import is complete; do not silently call a local profile authenticated, and do not delete local data after login without confirmation.
 
-Create one `AccountShell` and one shared `AccountMenu`/session presenter used by landing, rotunda (through the landing header), reader, and all account pages. It consumes a top-level auth/session service; it must not create Supabase clients or restore sessions independently. The shell provides consistent breadcrumbs/title, account navigation, loading/error states, and a view outlet.
+All authenticated views consume one top-level auth/session store. They must not call `getSession` independently or duplicate OAuth logic. The store exposes `{status: loading|signedOut|signedIn|error, session, user, profile}` and one subscription. The router guard waits for `loading` to settle.
 
-Routes are private and owner-only:
+## Private profile — `/account/profile`
 
-- `/account/profile`
-- `/account/bookmarks`
-- `/account/settings`
+Only the current user can read/edit it. Display:
 
-There is no `/@username` or public user page in this scope. If public discussion names remain necessary, expose a minimal discussion identity separately from private account data.
+- display name and avatar from the private application profile;
+- verified email from Supabase Auth (read-only unless a dedicated email-change flow exists);
+- Auth account creation timestamp;
+- provider summary derived from Auth identities/app metadata (Google, email/password, or linked providers), never trusted from an editable profile field;
+- private account basics and links to bookmarks/settings;
+- explicit local-profile import/export/account deletion actions when implemented.
 
-## Profile page
+Do not create `/@username` or public profile routes. If public discussion identity remains needed, use a minimal separate projection and never expose email/provider/private timestamps.
 
-Show the signed-in user's display name/avatar, verified email (read-only unless a dedicated Supabase change-email flow is built), account creation time, linked providers, and links to bookmarks/settings. Provider display must account for multiple identities rather than labeling a user exclusively “Google” or “email.” Basic profile fields come from an owner-only profile row; security-sensitive email/provider data comes from the Auth session/user, not copied as an authoritative profile field.
+## Bookmarks — `/account/bookmarks`
 
-Editing display name/avatar uses accessible labeled controls, validation, optimistic UI only with rollback, and an owner-scoped update under RLS. Account deletion is a separate destructive flow with reauthentication/confirmation and server-side deletion; it must not be a client table delete masquerading as complete deletion.
+Join private bookmark rows by stable `work_id` to the public work identity/metadata map; do not copy title, cover, tags, or slug into each row. Show missing/unpublished items without leaking metadata (for example “Unavailable saved work”) and permit deletion.
 
-## Bookmarks page and concepts
+Distinguish four concepts:
 
-Distinguish these states in UI and storage:
+1. **Work bookmark:** work only; minimum first release.
+2. **Chapter bookmark:** work + chapter, no page.
+3. **Position bookmark:** work + chapter + page (+ mode), optionally label/notes; multiple positions may exist.
+4. **Reading progress:** automatically updated last position, exactly one row per user/work/chapter (or per work if product chooses); not a bookmark and opt-out/resettable.
 
-1. **Work bookmark:** saved work, no chapter/page.
-2. **Chapter bookmark:** work + stable chapter ID, no page.
-3. **Page bookmark:** work + chapter + page (+ mode snapshot).
-4. **Reading progress:** automatically updated last position; not a bookmark and not shown as user intent.
+The current local bookmark is work-unique with optional chapter. Initial remote release may support one work bookmark while schema/API contracts preserve nullable chapter/page and a bookmark kind. Progress belongs in its own table and should wait until URL/page identity is stable.
 
-The initial migration can preserve/import existing work bookmarks, then add page/chapter fields in a normalized `user_bookmarks` table. The page lists owner rows and joins them client-side to the public identity/work index; it does not duplicate cover/title/tags in private records. Missing/deleted works display a tombstone and allow removal. Sort/filter by update time and type; labels/notes can wait.
+Each card links to canonical work/read URL. Removing/clearing is confirmed, optimistic only with rollback, and announced. Bookmarks remain visible even when excluded by personal tags, while globally unavailable works do not reveal private metadata.
 
-Reader affordances should clearly separate “Bookmark work,” “Bookmark this page,” and automatic “Continue reading.” Bookmarks page entries link to canonical work/read URLs. `last-read status` belongs in progress unless it is a bookmark presentation flag.
+## Settings — `/account/settings`
 
-## Settings page
+Initial sections: preferred tags, excluded tags, reader defaults, local-data import, and privacy/data controls. Tag input should use canonical suggestions/keys rather than only a comma text field. Adding to one list atomically removes the same normalized tag from the other. Excluded is the hard discovery filter; preferred affects stable ranking. Explicit reset and save status are required. Weighted controls wait.
 
-Initial sections:
+A reader settings gear may open a compact reader-settings panel for display controls and link to full account settings; it must not imply that all content preferences are changed inline.
 
-- content preferences: Excluded tags and Preferred tags;
-- reader defaults: reserved for mode/theme/accessibility choices, added only when backed by real settings;
-- account/security links and sign out.
+## Shared account navigation
 
-Adding a tag to one list atomically upserts that preference and removes/replaces the opposite preference. The database unique key `(user_id, tag_key)` prevents simultaneous opposites. Exclusions are hard filters in discovery, preferences rank remaining works. Direct public links are not authorization-filtered. Do not edit `src/data/tags.json` or per-work manifests from this page.
+Refactor the existing `mountAccountNavigation` into one shared component used by landing header, rotunda shell, reader top chrome, and account shell. It consumes session state, route helpers, and sign-out action through injected/shared services. Mount it once per surface, return cleanup, and close on route change/unmount.
 
-## Shared navigation placement
+| State | Account trigger/menu |
+|---|---|
+| Auth loading | Disabled skeleton/spinner with `aria-label="Checking account"`; do not flash Login or private data |
+| Signed out | Account icon opens Login and Sign up; local profile link may remain explicitly labeled |
+| Signed in | Avatar/account icon opens Profile, Bookmarks, Settings, Sign out |
+| Auth error/offline | Non-destructive retry/status; public reading and local profile remain available |
+
+Sign out calls the shared Auth service, clears in-memory private caches/subscriptions, closes menus, and routes a private page to `/` or `/login`; it does not erase local profiles. Do not use link hiding as authorization.
 
 ### Landing and rotunda
 
-Add an account icon/button to the existing `.landing-header`, after search on desktop. The rotunda is part of the landing surface and should not render a second auth control. Signed out: icon opens menu with Log in/Sign up. Signed in: avatar/account icon opens Profile, Bookmarks, Settings, Sign out. A settings gear may be an item rather than another always-visible landing icon.
+Keep the current `.landing-account` mount in the header; the rotunda is inside the landing surface and uses that same control rather than a duplicate overlay. Cards remain keyboard-operable canonical links.
 
 ### Reader
 
-Extend `buildReaderNavBar` rather than floating controls over page images. Reserve a right-side group for an account icon and a distinct settings gear near the existing Last control. On narrow screens, retain Home, chapter navigation, and account trigger; place low-priority Last/search/settings actions in an overflow sheet if measurements show collision. The bottom reader bar can reuse navigation destinations but should not initialize another auth subscription/menu state.
+The current top/bottom reader bars already mount compact account navigation in the right group beside “Last.” Preserve one account icon at top right and add a gear with a distinct accessible name. On desktop, group them after reading controls with adequate spacing and no overlap with chapter navigation/search. On mobile, use icon buttons with at least a 44px target; allow the middle chapter controls to wrap/condense. The auto-hide routine must remain visible while either menu has focus/open state. The bottom bar may link to the same actions but should not create duplicate open menus.
 
-### Account pages
+## Interaction and accessibility contract
 
-Desktop: persistent/compact side or top subnavigation with Profile, Bookmarks, Settings; account menu includes Sign out. Mobile: a single account trigger opens a modal-like menu/sheet, plus visible current-section heading. Do not rely solely on icons; tooltips/accessible names and active state are required.
+- Use semantic `<button>` for menu triggers and `<a data-route>` for destinations. Trigger has `aria-haspopup="menu"` and synchronized `aria-expanded`/`aria-controls`.
+- Every icon has a visible tooltip where appropriate and a stable screen-reader label (“Open account menu”, “Open reader settings”, “Sign out”). Decorative avatars use empty alt; meaningful user avatar uses the user's display-name context.
+- Keyboard: Tab reaches trigger/items; Enter/Space opens/activates; Escape closes and returns focus to trigger; Arrow keys/Home/End follow the chosen menu pattern consistently.
+- On open, focus first item (menu pattern) or heading (dialog pattern). On route navigation, close first, then move focus to the new page `<h1 tabindex="-1">`. Never trap focus in a nonmodal dropdown.
+- Close on outside pointer interaction, Escape, route/popstate change, sign-out, and unmount. Do not close merely because focus moves within the menu.
+- Account pages share a nav landmark with current-page indication (`aria-current="page"`) and skip/main heading structure.
+- Loading/submit errors use `role="status"` or `role="alert"`; controls remain recoverable. Respect reduced motion.
+- Mobile menus use a positioned popover or modal sheet that stays in viewport, handles safe-area insets, locks scroll only if modal, and restores focus.
 
-## Session UI state matrix
+## Signed-out private-route flow
 
-| Session state | Account control | Private route behavior |
-|---|---|---|
-| loading/unknown | disabled skeleton button, `aria-busy`; no signed-out flash | render neutral guarded shell; do not fetch private rows or redirect yet |
-| signed out | generic account icon; Login/Sign up menu | replace to `/login?next=...` after resolution |
-| anonymous Supabase user | treat as guest for private account product; offer upgrade/link | require/link durable identity before account pages unless product decides otherwise |
-| signed in email | avatar/initial; full account menu | load only owner data |
-| signed in Google | same as email | identical account system |
-| error/offline | stable icon + retry/status; cached public reader remains usable | do not reveal stale data from another user; explicit retry/sign-out |
-
-Avoid layout shift by reserving the icon footprint during auth loading.
-
-## Sign out
-
-Call the shared auth service's Supabase `signOut`, clear in-memory private queries and user-derived personalization, close menus, then replace to `/` (or keep a public work route if sign-out began there). Do not clear public asset caches. Never leave prior user's account DOM or indexed private snapshot visible. If sign-out fails, announce the error and do not pretend it succeeded.
-
-## Accessibility and interaction contract
-
-- Use buttons for menu actions and anchors for routes, preserving open-in-new-tab.
-- Account trigger: `aria-label="Open account menu"`, `aria-haspopup="menu"`, `aria-expanded`, `aria-controls`.
-- Settings icon: `aria-label="Account settings"`; Sign out is text, not an ambiguous exit glyph.
-- Menus support Tab/Shift+Tab and Escape; optional arrow-key menu semantics must be implemented fully if `role="menu"` is used. A simple disclosure list with normal links is safer.
-- On open, move focus to the first actionable item only for keyboard-triggered/modal mobile presentation; otherwise preserve sensible pointer behavior. On Escape/outside click, close and restore focus to trigger.
-- Close on outside pointerdown, Escape, route changes, sign-out, and session identity change. Remove listeners on unmount.
-- Route changes move focus to the new page `<h1>` (programmatically focusable with `tabindex="-1"`) and announce title. Reader fragment/passive page changes must not steal focus.
-- Visible focus styles must survive dark reader chrome; targets should meet 44×44 CSS pixels on touch.
-- Menus must not auto-hide while focused. Integrate with the reader's existing chrome focus/search checks.
-- Use `aria-live="polite"` for session, bookmark, preference, and deep-link results; errors associate to fields.
-- Respect reduced motion for menu and reader scrolling.
-
-## Mobile/desktop verification
-
-Test keyboard-only at desktop widths; touch and screen rotation at representative narrow widths; account menu while reader chrome is auto-hiding; search open simultaneously; page navigation controls; safe-area insets; 200% zoom/reflow; and a screen reader. The mobile HTML maintenance entry is not a second mobile app—responsive behavior is within the primary shell when it is deployed.
+After auth resolution, guard redirects to `/login?next={encoded same-origin allowlisted route}`. Login/signup share that destination through Google redirects and email confirmation. Successful auth uses replace navigation to `next`; cancellation/error remains on auth view with a safe retry. A returning session must render a neutral loading shell until ownership is known, never briefly render another/local profile.

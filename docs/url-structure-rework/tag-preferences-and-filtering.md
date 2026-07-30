@@ -1,75 +1,63 @@
-> **HISTORICAL / SUPERSEDED:** This document records the former remote-account architecture. Runtime accounts, bookmarks, preferences, and discussion posting were replaced by local browser profiles; see [`docs/local-first-browser-profiles.md`](../local-first-browser-profiles.md).
+# Tag preferences, filtering, and ranking
 
-# Tag preferences and filtering
+## Existing canonical work-tag contract
 
-## Existing work-tag contract
+`src/data/tags.json` is `{version: 1, works: { [storageSlug]: {tags, sources, updated_at} }}`. `src/utils/tag.js` lowercases, trims, replaces whitespace with hyphens, deduplicates/sorts, joins by exact storage slug, and applies global rotunda policy. `scripts/build_tags.py` merges ingestion/manifest/manual sources. Many current tags are empty or `manifest`, so the corpus is not yet a vetted preference vocabulary.
 
-`src/data/tags.json` is a versioned object keyed by the current storage/work slug. Each record contains an array of strings plus provenance (`sources`) and `updated_at`. `scripts/build_tags.py` merges tags from fetch, rotunda, per-work manifests, and ingestion. Per-work manifests sometimes contain the same `tags` field. Current values are not yet a clean consumer taxonomy: many arrays are empty and many contain `manifest`, apparently a pipeline marker. Global rotunda visibility separately uses `showcase_tags`, `omit_public_tags`, `omit_everyone_tags`, and explicit omitted work slugs in `src/data/rotunda.json`.
+Work tags are public catalog facts/provenance. User preferences are private rows (or current local-profile arrays). Changing a setting must never mutate `src/data/tags.json`, per-work manifests, R2 `tags.json`, search indexes, or global visibility policy.
 
-Before preferences ship, generate a public tag vocabulary with stable `tag_key`, display label, aliases, and classification (`content`, `format`, `provenance/internal`). Only user-facing content tags may be selected. Never offer `manifest` or internal visibility/provenance markers as preferences.
+## Current personalization
 
-## Separate domains
+Local profiles contain `preferredTags` and `excludedTags`. `src/local-profile/personalization.js` filters any excluded match, stable-partitions entries with any preferred match first, and preserves source order otherwise. Rotunda first applies global visibility, then local personalization; search also personalizes. Current schema permits the same tag in both arrays, though exclusion wins because filtering happens first. Settings are comma-separated text.
 
-Canonical work tags answer “what is this work?” and are generated/published with public metadata. User preferences answer “how should this user discover content?” and are private owner rows. Editing a preference must not mutate `src/data/tags.json`, work manifests, rotunda configuration, R2 details, or search records. Joining occurs by normalized tag key at read/ranking time.
+## Target preference contract
 
-Global visibility and safety policy runs first and cannot be overridden by a preferred tag. Personal exclusion/ranking runs afterward.
+One normalized `(user_id, tag_key)` row has exactly one `preference_type`: `excluded` or `preferred`, with nullable future `weight`. The primary key makes contradictory rows impossible. Adding excluded upserts excluded; adding preferred upserts preferred. Thus moving a tag is one atomic upsert (or delete+insert transaction), not two eventually consistent writes.
 
-## Normalization
+Normalization should be shared with canonical tag keys:
 
-Recommended tag keys: Unicode NFKC input, trim, locale-independent lowercase/casefold, map canonical aliases, convert whitespace/underscore runs to `-`, collapse hyphens, and reject unknown/non-public vocabulary values. Display labels retain friendly casing/spaces separately. Server/database checks must not depend only on JavaScript normalization; use known vocabulary validation in an RPC or a synchronized constraint/table when practical.
+1. Unicode normalize (choose/document NFKC), trim, lowercase in a locale-independent way.
+2. Collapse whitespace/separators to `-`; strip unsupported punctuation; collapse/trim hyphens.
+3. Enforce 1–80 characters and an allowlisted key pattern.
+4. Apply a future alias map (for example synonyms) before persistence; retain human label separately in the public tag vocabulary, not each preference row.
+5. Do not offer provenance-only/internal tags such as `manifest` unless promoted to the public vocabulary.
 
-Case variants (`Gore`, `gore`) and aliases resolve to one key. Do not use fuzzy matching when saving a setting. Slug normalization and tag normalization are different contracts.
+The settings UI uses canonical suggestions and announces when an entry moves lists. Removing makes it neutral. Exclusions take priority in all stages and are understandable/editable.
 
-## Preference model and conflicts
+## Stage 1 — deterministic filtering (initial)
 
-One row per `(user_id, tag_key)` with `preference_type in ('excluded','preferred')` makes overlap structurally impossible. Adding excluded uses an upsert that replaces preferred; adding preferred replaces excluded. The UI immediately moves the chip between lists, announces the change, and rolls back if persistence fails. Concurrent tabs converge on the last committed update timestamp; optionally subscribe/refetch on focus.
-
-Initial `weight` is nullable. Product defaults interpret excluded as a hard negative and preferred as a simple positive. Future explicit weights may use `-100` for excluded and positive values for preference, but preference type remains understandable and editable. Exclusion always wins if malformed legacy data somehow contains both; repair it and log a diagnostic rather than showing contradictory UI.
-
-## Stage 1: deterministic behavior
-
-For each globally visible work:
+Pipeline order for landing, `/works`, search, rotunda, and suggestion modules:
 
 ```text
-canonicalTags = public content tag keys for work
-if canonicalTags intersects excluded: omit from discovery
-else preferenceScore = count(canonicalTags intersects preferred)
+publiclyEligible = applyGlobalPublicationAndSurfacePolicy(catalog)
+visible = publiclyEligible minus works matching any excluded tag
+ranked = stablePartition(visible, matchesAnyPreferredTagFirst)
 ```
 
-Preserve deterministic base ordering among equal scores (editorial order, then stable work ID). Preferred tags raise prominence but do not hide neutral works. Apply the same shared selector to landing lists, rotunda candidates, `/works` browse/search, and suggestion modules. Search may optionally show an explicit “N results hidden by your settings” affordance with a temporary reveal; exclusions still take precedence. A directly entered public URL remains available because discovery preference is not access control.
+Global hidden/private/deleted rules always run before personalization. Excluded works disappear from discovery, but a globally public direct URL and existing bookmark remain reachable; show a subtle “excluded by your settings” option only if product approves. Exclusions override preferences even during transient/local conflict. Neutral tags do nothing. Signed-out/no-profile users see public order.
 
-For signed-out/auth-loading users, render the unpersonalized globally visible list. Do not briefly show excluded cards while a known signed-in user's preferences load: reserve/hold personalized surfaces or reuse only a device-safe in-memory snapshot associated with the current user and clear it on sign-out. The cacheable catalog itself remains unchanged.
+Apply one pure shared function so Rotunda, landing/browse, search, and recommendations cannot drift. Preserve Rotunda's bounded DOM window and public showcase policy. Search should filter before result truncation. If preferences are still loading, show neutral public results and then intentionally re-rank without exposing another user's cached list.
 
-## Stage 2: simple weighted ranking
+## Stage 2 — simple weighted ranking
 
-After measurement, score preferred matches using explicit weights or a fixed default (for example 10 each), perhaps normalize for works with many tags, and retain exclusions as a pre-filter. Tie-break deterministically. Keep a UI explaining why an item ranked (“Matches romance, fantasy”) and let users edit/reset. Do not infer weights from reading activity in this stage.
+Keep explicit excluded as a hard filter. Default preferred may add a fixed score (for example +10); optional user `weight` later supports `romance: 25`, `fantasy: 10`, `gore: -100`. Negative hard-exclusion should remain represented by type, not inferred only from a magic weight. Score only among already eligible works; tie-break by deterministic public rank then stable ID. Explain ranking in settings and offer reset.
 
-## Stage 3: future recommendations
+## Stage 3 — future recommendation system
 
-A separate, consent-aware system may use reading progress, bookmarks, likes/dislikes, dismissed works, and time-decayed interests. Store events/derived interests separately from explicit `user_tag_preferences`; never silently overwrite exclusions. Provide recommendation reset, data deletion, and explanation controls. Do not add invasive tracking in the URL/account foundation.
+Separate explicit preferences from inferred signals. Potential, opt-in inputs: reading history, bookmarks, explicit likes/dislikes, dismissals, time-decayed interests, and a recommendation reset. Store purpose-limited events/aggregates with retention controls; do not add invasive tracking during URL/account work. Explicit exclusions remain absolute and editable. Users must be able to inspect/reset recommendation inputs without losing bookmarks/account.
 
-## Surface integration
+## Data/cache boundary
 
-- **Landing:** filter/rank any public work sections after loading preferences; header account state comes from shared auth.
-- **Rotunda:** pass already-visible, personalized candidates into its existing windowing algorithm. Do not modify windowing or use hidden cards to fill slots. Preserve absolute active selection by stable work ID when the list changes; choose the nearest survivor.
-- **Search/browse:** index public canonical tags; filter result entries through the same selector before the 12-result limit so hidden hits do not consume slots.
-- **Suggestions:** share the selector/scorer, not a separate preference interpretation.
-- **Reader:** settings link edits preferences but current direct work remains open. Warn only according to explicit product policy; never mutate work tags.
+Canonical tag catalog is public and cacheable. Preference rows are private/no-store. Personalization should generally be computed client-side by combining cached public metadata with current user's private preferences. Never publish personalized HTML/search JSON into a shared Cloudflare key. In memory, key results by authenticated user generation and clear on sign-out/account switch.
 
-## Data/cache boundaries
+## Required tests
 
-Public tag vocabulary and work-to-tag projections can be versioned and CDN-cached. Owner preferences come from Supabase and must be private/no-store. Filtering can be computed in browser from these two inputs. Never publish a personalized catalog at a shared URL or use a shared edge cache without a verified per-user private key and `private, no-store` semantics; browser computation is safer initially.
-
-## Tests
-
-- normalization/case/alias and unknown/internal-tag rejection;
-- add/remove preferred and excluded;
-- changing side removes/replaces the opposite row atomically;
-- injected conflicting legacy data gives exclusion priority and repair signal;
-- excluded works disappear from landing, rotunda, search, browse, and suggestions;
-- preferred works rank higher without removing neutral works;
-- global hidden works stay hidden even if preferred;
-- direct public link behavior is independent of discovery exclusion;
-- signed-out/auth-loading behavior and no excluded-content flash;
-- cross-user RLS and sign-out cache clearing;
-- deterministic tie order and rotunda focus/active-card preservation.
+- normalize casing, whitespace, Unicode/punctuation, duplicates, empty/oversized tags, and aliases;
+- add/remove preferred; add/remove excluded; moving between lists leaves one polarity;
+- exclusions win over preferred and global policy runs first;
+- neutral order and ties are stable;
+- filtering occurs before search/rotunda limits and remains consistent across surfaces;
+- bookmarks remain available even when personally excluded;
+- canonical work tags/files are byte-identical after preference operations;
+- user A cannot read/write user B preferences under RLS;
+- signed-out/loading/error states never reuse the prior user's personalized list.

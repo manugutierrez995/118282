@@ -1,58 +1,58 @@
-> **HISTORICAL / SUPERSEDED:** This document records the former remote-account architecture. Runtime accounts, bookmarks, preferences, and discussion posting were replaced by local browser profiles; see [`docs/local-first-browser-profiles.md`](../local-first-browser-profiles.md).
+# Prompt for the next Codex run — Phase 1 only
 
-# Prompt for the next Codex run: Phase 1 only
+Work in the `10-year` repository. Read all applicable `AGENTS.md` files and inspect the working tree before editing.
 
-Work in the `10-year` repository. Read and follow all applicable `AGENTS.md` files.
+Implement **only Phase 1: stable work identity and public route-manifest audit/generation**. Begin with:
 
-Implement **only Phase 1: stable work identity and public-slug audit/generation** from:
-
-- `docs/url-structure-rework/README.md`
-- `docs/url-structure-rework/current-state-audit.md`
-- `docs/url-structure-rework/work-url-and-reader-deep-links.md`
-- `docs/url-structure-rework/proposed-route-map.md`
-- `docs/url-structure-rework/implementation-phases.md` (Phase 1)
-- `docs/url-structure-rework/open-questions.md` (especially question 1)
+- `docs/url-structure-rework/README.md` (current facts and decisions)
+- `docs/url-structure-rework/current-state-audit.md` (catalog evidence and 725/724 mismatch)
+- `docs/url-structure-rework/work-url-and-reader-deep-links.md` (four identity layers)
+- `docs/url-structure-rework/proposed-route-map.md` (ID+slug contract)
+- `docs/url-structure-rework/implementation-phases.md` (Phase 1 acceptance)
+- `docs/url-structure-rework/open-questions.md` (questions 1–2)
 
 ## Objective
 
-Create a deterministic generator and validator for a **public work identity/route manifest**. It must map the existing candidate stable `parent_work_id` to:
+Create a deterministic generator/validator for one canonical, public work identity/route manifest. For each resolvable work include:
 
-- `work_id` (serialized consistently, preferably string),
-- persisted/current `public_slug`,
-- exact `storage_slug`,
-- storage `source`,
-- bundled/remote manifest locator,
-- chapter list and default chapter,
-- public visibility state derived from the existing visibility policy without exposing hidden administrative metadata,
-- optional aliases only if a real existing source supplies them (do not invent history).
+- `work_id`, serialized consistently as an opaque string;
+- persisted/current `public_slug` (lowercase ASCII kebab-case), separate from storage;
+- exact `storage_slug` and `source`;
+- bundled/remote work-manifest locator;
+- exact chapter list and default chapter;
+- public addressability/visibility derived from existing policy without leaking administrative tags/details;
+- aliases only when a real persisted source supplies them.
 
-The public slug is a URL-facing lowercase ASCII kebab-case value separate from the storage slug. Define/test deterministic normalization, maximum length, empty-result fallback, unusual Unicode/punctuation, and duplicate titles. Because the URL includes work ID, duplicate public slugs across different IDs may be valid; document the invariant you enforce. Do not silently regenerate previously persisted slugs on title-only changes: design a generated-source/lock mechanism or clearly stage the first baseline so later builds preserve it.
+Design the artifact so title-only changes do not silently regenerate an established public slug. Use a checked-in lock/baseline or another repository-native persisted mapping with documented update semantics. Duplicate public slugs may be allowed because routes include the unique ID, but enforce and document all other invariants.
 
-## Required investigation during implementation
+## Required investigation
 
-1. Re-audit all `src/data/works/*.json`, `src/data/fetch.json`, `src/data/rotunda.json`, `src/data/tags.json`, and search index inputs.
-2. Trace exactly how ingestion assigns `parent_work_id`; use repository backups/fixtures to test whether reruns preserve it. If durability cannot be proven, stop short of declaring IDs canonical: emit a clear validation/report and implement the artifact so a future persisted ID can replace the candidate.
-3. Explain the current 725 catalog versus 724 work-manifest mismatch and handle/report it deterministically.
-4. Reuse current visibility utilities/contracts where possible; do not create a conflicting hidden-work system.
+1. Machine-audit `src/data/fetch.json`, `rotunda.json`, `tags.json`, every `src/data/works/*.json`, both search indexes, relevant backups, and ingestion scripts.
+2. Trace exactly how `parent_work_id` is allocated. Use history/fixtures and deterministic rerun tests to determine whether it survives re-ingestion/title/storage changes. If durability is not provable, do **not** call it canonical: produce a validation report and keep the artifact replaceable by a future registry.
+3. Identify the exact 725th catalog entry lacking a checked-in work manifest and explain/handle it explicitly. Never invent its ID or silently omit it.
+4. Reuse existing visibility normalization/policy where possible. Separate globally addressable state from Rotunda-only showcase eligibility if current data supports that distinction; do not expose raw omit lists/internal tags.
+5. Choose one deploy source for the generated artifact. Do not create another unsynchronized `src`/`public` pair; document how Vite/runtime will consume it later.
+
+## Slug contract to implement/test
+
+Define deterministic Unicode normalization/transliteration, lowercase ASCII conversion, non-alphanumeric collapse, trim, maximum length, and `work-{id}` fallback. Test punctuation, non-Latin text, empty results, very long titles, duplicate titles, duplicate proposed slugs, and rename preservation. Use URL APIs in consumers/examples; never rename R2 directories or existing storage slugs.
 
 ## Constraints
 
-- Do **not** change routing, rotunda/search click behavior, reader behavior, authentication UI, or CSS.
-- Do **not** apply or create a Supabase migration.
-- Do **not** add a framework or dependency.
-- Do **not** fetch or mutate R2/production data.
-- Do **not** edit hundreds of manifests manually; generate from canonical inputs.
-- Do not expose raw `details.json` or administrative/internal tags in the public projection.
-- Keep current build/tests passing and make output deterministic across two consecutive runs.
-- Add focused automated tests for identity uniqueness/non-null/type, deterministic order/output, slug normalization, duplicate titles, unusual characters, missing/duplicate IDs, catalog mismatch, hidden visibility, and a renamed-title/preserved-slug fixture.
+- Do not change `src/router/router.js`, route behavior, UI links, Rotunda/Search events, reader behavior/CSS, account/auth code, or runtime data fetching.
+- Do not create/apply Supabase migrations or inspect/mutate production/R2 over the network.
+- Do not add a framework or speculative dependency.
+- Do not edit hundreds of work manifests manually.
+- Do not expose `details.json`, raw visibility configuration, or administrative/provenance tags.
+- Preserve all existing tests/build and make two consecutive generator runs byte-identical.
+- Update URL-rework documentation only with concrete Phase 1 outcomes/exceptions; do not rewrite later phases.
 
-## Deliverables
+## Deliverables and tests
 
-- generator/validator code in the repository's existing scripting conventions;
-- generated identity manifest at one clearly justified canonical deploy source (avoid another unsynchronized duplicate);
-- schema/contract documentation near the artifact or in the URL rework docs;
-- automated tests and exact commands;
-- a validation report listing unresolved real-data exceptions, if any;
-- update `docs/url-structure-rework/implementation-phases.md` only to record Phase 1 outcomes/decisions, not to erase later plans.
+- repository-native generator/validator and clearly documented command;
+- one canonical generated/locked identity artifact and schema/contract;
+- focused tests for deterministic order/bytes, ID non-null/type/uniqueness, source+storage lookup uniqueness, slug normalization/persistence, duplicate/missing IDs/titles, unusual characters, catalog mismatch, chapter/default validity, and visibility redaction;
+- a real-data validation report identifying every exception, especially the 725/724 mismatch;
+- explicit conclusion: `parent_work_id` proven durable, rejected, or still unproven (with evidence).
 
-Before finishing, run the relevant Node/Python tests and `npm run build`, inspect `git diff`, commit the changes on the current branch, and create a pull request according to the repository instructions. Report whether `parent_work_id` was actually proven durable; do not overstate the result.
+Run focused Python/Node tests, the complete existing test suites, the generator twice with a clean diff check, and `npm run build`. Inspect the final diff. Commit on the current branch and create the required pull request. Do not claim later URL/account phases are implemented.

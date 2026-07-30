@@ -1,76 +1,75 @@
-> **HISTORICAL / SUPERSEDED:** This document records the former remote-account architecture. Runtime accounts, bookmarks, preferences, and discussion posting were replaced by local browser profiles; see [`docs/local-first-browser-profiles.md`](../local-first-browser-profiles.md).
-
 # Proposed canonical route map
 
-## Principles
+## Policy
 
-Use one centralized client-side route definition and navigator in the existing Vite shell. Cloudflare may serve the same HTML shell, but route parsing, auth loading, not-found rendering, canonicalization, and history behavior must be explicit application responsibilities. Public metadata and private user state remain separate.
+Extend the existing History API router in `src/router/router.js`; do not introduce a parallel router. Cloudflare continues serving one static shell. Route parsing, URL construction, navigation, canonicalization, and legacy conversion should live in one module (or a small `src/router/` family) consumed by landing, search, rotunda, reader, and account views.
 
-Recommended public work pattern:
-
-```text
-/works/{work-id}/{slug}
-/works/{work-id}/{slug}/read?chapter={chapter-id}&mode={mode}#page={N}
-```
-
-The numeric/string work ID is authoritative. The readable slug is lower-case ASCII kebab-case and decorative for lookup. Omitting `chapter` means the first/default chapter; omitting `mode` means continuous. The common link is therefore `/works/1234567890/title/read#page=3`.
+Canonical paths are lowercase, percent-encoded by segment, and have **no trailing slash** except `/`. Paths are case-sensitive: noncanonical casing either redirects only when an unambiguous resolver match exists or returns not found. Never interpolate untrusted raw strings into HTML or URLs.
 
 ## Route table
 
-| Route | Visibility | Auth | Rendering | Data source | Cache policy | Status |
+| Route | Visibility | Auth | Rendering strategy | Data source | Cache policy | Status |
 |---|---|---:|---|---|---|---|
-| `/` | public | no | existing static shell + client landing | bundled catalog/rotunda, public blocks | shell/public metadata shared-cacheable | current, retain |
-| `/works` | public | no | shell + client browse view initially | generated public work index/search | shared-cacheable; personalization overlay private | future |
-| `/works/:workId/:slug` | public subject to visibility | no | shell + client work detail; optionally prebuild later | generated identity/index + work manifest | public shared-cacheable | proposed |
-| `/works/:workId/:slug/read` | public subject to visibility | no | shell + existing virtual reader | work manifest + R2 `item.json`/media | shell/metadata/media public; progress private | proposed |
-| `/login` | public-auth | no | shell + auth form | Supabase Auth | shell cacheable; auth responses no-store/private | proposed |
-| `/signup` | public-auth | no | shell + auth form | Supabase Auth | same | proposed |
-| `/account` | private | yes | replace redirect to profile | session only | no-store/private user layer | proposed |
-| `/account/profile` | private | yes | shell + account view | Auth user + owner profile | no-store/private | proposed |
-| `/account/bookmarks` | private | yes | shell + account view | owner bookmark rows + public work index join | private rows no-store; public metadata reusable | proposed |
-| `/account/settings` | private | yes | shell + account view | owner preferences | no-store/private | proposed |
-| `/404` | public | no | explicit application error view | route/visibility resolver | shell cacheable | proposed |
-| legacy `/?source&work&chapter` | public | no | parse then `replaceState` canonical route | legacy catalog lookup | no additional caching | compatibility |
-| legacy `/reader?source&work&chapter` | public | no | same | same | same | compatibility |
+| `/` | Public | No | Static shell + client landing | bundled rotunda/tags; public search | public shell/assets; private overlay memory-only | Current, links need migration |
+| `/works` | Public | No | Static shell + client catalog | public route manifest/search/tags | public/cacheable | Future |
+| `/works/{id}/{slug}` | Public subject to publication policy | No | shell + public work detail | public identity/work projection | public/cacheable; canonical metadata may later be edge-rendered/prebuilt | Future |
+| `/works/{id}/{slug}/read` | Public subject to publication policy | No | shell + client reader | route manifest, work manifest, R2 `item.json`/images | shell/metadata/media public; progress private | Future |
+| `/profiles` | Device-private | No | local profile chooser | IndexedDB | browser-only, never shared | Current; retain offline meaning |
+| `/profiles/new` | Device-private | No | local profile creation | IndexedDB | browser-only | Current |
+| `/login` | Public form | Signed-out | shell + auth view | Supabase Auth | shell public; responses no-store/private | Future (currently redirects) |
+| `/signup` | Public form | Signed-out | shell + auth view | Supabase Auth | same | Future (currently redirects) |
+| `/auth/callback` | Public callback | Flow-dependent | validate Supabase callback, sanitize `next` | Supabase Auth | no-store | Future |
+| `/forgot-password`, `/reset-password` | Public auth flow | Flow-dependent | auth views | Supabase Auth | no-store | Future (currently redirects) |
+| `/account` | Private | Yes | replace redirect | session store | no-store | Current redirect; guard changes |
+| `/account/profile` | Private | Yes | shell + private hydration | Auth user + private profile | no-store/private | Current local view; replace semantics |
+| `/account/bookmarks` | Private | Yes | shell + private hydration + public metadata join | user bookmark rows + public work map | no-store private rows; public metadata cacheable | Current local view; remote future |
+| `/account/settings` | Private | Yes | shell + private hydration | preferences/settings rows | no-store/private | Current local view; remote future |
+| `/404` | Public | No | application not-found view | none | public/no short error caching during rollout | Future explicit alias |
+| unknown path | Public | No | not-found view with 404 semantics where host permits | none | short/no-store | Partial current |
 
-## Auth routes and intended destination
+## Work identity and slug rules
 
-An unauthenticated account request becomes `/login?next=<relative-path-and-fragment>`. Accept only same-origin paths beginning with `/`; reject protocols, `//`, encoded traversal, auth pages as loops, and control characters. After successful OAuth/email auth, use `history.replaceState`/central navigator to `next` (default `/account/profile`). Signed-in users visiting login/signup should go to validated `next` or profile. Preserve `next` through OAuth using a validated local value in `sessionStorage` or Supabase OAuth state flow; do not set `redirectTo` to an arbitrary external URL.
+Canonical form is `/works/{work-id}/{public-slug}`. `{work-id}` is the immutable authority, serialized as a decimal/string token after Phase 1 proves `parent_work_id` or assigns a persisted replacement. `{public-slug}` is a persisted lowercase ASCII kebab-case presentation value, separate from the R2 storage slug. Normalize Unicode, transliterate when deterministic, collapse non-alphanumerics to `-`, trim, cap length, and fall back to `work-{id}`. Duplicate public slugs are safe because IDs differ.
 
-## Redirect and canonical rules
+A valid ID with stale/wrong slug resolves the work and uses `replaceState` (client) or 308 (edge, if added) to the current canonical slug. Keep old slug aliases only if a persisted source exists; never infer redirect history from current titles. A malformed/unknown ID is a real not-found. Globally private/deleted/hidden works should be indistinguishable from missing unless policy explicitly requires 403. Personal exclusions hide discovery but do not make a public direct URL unauthorized.
 
-1. `/account` → `/account/profile` using replace, not push.
-2. Correct work ID + old/wrong slug → current canonical slug (edge 301 if generated/edge support exists; client `replaceState` initially).
-3. Legacy work query → ID resolver → canonical reader route. Preserve valid chapter/source and supported page fragment.
-4. `/works/:id/:slug/read/` → no-trailing-slash canonical form.
-5. Repeated slashes, dot segments, malformed percent encoding, unknown route → 404; do not guess.
-6. Work ID not found → not-found view. A hidden/private work should also appear not found to an unauthorized visitor to avoid existence disclosure. Adult-but-public works filtered only by a user's preference remain directly reachable with a clear content-policy interstitial if policy requires; preferences are not authorization.
-7. Correct ID is enough to survive renaming. An ID-only convenience URL may redirect to the canonical ID+slug URL but should not be emitted.
-8. Never redirect solely by title. Duplicate titles are allowed.
+## Reader state and browser history
 
-## Slug policy
+Canonical examples:
 
-Public slugs are generated from display title using Unicode normalization, transliteration where deterministic, lowercase, sequences of non-ASCII-alphanumeric characters to `-`, collapsed/trimmed hyphens, and a length ceiling (recommended 80 characters). If empty, use `work-{id}`. The route remains unique because ID is present. Preserve a checked-in/generated current public slug; do not regenerate it silently on every build. Storage slugs remain exact opaque R2/catalog keys and may differ.
+```text
+/works/9115320062/sinfullust-05-06-sp-upd/read
+/works/9115320062/sinfullust-05-06-sp-upd/read?chapter=chapter_2#page=3
+/works/9115320062/sinfullust-05-06-sp-upd/read?chapter=chapter_2&mode=single#page=3
+```
 
-Slugs are compared case-sensitively after URL decoding; only the canonical lowercase form is emitted. Decode each segment once, reject invalid encoding, and never treat decoded `/`, `\`, `.` or `..` as storage paths. Query names are lowercase and values are constrained enums/known chapter IDs.
+- Omit default chapter, default `continuous` mode, and page 1 from emitted URLs.
+- Opening a work/chapter is a navigational `pushState`; canonical corrections use `replaceState`.
+- Passive scrolling updates `#page=N` with throttled `replaceState`, not one history entry per pixel/page. Explicit “go to page,” chapter, or mode changes use `pushState`.
+- `popstate` and `hashchange` re-resolve state without remount loops. Set `history.scrollRestoration = "manual"` only while the reader owns restoration.
+- Preserve route when account menu opens; menus do not affect the URL.
 
-## Trailing slash and asset policy
+## Redirect and legacy matrix
 
-Canonical application routes have **no trailing slash**, except `/`. This matches fileless SPA URLs and avoids duplicate forms. Static asset URLs keep their exact generated form. All application assets use root-absolute paths on the current custom-domain/Cloudflare deployment. If GitHub project Pages is revived, configure a base path and router basename deliberately; do not make the canonical production URLs inherit the project base.
+| Input | Action |
+|---|---|
+| `/account` | guarded replace to `/account/profile` |
+| correct ID + stale slug | replace/308 to current slug, preserving allowed chapter/mode/page |
+| trailing slash | replace/308 to no-slash form |
+| `/?source=S&work=W&chapter=C` | resolve exact storage slug/source; replace canonical reader URL |
+| `/reader?source=S&work=W&chapter=C` | same legacy conversion |
+| `?page=N` on canonical reader | validate then replace with `#page=N` |
+| `#page-N` | accept alias and replace with `#page=N` |
+| old local `/login` redirect behavior | remove when real auth view ships |
+| unknown account child | account-scoped not-found; do not redirect blindly |
+| unknown/malformed work | not-found; do not fall back home |
 
-## Browser history
+Legacy conversion must preserve only allowlisted parameters and reject open redirects. Search and rotunda should emit canonical anchors progressively; retain the event adapter only until all callers migrate.
 
-- Internal work/card/search navigation calls central `navigate(url)` and pushes one entry.
-- Canonical correction, auth guard redirects, passive scroll page tracking, and legacy conversion replace the current entry.
-- Explicit chapter selection and explicit “go to page” actions push an entry.
-- Passive continuous scrolling updates `#page=N` with `replaceState`, throttled only when active page changes.
-- `popstate` and `hashchange` re-resolve route/position. Same work/chapter position changes scroll existing placeholders without refetch/rebuild. A different work/chapter performs a reader transition.
-- Set `history.scrollRestoration = "manual"` while the reader owns restoration; restore prior setting on teardown. Landing/account pages may use browser default.
+## Authentication navigation
 
-## Work-page behavior and metadata
+A signed-out visitor to a private route is redirected to `/login?next=` with only an allowlisted same-origin destination. After successful Google or email/password authentication, consume `next` once with `replaceState`. A signed-in visitor to login/signup is returned to a safe account/default route. Do not put access tokens in application-managed query strings.
 
-Keep detail and reader separate. Rotunda/search should first navigate to the work detail by default; a deliberate quick-read affordance may go directly to `/read`. The detail page shows cover, title, description when safe/public, canonical tags, page/chapter count, Read/Continue/Bookmark, and source attribution. It sets title, canonical link, Open Graph fields, and JSON-LD client-side initially. Real crawler/share-preview support requires prebuilt HTML or an edge metadata layer later; SPA mutation is not sufficient for all bots.
+## Metadata and errors
 
-## Error semantics
-
-Client SPA fallback cannot produce a true origin 404 after the shell has returned 200. Render a full not-found state immediately and send no R2 request for unresolved IDs. Phase 2 may generate public work pages/redirect objects or add a narrowly scoped edge resolver to return real 404/301 and social metadata. Private/hidden works should resolve as 404 unless an explicit authenticated private-work product is later introduced. Transient catalog/Supabase failures are 503-style retry states, not 404.
+The work detail route owns `<title>`, description, canonical link, and allowlisted Open Graph image/data. Reader pages canonicalize indexing to the work detail page and should normally be `noindex,follow` to avoid duplicate page-state URLs. Because a pure SPA fallback returns HTTP 200 before client resolution, true HTTP 404/redirect/metadata requires prebuilt work pages or an edge handler later; the initial client phase must still render an explicit not-found and never silently show home.
