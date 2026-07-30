@@ -4,12 +4,14 @@ import { Page } from "./page/page.js";
 import { Footer } from "./components/footer.js";
 import { startGhostText } from "./effects/ghost_text.js";
 import { initializeLocalProfiles } from "./local-profile/store.js";
+import { initializeGlobalMonetization } from "./monetization/global.js";
 
 async function boot() {
     try {
         startGhostText().catch(error => console.warn("Ghost text failed to start.", error));
         Page.start();
         initializeLocalProfiles();
+        initializeGlobalMonetization();
         Footer.start();
         document.documentElement.dataset.appState = "ready";
         window.__finishStartup?.();
