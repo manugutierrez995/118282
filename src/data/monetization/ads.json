@@ -1,0 +1,119 @@
+{
+  "version": 1,
+  "enabled": true,
+  "headMarkup": {
+    "exoclick_delegate_client_hints": {
+      "name": "ExoClick delegated client hints",
+      "provider": "exoclick",
+      "type": "head-meta",
+      "enabled": true,
+      "snippet": "<meta http-equiv=\"Delegate-CH\" content=\"Sec-CH-UA https://s.magsrv.com; Sec-CH-UA-Mobile https://s.magsrv.com; Sec-CH-UA-Arch https://s.magsrv.com; Sec-CH-UA-Model https://s.magsrv.com; Sec-CH-UA-Platform https://s.magsrv.com; Sec-CH-UA-Platform-Version https://s.magsrv.com; Sec-CH-UA-Bitness https://s.magsrv.com; Sec-CH-UA-Full-Version-List https://s.magsrv.com; Sec-CH-UA-Full-Version https://s.magsrv.com;\">"
+    }
+  },
+  "ads": {
+    "leaderboard_900x250": {
+      "name": "Leaderboard 900×250",
+      "provider": "exoclick",
+      "type": "banner",
+      "enabled": true,
+      "size": {
+        "width": 900,
+        "height": 250
+      },
+      "devices": [
+        "desktop",
+        "tablet",
+        "mobile"
+      ],
+      "snippet": "<script async type=\"application/javascript\" src=\"https://a.magsrv.com/ad-provider.js\"></script>\n<ins class=\"eas6a97888e2\" data-zoneid=\"5865240\"></ins>\n<script>(AdProvider = window.AdProvider || []).push({\"serve\": {}});</script>"
+    },
+    "top_banner_728x90": {
+      "name": "Top Banner 728×90",
+      "provider": "exoclick",
+      "type": "banner",
+      "enabled": true,
+      "size": {
+        "width": 728,
+        "height": 90
+      },
+      "devices": [
+        "desktop",
+        "tablet",
+        "mobile"
+      ],
+      "snippet": "<script async type=\"application/javascript\" src=\"https://a.magsrv.com/ad-provider.js\"></script>\n<ins class=\"eas6a97888e2\" data-zoneid=\"5865232\"></ins>\n<script>(AdProvider = window.AdProvider || []).push({\"serve\": {}});</script>"
+    },
+    "banner_300x250": {
+      "name": "Medium Rectangle 300×250",
+      "provider": "exoclick",
+      "type": "banner",
+      "enabled": true,
+      "size": {
+        "width": 300,
+        "height": 250
+      },
+      "devices": [
+        "desktop",
+        "tablet",
+        "mobile"
+      ],
+      "snippet": "<script async type=\"application/javascript\" src=\"https://a.magsrv.com/ad-provider.js\"></script>\n<ins class=\"eas6a97888e2\" data-zoneid=\"5865344\"></ins>\n<script>(AdProvider = window.AdProvider || []).push({\"serve\": {}});</script>"
+    },
+    "video_slider": {
+      "name": "Video Slider",
+      "provider": "exoclick",
+      "type": "video-slider",
+      "enabled": true,
+      "size": {
+        "mode": "provider-defined"
+      },
+      "devices": [
+        "desktop",
+        "tablet",
+        "mobile"
+      ],
+      "snippet": "<script async type=\"application/javascript\" src=\"https://a.magsrv.com/ad-provider.js\"></script>\n<ins class=\"eas6a97888e31\" data-zoneid=\"5880066\"></ins>\n<script>(AdProvider = window.AdProvider || []).push({\"serve\": {}});</script>"
+    },
+    "desktop_interstitial": {
+      "name": "Desktop Full-Page Interstitial",
+      "provider": "exoclick",
+      "type": "interstitial",
+      "enabled": true,
+      "size": {
+        "mode": "fullscreen"
+      },
+      "devices": [
+        "desktop"
+      ],
+      "snippet": "<script async type=\"application/javascript\" src=\"https://a.pemsrv.com/ad-provider.js\"></script>\n<ins class=\"eas6a97888e35\" data-zoneid=\"5880058\"></ins>\n<script>(AdProvider = window.AdProvider || []).push({\"serve\": {}});</script>"
+    },
+    "mobile_interstitial": {
+      "name": "Mobile Full-Page Interstitial",
+      "provider": "exoclick",
+      "type": "interstitial",
+      "enabled": true,
+      "size": {
+        "mode": "fullscreen"
+      },
+      "devices": [
+        "mobile"
+      ],
+      "snippet": "<script async type=\"application/javascript\" src=\"https://a.pemsrv.com/ad-provider.js\"></script>\n<ins class=\"eas6a97888e33\" data-zoneid=\"5880060\"></ins>\n<script>(AdProvider = window.AdProvider || []).push({\"serve\": {}});</script>"
+    },
+    "popunder": {
+      "name": "Popunder",
+      "provider": "exoclick",
+      "type": "popunder",
+      "enabled": true,
+      "size": {
+        "mode": "window"
+      },
+      "devices": [
+        "desktop",
+        "tablet",
+        "mobile"
+      ],
+      "snippet": "<script type=\"application/javascript\">\n(function() {\nvar adConfig = {\n  \"ads_host\": \"a.pemsrv.com\",\n  \"syndication_host\": \"s.pemsrv.com\",\n  \"idzone\": 5962682,\n  \"popup_fallback\": true,\n  \"popup_force\": false,\n  \"chrome_enabled\": true,\n  \"new_tab\": true,\n  \"frequency_period\": 1,\n  \"frequency_count\": 1,\n  \"trigger_method\": 3,\n  \"trigger_class\": \"\",\n  \"trigger_delay\": 20,\n  \"capping_enabled\": false,\n  \"tcf_enabled\": true,\n  \"agego_cross_site_enabled\": true,\n  \"only_inline\": false\n};\nvar popMagic = window.popMagic || {};\npopMagic.init(adConfig);\n})();\n</script>"
+    }
+  }
+}

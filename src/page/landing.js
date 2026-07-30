@@ -92,8 +92,7 @@ export class Landing {
         adCleanups.splice(0).forEach(cleanup => cleanup());
         accountCleanup = mountAccountNavigation(container.querySelector(".landing-account"));
         adCleanups.push(
-            renderAdRegion({ placement: "rotunda_side_rail_right", mount: container.querySelector(".landing-ad-rail") }),
-            renderAdRegion({ placement: "landing_below_rotunda", mount: container.querySelector(".landing-below-rotunda-ad") })
+            renderAdRegion({ placement: "landing_top_leaderboard", mount: container.querySelector(".landing-below-rotunda-ad") })
         );
 
         await Promise.all([

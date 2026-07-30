@@ -1,15 +1,25 @@
 {
   "version": 1,
-  "settings": { "enabled": true, "developmentVisualization": false, "providerTimeoutMs": 800 },
+  "enabled": true,
+  "global": {
+    "enabled": true,
+    "headMarkup": ["exoclick_delegate_client_hints"],
+    "fallback": { "enabled": true, "mode": "doku-doujins" },
+    "fillTimeoutMs": 3000
+  },
+  "verification": {
+    "enabled": true,
+    "showPlacementLabels": true,
+    "showProviderState": true,
+    "showFallbackReason": true
+  },
   "placements": {
-    "rotunda_side_rail_right": { "enabled": true, "pageType": "landing", "layout": "vertical-stack", "allowedFormats": ["skyscraper", "rectangle"], "minWidth": 160, "maxWidth": 300, "minHeight": 250, "maxHeight": 600, "maxItems": 1, "desktop": "show", "tablet": "hide", "mobile": "hide", "collapseWhenEmpty": true, "fallback": "house-or-meme", "lazyThreshold": "300px" },
-    "landing_below_rotunda": { "enabled": true, "pageType": "landing", "layout": "banner", "allowedFormats": ["leaderboard", "responsive-banner"], "minWidth": 280, "maxWidth": 970, "minHeight": 80, "maxHeight": 250, "maxItems": 1, "desktop": "show", "tablet": "show", "mobile": "show-inline", "collapseWhenEmpty": true, "fallback": "house-or-meme", "lazyThreshold": "200px" },
-    "search_after_6": { "enabled": true, "pageType": "search", "layout": "native", "allowedFormats": ["native-tile", "rectangle"], "minWidth": 240, "maxWidth": 520, "minHeight": 72, "maxHeight": 180, "maxItems": 1, "desktop": "show", "tablet": "show", "mobile": "show-inline", "collapseWhenEmpty": true, "fallback": "house-or-meme", "lazyThreshold": "0px" },
-    "work_below_metadata": { "enabled": false, "pageType": "work", "layout": "banner", "allowedFormats": ["responsive-banner", "rectangle"], "minWidth": 280, "maxWidth": 728, "minHeight": 90, "maxHeight": 250, "maxItems": 1, "desktop": "show", "tablet": "show", "mobile": "show-inline", "collapseWhenEmpty": true, "fallback": "house-or-meme", "lazyThreshold": "300px" },
-    "reader_chapter_end": { "enabled": true, "pageType": "reader", "layout": "banner", "allowedFormats": ["leaderboard", "responsive-banner", "rectangle"], "minWidth": 280, "maxWidth": 728, "minHeight": 90, "maxHeight": 250, "maxItems": 1, "desktop": "show", "tablet": "show", "mobile": "show-inline", "collapseWhenEmpty": true, "fallback": "house-or-meme", "lazyThreshold": "600px" },
-    "global_footer_banner": { "enabled": true, "pageType": "global", "layout": "banner", "allowedFormats": ["responsive-banner"], "minWidth": 280, "maxWidth": 970, "minHeight": 72, "maxHeight": 160, "maxItems": 1, "desktop": "show", "tablet": "show", "mobile": "show-inline", "collapseWhenEmpty": true, "fallback": "house-or-meme", "lazyThreshold": "400px" },
-    "bookmarks_footer": { "enabled": false, "pageType": "account", "layout": "banner", "allowedFormats": ["responsive-banner"], "minWidth": 280, "maxWidth": 728, "minHeight": 72, "maxHeight": 160, "maxItems": 1, "desktop": "show", "tablet": "show", "mobile": "show-inline", "collapseWhenEmpty": true, "fallback": "collapse", "lazyThreshold": "300px" },
-    "profile_footer": { "enabled": false, "pageType": "account", "layout": "banner", "allowedFormats": ["responsive-banner"], "minWidth": 280, "maxWidth": 728, "minHeight": 72, "maxHeight": 160, "maxItems": 1, "desktop": "show", "tablet": "show", "mobile": "show-inline", "collapseWhenEmpty": true, "fallback": "collapse", "lazyThreshold": "300px" },
-    "download_below_action": { "enabled": false, "pageType": "download", "layout": "banner", "allowedFormats": ["responsive-banner"], "minWidth": 280, "maxWidth": 728, "minHeight": 72, "maxHeight": 160, "maxItems": 1, "desktop": "show", "tablet": "show", "mobile": "show-inline", "collapseWhenEmpty": true, "fallback": "collapse", "lazyThreshold": "200px" }
+    "landing_top_leaderboard": { "enabled": true, "adId": "leaderboard_900x250", "location": "landing", "position": "top", "fallback": "doku-doujins" },
+    "global_top_banner": { "enabled": true, "adId": "top_banner_728x90", "location": "global-header", "position": "below-header", "fallback": "doku-doujins" },
+    "reader_between_pages": { "enabled": true, "adId": "banner_300x250", "location": "reader", "position": "between-pages", "frequency": { "mode": "fixed", "everyPages": 4, "minimumPages": 3, "maximumPages": 4 }, "adsPerBreak": { "mode": "fixed", "count": 1, "minimum": 1, "maximum": 3 }, "minimumPageBeforeFirstAd": 3, "maximumAdsPerChapter": 8, "trailingAd": false, "fallback": "doku-doujins" },
+    "reader_video_slider": { "enabled": true, "adId": "video_slider", "location": "reader", "position": "provider-overlay", "fallback": "doku-doujins" },
+    "desktop_full_page_interstitial": { "enabled": true, "adId": "desktop_interstitial", "location": "global", "position": "interstitial", "devices": ["desktop"], "frequency": { "maximumPerSession": 1 }, "fallback": "doku-doujins" },
+    "mobile_full_page_interstitial": { "enabled": true, "adId": "mobile_interstitial", "location": "global", "position": "interstitial", "devices": ["mobile"], "frequency": { "maximumPerSession": 1 }, "fallback": "doku-doujins" },
+    "global_popunder": { "enabled": true, "adId": "popunder", "location": "global", "position": "interaction-triggered", "frequency": { "maximumPerSession": 1 }, "fallback": "none" }
   }
 }

@@ -6,6 +6,7 @@ import { Search } from "../components/search.js";
 import { mountDiscussion } from "../discussion/discussion.js";
 import { mountAccountNavigation } from "../account/navigation.js";
 import { renderAdRegion } from "../monetization/components/ad-region.js";
+import { readerBreaks } from "../monetization/placements.js";
 
 // At most WINDOW_BEFORE + the active page + WINDOW_AFTER images are retained.
 // Keep these deliberately conservative for Safari's decoded-image memory budget.
@@ -191,6 +192,7 @@ function createVirtualReader(wrapper, manifest, session) {
     let observer = null;
     let scrollFrame = null;
     const intersecting = new Map();
+    const adBreaks = new Map(readerBreaks(manifest.pages).map(item => [item.afterPage, item.count]));
 
     const pageUrl = index =>
         `${manifest.base_url}/${String(index + 1).padStart(manifest.padding, "0")}.${manifest.extension}`;
@@ -280,6 +282,15 @@ function createVirtualReader(wrapper, manifest, session) {
         error.addEventListener("click", retry);
         element.appendChild(error);
         wrapper.appendChild(element);
+        const adCount = adBreaks.get(index + 1) || 0;
+        for (let adIndex = 0; adIndex < adCount; adIndex += 1) {
+            const adSlot = document.createElement("aside");
+            adSlot.className = "reader-between-pages-ad";
+            adSlot.dataset.afterPage = String(index + 1);
+            adSlot.setAttribute("aria-label", "Advertisement break");
+            wrapper.appendChild(adSlot);
+            session.cleanups.push(renderAdRegion({ placement: "reader_between_pages", mount: adSlot, lazy: true }));
+        }
         pages.push(page);
     }
 
@@ -436,11 +447,11 @@ async function renderManifestInto(root, manifestUrl, source, work, chapter) {
 
     createVirtualReader(wrapper, manifest, session);
 
-    const chapterAd = document.createElement("aside");
-    chapterAd.className = "reader-chapter-ad";
-    chapterAd.setAttribute("aria-label", "Sponsored and site promotions");
-    wrapper.appendChild(chapterAd);
-    session.cleanups.push(renderAdRegion({ placement: "reader_chapter_end", mount: chapterAd }));
+    const videoAd = document.createElement("aside");
+    videoAd.className = "reader-video-ad";
+    videoAd.setAttribute("aria-label", "Video advertisement");
+    wrapper.appendChild(videoAd);
+    session.cleanups.push(renderAdRegion({ placement: "reader_video_slider", mount: videoAd }));
 
     const { homeBar: bottomReaderBar } = buildReaderNavBar(source, work, chapter, chapters, {
         className: "reader-bottom-bar",

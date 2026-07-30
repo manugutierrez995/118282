@@ -18,8 +18,8 @@ test("checked-in placement manifest is valid and malformed manifests fail safely
 test("unknown, disabled, and responsive placements are ineligible", () => {
     assert.equal(placementEligible("unknown", 1920), false);
     assert.equal(placementEligible("profile_footer", 1920), false);
-    assert.equal(placementEligible("rotunda_side_rail_right", 390), false);
-    assert.equal(placementEligible("rotunda_side_rail_right", 1440), true);
+    assert.equal(placementEligible("mobile_full_page_interstitial", 1920), false);
+    assert.equal(placementEligible("desktop_full_page_interstitial", 1440), true);
     assert.deepEqual([viewportCategory(320), viewportCategory(768), viewportCategory(1280)], ["mobile", "tablet", "desktop"]);
 });
 
@@ -66,12 +66,12 @@ test("only public non-personal context crosses the privacy boundary", () => {
 
 test("page integrations remain placement-only and core content precedes optional regions", async () => {
     const [landing, search, reader, footer, component] = await Promise.all(["landing", "../components/search", "reader", "../components/footer", "../monetization/components/ad-region"].map(path => readFile(new URL(`../src/page/${path}.js`, import.meta.url), "utf8").catch(() => readFile(new URL(`../src/${path}.js`, import.meta.url), "utf8"))));
-    assert.match(landing, /landing_below_rotunda/); assert.match(search, /nodes\.splice\(6/); assert.match(reader, /createVirtualReader[\s\S]+reader_chapter_end[\s\S]+reader-bottom-bar/); assert.match(footer, /global_footer_banner/);
+    assert.match(landing, /landing_top_leaderboard/); assert.match(search, /nodes\.splice\(6/); assert.match(reader, /createVirtualReader[\s\S]+reader_between_pages[\s\S]+reader-bottom-bar/);
     for (const page of [landing, search, reader, footer]) assert.doesNotMatch(page, /https?:\/\/|accountId|provider\.request/);
-    assert.match(component, /IntersectionObserver/);
+    assert.match(await readFile(new URL("../src/monetization/renderer.js", import.meta.url), "utf8"), /IntersectionObserver/);
 });
 
-test("ad-free switch and development diagnostics are implemented without live scripts", async () => {
-    const [manifestText, region, index] = await Promise.all([readFile(new URL("../src/data/monetization/placements.json", import.meta.url), "utf8"), readFile(new URL("../src/monetization/components/ad-region.js", import.meta.url), "utf8"), readFile(new URL("../index.html", import.meta.url), "utf8")]);
-    assert.match(manifestText, /"enabled": true/); assert.match(region, /development[\s\S]+attempts:[\s\S]+winner:[\s\S]+size:/); assert.doesNotMatch(index, /exoclick|juicyads|adserver/i);
+test("verification is configured centrally and page markup has no provider snippets", async () => {
+    const [manifestText, renderer, index] = await Promise.all([readFile(new URL("../src/data/monetization/placements.json", import.meta.url), "utf8"), readFile(new URL("../src/monetization/renderer.js", import.meta.url), "utf8"), readFile(new URL("../index.html", import.meta.url), "utf8")]);
+    assert.match(manifestText, /"verification"[\s\S]+"enabled": true/); assert.match(renderer, /doku-ad-verification/); assert.doesNotMatch(index, /exoclick|juicyads|adserver/i);
 });
