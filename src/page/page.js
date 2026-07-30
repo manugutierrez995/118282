@@ -4,11 +4,12 @@ import { getAuthState, subscribeAuth } from "../auth/session.js";
 import { startRouter, navigate, safeNext } from "../router/router.js";
 import { bookmarksView, loadingView, loginView, notFoundView, profileView, settingsView } from "../account/views.js";
 
-let currentRoute, generation = 0;
+let currentRoute, generation = 0, viewCleanup;
 const root = () => document.getElementById("reader-container");
 const focusHeading = () => requestAnimationFrame(() => root()?.querySelector("h1")?.focus());
 async function render(route) {
     const renderId = ++generation;
+    viewCleanup?.(); viewCleanup = null;
     document.body.classList.remove("reader-active");
     if (route.kind === "redirect") return navigate(route.to, { replace: true });
     if (route.kind === "legacy-reader") { const p = new URLSearchParams(location.search); return Reader.start(p.get("work"), p.get("chapter")); }
@@ -28,7 +29,7 @@ async function render(route) {
     }
     if (route.kind === "account-profile") profileView(root(), state.user);
     if (route.kind === "account-bookmarks") await bookmarksView(root(), state.user);
-    if (route.kind === "account-settings") settingsView(root(), state.user);
+    if (route.kind === "account-settings") viewCleanup = settingsView(root(), state.user);
     if (renderId === generation) focusHeading();
 }
 const rerender = () => currentRoute && render(currentRoute);

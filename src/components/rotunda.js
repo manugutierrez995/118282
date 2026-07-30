@@ -5,6 +5,8 @@ import rotunda from "../data/rotunda.json";
 import tagCatalog from "../data/tags.json";
 import { visibilityPolicyStore } from "./visibility_policy.js";
 import { filterRotundaCandidates } from "../utils/tag.js";
+import { personalizedRotundaOrder } from "../personalization/catalog.js";
+import { personalizationStore } from "../personalization/store.js";
 import storage from "../data/storage.json";
 import { ROTUNDA_MAX_MOUNTED, rotundaWindow } from "./rotunda_window.js";
 import "../styles/rotunda.css";
@@ -109,7 +111,16 @@ export class Rotunda {
         const environment = storage.active;
         const sources = storage[environment]?.sources ?? {};
         const rawWorks = rotunda.works ?? [];
-        let works = filterRotundaCandidates(rawWorks, await visibilityPolicyStore.refresh(), tagCatalog);
+        container.innerHTML = '<p class="rotunda-loading" role="status">Loading your discovery settings…</p>';
+        let policy = await visibilityPolicyStore.refresh();
+        let preferences = await personalizationStore.ready();
+        if (preferences.status === "error") {
+            container.innerHTML = '<p class="rotunda-empty-state" role="status">Personalized Rotunda unavailable. <button type="button">Retry</button></p>';
+            container.querySelector("button").onclick = () => { personalizationStore.retry().then(() => Rotunda.start()); };
+            return;
+        }
+        const sessionSeed = `${preferences.userId || "public"}:${preferences.revision}`;
+        let works = personalizedRotundaOrder(filterRotundaCandidates(rawWorks, policy, tagCatalog), preferences, tagCatalog, sessionSeed);
         const defaultSource = rotunda.default?.source || "e";
         const metadataCache = new LruCache(ROTUNDA_METADATA_CACHE_MAX);
         const thumbnailCache = new LruCache(ROTUNDA_THUMBNAIL_CACHE_MAX);
@@ -151,6 +162,7 @@ export class Rotunda {
             empty.className = "rotunda-empty-state";
             empty.textContent = message;
             track.append(empty);
+            if (preferences.userId) { const link = document.createElement("a"); link.href = "/account/settings"; link.dataset.route = ""; link.textContent = "Review tag settings"; track.append(link); }
         }
 
         let captionMeasureFrame = 0;
@@ -505,12 +517,26 @@ export class Rotunda {
         window.addEventListener("resize", resizeCaption, { passive: true });
 
         const policyChange = event => {
-            works = filterRotundaCandidates(rawWorks, event.detail || visibilityPolicyStore.get(), tagCatalog);
-            absoluteActiveIndex = works.length ? ((absoluteActiveIndex % works.length) + works.length) % works.length : 0;
+            const activeSlug = works.length ? works[((absoluteActiveIndex % works.length) + works.length) % works.length]?.slug : null;
+            policy = event.detail || visibilityPolicyStore.get();
+            works = personalizedRotundaOrder(filterRotundaCandidates(rawWorks, policy, tagCatalog), preferences, tagCatalog, `${preferences.userId || "public"}:${preferences.revision}`);
+            const survivor = works.findIndex(work => work.slug === activeSlug);
+            absoluteActiveIndex = survivor >= 0 ? survivor : 0;
             metadataCache.clear();
             render();
         };
         visibilityPolicyStore.addEventListener("change", policyChange);
+        const unsubscribePreferences = personalizationStore.subscribe(next => {
+            if (next.revision === preferences.revision) return;
+            const activeSlug = works.length ? works[((absoluteActiveIndex % works.length) + works.length) % works.length]?.slug : null;
+            preferences = next;
+            if (next.status !== "ready") { works = []; render(); return; }
+            works = personalizedRotundaOrder(filterRotundaCandidates(rawWorks, policy, tagCatalog), next, tagCatalog, `${next.userId || "public"}:${next.revision}`);
+            const survivor = works.findIndex(work => work.slug === activeSlug);
+            absoluteActiveIndex = survivor >= 0 ? survivor : 0;
+            metadataCache.clear();
+            render();
+        });
 
         if (import.meta.env.DEV) window.__rotundaDiagnostics = diagnostics;
         Rotunda.cleanup = () => {
@@ -523,6 +549,7 @@ export class Rotunda {
             window.removeEventListener("keydown", keydown);
             window.removeEventListener("resize", resizeCaption);
             visibilityPolicyStore.removeEventListener("change", policyChange);
+            unsubscribePreferences();
             container.removeEventListener("pointerenter", pointerEnter);
             container.removeEventListener("pointerleave", pointerLeave);
             viewport.removeEventListener("pointerdown", pointerDown);

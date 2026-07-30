@@ -1,68 +1,49 @@
-# Tag personalization: next implementation handoff
+# User tag personalization v1
 
-## Status, decisions, and scope
+## Status (2026-07-30)
 
-As of 2026-07-30, personalization is **not implemented**. Account settings intentionally render disabled controls in `src/account/views.js`. The existing `user_tag_preferences` migration is an owner-isolated foundation, not proof that the migration is live. The next leap is a reviewed, versioned public vocabulary plus a generated work/tag index, validated preference writes, and a preference-aware catalog pipeline that finishes before any personalized surface renders.
+Repository implementation is complete for Settings, Search, and the landing Rotunda. Live Supabase migration and two-user browser verification remain pending because this checkout has no configured remote or project credentials. Ownership is always `auth.users.id`; Google and password users share the same table, RPCs, store, and UI.
 
-Decided: `auth.users.id` is the sole owner; exclusion always wins; preferences weight rather than filter; private lists never enter static HTML, public JSON, analytics, shared/CDN caches, or unkeyed local storage; direct work URLs remain accessible because personalization is not authorization. No provider/email ownership keys or account merging.
+## Implementation
 
-Still undecided and requiring product review: the public sensitive/adult taxonomy labels; tuning constants after measurement; whether hidden bookmarked works need a dedicated settings panel in the first release. Recommended bookmark rule: hide them from ordinary discovery, never delete the bookmark, and expose them in a settings-only “excluded bookmarks” manager.
+* `src/data/tag-vocabulary.json` is the reviewed v1 chooser source. The corpus currently has only one defensible public content tag (`futanari`); editorial/pipeline values `manifest`, `favorite`, `iconic`, and `ns` are not exposed. `src/data/tags.json` remains the shared work/tag map.
+* `src/personalization/data.js` performs one owner-scoped preference load and calls owner-derived RPCs. `store.js` follows the existing auth subscription and identity generation, clears sets synchronously on identity changes, ignores stale loads, exposes loading/ready/error and optimistic mutations with rollback. It stores no private data outside active memory.
+* `catalog.js` provides exclusion, preferred counts, Search ranking, named weights (1.0 + 0.75 per match capped at a 2.0 bonus), and stable seeded unique Rotunda ordering with neutral candidates interleaved.
+* `/account/settings` has allowed-option inputs, removable named chips, explanations, loading/empty/saving/success/error announcements, retry, and confirmed reset. Selecting a tag in the opposite list invokes the atomic move RPC.
+* Search waits for preference readiness, finds all textual matches, excludes before the 12-result cap, uses preferred count as stable secondary ordering, and reruns an active query on store changes. Errors never fall back to unfiltered results.
+* Rotunda applies global visibility first, then exclusions and stable weighting before `initialCard`, DOM cards, metadata, or thumbnail assignment. Preference/policy changes rebuild the candidates, retain the active slug where possible, abort stale rendering, and safely show an empty state/settings link.
+* Bookmarks and direct Reader URLs are intentionally unchanged. Exclusion is discovery filtering, not authorization; bookmark rows remain visible/readable and are never deleted by preference operations.
 
-## Current repository audit
+## Database and privacy
 
-* `src/data/tags.json` is the canonical-looking version-1 work map used by `src/utils/tag.js`, but contains raw/unreviewed and empty tag arrays. `src/data/fetch.json` and individual `src/data/works/*.json` also contain tags; `scripts/build_tags.py` merges local/R2 data. These are inputs, not a safe user vocabulary.
-* `src/components/rotunda.js`, `Rotunda.start()`, currently reads `rotunda.works`, awaits `visibilityPolicyStore.refresh()`, and calls `filterRotundaCandidates(rawWorks, policy, tagCatalog)` before creating cards. This is the exact personalization insertion boundary.
-* `src/page/landing.js`, `Landing.start()`, launches Search, Rotunda, Blocks, and ticker concurrently. `src/components/search.js` and `src/components/blocks.js` independently render public candidates, so a shared readiness service is needed to prevent excluded-work flashes.
-* `supabase/migrations/202607300001_user_tag_preferences.sql` has `(user_id, tag_key)` primary key, an enum enforcing one state per tag, cascade deletion, timestamps, and owner SELECT/INSERT/UPDATE/DELETE RLS. It supports upsert/move via conflict update and delete. It lacks vocabulary validation, an `updated_at` trigger, an explicit weight constraint/decision, and proof of live application. The PK is sufficient; an additional `(user_id, preference_type)` index is useful once lists grow.
-* Bookmark ownership is the single `public.bookmarks` table from `202607170001_discussion_mvp.sql`, keyed by `(user_id, work_id)` with `auth.uid()` owner RLS. Static SQL is not live RLS verification.
+`supabase/migrations/202607300002_complete_user_tag_preferences_v1.sql` adds the synchronized allowlist, fail-safe invalid-row detection, FK, owner/type index, timestamp trigger, and SECURITY INVOKER set/move/remove/reset RPCs. RPC ownership comes only from `auth.uid()`, with existing RLS retained. Apply after `202607300001_user_tag_preferences.sql`; review any invalid-row exception rather than deleting data. No service key, per-user static artifact, query-string preference, or localStorage mirror exists.
 
-## Required vocabulary and schema
+## Verification and limitations
 
-Add a migration after `202607300001` creating `public.public_tag_vocabulary(tag_key text primary key, label text, aliases text[], category text, sensitivity text, status text, replacement_key text, vocabulary_version integer, user_selectable boolean)`. Stable keys must be lowercase ASCII kebab-case; trim/case-fold aliases at ingestion; reject empty/unknown/internal-only/deprecated keys. Merged/deprecated keys point to replacements. Sensitive classifications require reviewed labels and explicit `user_selectable`; internal manifest markers never become options.
+Node unit/regression tests, production Vite build, and Python tag-generation tests pass locally. Static SQL inspection is not live RLS verification. Apply the migration to staging, run two durable users through persistence/account switching/bookmark exception flows, and inspect Network for excluded thumbnails and the single compact load. The v1 chooser is honestly small until reviewed corpus tagging expands. Multi-tab convergence beyond auth/session events is deferred.
 
-Enforce integrity server-side with a SECURITY INVOKER RPC (or FK if vocabulary is database-authoritative) that verifies `user_selectable`, locks one user/tag row, and atomically upserts/moves/removes. It must derive `user_id` from `auth.uid()`, never accept another owner, update `updated_at`, and return the resulting two lists. Add `(user_id, preference_type)` index and a trigger for timestamps. Decide whether to remove unused `weight`; recommendation: omit per-user weight in v1 and tune globally. Verify migration ordering and record `supabase migration list` output; do not claim live status from files.
+## Next expansion
 
-The UI reads vocabulary from a public versioned artifact generated from the same reviewed source as the database seed. A CI check must compare artifact hash/version, database seed migration, and mappings so they cannot drift.
+Reuse this same store and pure catalog functions for Blocks, landing rows/carousels, recommendations, related works, browse pages, random discovery, and recommendation explanations. Do not introduce a second tag interpretation or behavioral recommendation engine.
 
-## Public work-to-tag index and performance
+## Detailed implementation checklist
 
-Make a reviewed source file (for example `catalog/tag-vocabulary.v2.json`) authoritative. Extend `scripts/build_tags.py` to normalize aliases, strip internal/unknown tags, emit `public/data/work-tags.v2.json` containing only `{version, vocabularyHash, works:{slug:[keys]}}`, and fail on empty keys, stale replacements, duplicate aliases, or unknown public mappings. Include source input hashes/build timestamp for staleness detection. Do not repeatedly scan work manifests in the browser.
+### Required vocabulary and schema
+The v1 artifact and forward migration are implemented as described above.
 
-Load catalog and this compact index once; represent each tag as an integer/bitset or cached `Set` for thousands of works. A user-keyed in-memory personalization snapshot may contain `{userId,generation,preferred,excluded}` and must be destroyed on identity change. Filter before constructing DOM nodes or assigning thumbnail URLs. Mobile and desktop consume the same eligible/weighted candidate service.
+### Exclusion pipeline
+The pipeline is catalog → global policy → exclusion → preference → render; exclusion always wins in Search and `Rotunda.start`.
 
-## Exclusion pipeline for every surface
+### Preferred weighting
+Named 1.0/0.75/2.0 constants and stable neutral-preserving ordering are implemented.
 
-Create `src/personalization/store.js` to wait for auth restoration, fetch rows for exactly the current UUID, generation-check late results, and publish `loading|ready|error`. Create `src/personalization/catalog.js` pure functions for canonical matching, hard exclusion, and scoring. Signed-out/no-preference users immediately use the public catalog; authenticated users hold a neutral skeleton until preferences resolve, preventing flashes.
+### Settings UI
+The validated chooser, chips, announcements, retry, rollback, and reset are enabled.
 
-Apply hard exclusion before rendering/image preload to landing displays, `Rotunda.start`, Blocks rows/carousels, browse/discovery, default search results, recommendations, random selections, future related works, and virtualized/preloaded collections. Search should offer an explicit temporary “include hidden” action, default off, without changing saved settings. If exclusions remove everything, render an honest empty state with a settings link; never silently ignore exclusions. Direct legacy reader URLs remain accessible.
+### Security, privacy
+RLS and `auth.uid()` remain authoritative; no private static cache was added.
 
-## Preferred weighting and rotunda algorithm
+### Tests and rollout order
+Local tests/build precede staging migration and the pending live two-user matrix.
 
-For eligible work `w`, recommend `weight(w) = 1 + min(2.0, 0.75 * distinctPreferredMatches(w))`. Examples: 0 matches → 1.00; 1 → 1.75; 2 → 2.50; 3+ → 3.00. Exclusion yields 0 regardless of matches. Constants are named/configured and tuned with offline distribution tests—not unexplained magic values.
-
-Select with session-seeded weighted sampling without replacement (Efraimidis–Spirakis keys are suitable), then apply: no duplicate slug; cap consecutive same-category works; multiply recently shown items by 0.2 for the session; preserve at least 30% baseline/nonmatching candidates when available. A session seed makes rerenders stable while retaining randomness between sessions. Cold start uses weight 1. Few preferred matches fill from baseline. Near-total exclusions respect exclusions and show a smaller/empty selection. Track recent slugs only in user-keyed memory and clear on identity change.
-
-Exact order in `Rotunda.start`: load public rotunda + normalized index; await auth and preference snapshot; call shared hard filter; calculate weights; diversity/repeat suppression; weighted sample without replacement; only then call `initialCard` and render/load thumbnails. Smallest safe refactor: extract candidate preparation ahead of current cache/DOM setup, leaving gestures, reader URLs, metadata cache, and virtualization unchanged.
-
-## Settings UI
-
-Implement an ARIA searchable combobox backed only by selectable vocabulary options, plus removable chips in Preferred and Excluded fieldsets. This scales better than a long categorized chooser while categories can group results. Keyboard support: labelled input/listbox, arrows, Enter, Escape, announced counts/status, chip remove buttons, and visible focus; use the same responsive control on mobile.
-
-Selecting a tag already in the other list invokes the atomic move RPC after confirmation/clear explanation. Prevent duplicates client-side and server-side. Use optimistic chips with per-operation “Saving”, success announcement, rollback/retry on network failure, and authoritative reload after ambiguous errors. Include empty/error/no-catalog-match states, explanations (“excluded hides discovery; preferred increases frequency”), and Reset personalization with confirmation. Never accept arbitrary free text.
-
-## Security, privacy, and cache rules
-
-RLS remains authorization. Browser code uses publishable/anon key only; service role never ships. Emails remain Auth-only, not public profile fields. Public tag indexes contain no preferences. Never log tokens, private lists, or personalized HTML into shared static/CDN caches. Provider is not ownership. Every request/result carries user UUID plus identity generation; User A responses are discarded after User B becomes active.
-
-## Tests and rollout order for the next Codex run
-
-1. Review/version vocabulary; add normalization and artifact/schema drift tests.
-2. Add schema/RPC migration, timestamp trigger/index, local Supabase RLS tests for two users, invalid/internal tag rejection, atomic move/remove/reset, and cascade deletion. Apply staging migration and verify live separately.
-3. Build the compact index and CI freshness checks; benchmark hundreds/thousands of works.
-4. Add the identity-generation-aware preference store; test A→B and late A response isolation, signed-out/cold-start/error states.
-5. Add pure exclusion/scoring/seeded-sampling tests: exclusion-wins, examples above, diversity, duplicates, recent suppression, few/zero matches.
-6. Wire Rotunda at `Rotunda.start`, then Blocks and Search, ensuring no excluded image request occurs. Preserve direct/legacy reader URLs.
-7. Enable the combobox/chips settings UI through validated RPC only; test keyboard, screen reader states, mobile, moves, rollback, reset.
-8. Browser-test two accounts in both orders; inspect network requests for excluded thumbnails and caches; measure selection distributions and tune named weights.
-
-**Exact next Codex task:** implement and review vocabulary v2, its database validation/RPC migration and generated work-tag index, then add the generation-safe preference store and wire hard exclusion plus the documented weighted sampling into `Rotunda.start` before any card/image creation; enable validated settings controls only after those boundaries pass two-user RLS and stale-response tests.
+**Exact next Codex task:** apply the forward migration in staging, perform the documented two-user and Network verification, then reuse the same subsystem for Blocks and other discovery surfaces.

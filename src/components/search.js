@@ -1,4 +1,7 @@
 import { normalize } from "../utils/normalize.js";
+import tagCatalog from "../data/tags.json";
+import { rankSearchMatches } from "../personalization/catalog.js";
+import { personalizationStore } from "../personalization/store.js";
 
 const SEARCH_INDEX_URL = "/data/search.index.json";
 let searchIndexPromise = null;
@@ -59,11 +62,13 @@ export class Search {
                 <span class="search-icon" aria-hidden="true">⌕</span>
                 <input class="search-input" type="search" placeholder="Search Doku-Doujin…" aria-label="Search Doku-Doujin" autocomplete="off" />
                 <div class="search-results" role="listbox" hidden></div>
+                <p class="search-personalization-status" role="status" aria-live="polite"></p>
             </div>
         `;
 
         const input = mount.querySelector(".search-input");
         const results = mount.querySelector(".search-results");
+        const personalizationStatus = mount.querySelector(".search-personalization-status");
 
         let activeMatches = [];
         let activeIndex = -1;
@@ -127,7 +132,7 @@ export class Search {
         // -----------------------------
         // INPUT SEARCH
         // -----------------------------
-        input.addEventListener("input", async () => {
+        async function runSearch() {
             const query = input.value;
             const q = normalize(query);
             const tokens = q.split(" ").filter(Boolean);
@@ -139,22 +144,23 @@ export class Search {
             }
 
             const index = await loadSearchIndex();
+            const preferences = await personalizationStore.ready();
 
             if (query !== input.value) return;
+            if (preferences.status === "loading") { activeMatches = []; close(); personalizationStatus.textContent = "Loading your discovery settings…"; return; }
+            if (preferences.status === "error") { activeMatches = []; close(); personalizationStatus.innerHTML = 'Personalized search is unavailable. <button type="button">Retry</button>'; personalizationStatus.querySelector("button").onclick = () => personalizationStore.retry(); return; }
+            personalizationStatus.textContent = "";
 
-            activeMatches = [];
-            for (const entry of index) {
-                if (tokens.every(token => entry.normalized?.includes(token))) {
-                    activeMatches.push(entry);
-                    if (activeMatches.length === 12) break;
-                }
-            }
+            const textualMatches = index.filter(entry => tokens.every(token => entry.normalized?.includes(token)));
+            activeMatches = rankSearchMatches(textualMatches, preferences, tagCatalog, 12);
 
             renderResults(results, activeMatches);
             activeIndex = -1;
             clearTimeout(hideTimer);
             announceState();
-        }, { signal });
+        }
+        input.addEventListener("input", runSearch, { signal });
+        const unsubscribePreferences = personalizationStore.subscribe(() => { if (input.value.trim()) runSearch(); });
 
         input.addEventListener("keydown", (event) => {
             if (event.key === "Escape") {
@@ -177,6 +183,7 @@ export class Search {
         return () => {
             controller.abort();
             clearTimeout(hideTimer);
+            unsubscribePreferences();
             mount.replaceChildren();
         };
     }

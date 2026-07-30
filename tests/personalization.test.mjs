@@ -1,0 +1,14 @@
+import test from "node:test";
+import assert from "node:assert/strict";
+import vocabulary from "../src/data/tag-vocabulary.json" with { type: "json" };
+import { excludedMatch, personalizedRotundaOrder, rankSearchMatches, resolveVocabularyTag, rotundaWeight, selectableVocabulary } from "../src/personalization/catalog.js";
+import { normalizeTag, normalizeTags } from "../src/utils/tag.js";
+
+const catalog = { works: { a: { tags: ["futanari"] }, b: { tags: ["neutral"] }, c: { tags: ["futanari", "x", "y"] } } };
+const snap = (preferred = [], excluded = []) => ({ preferred: new Set(preferred), excluded: new Set(excluded) });
+test("tag normalization trims, folds case, and removes duplicates", () => { assert.equal(normalizeTag("  FuTa Nari "), "futa-nari"); assert.deepEqual(normalizeTags([" X ", "x", ""]), ["x"]); });
+test("vocabulary offers only checked active public tags", () => { assert.deepEqual(selectableVocabulary(vocabulary).map(x => x.tag_key), ["futanari"]); assert.equal(resolveVocabularyTag("manifest", vocabulary), null); assert.equal(resolveVocabularyTag("unknown", vocabulary), null); });
+test("exclusion wins and search filters before cap", () => { assert.equal(excludedMatch({ work: "a" }, snap(["futanari"], ["futanari"]), catalog), true); const entries = Array.from({ length: 14 }, (_, i) => ({ work: i < 2 ? "a" : "b", id: i })); assert.deepEqual(rankSearchMatches(entries, snap([], ["futanari"]), catalog).map(x => x.id), Array.from({ length: 12 }, (_, i) => i + 2)); });
+test("preferred search ranking is stable and does not add unrelated entries", () => { assert.deepEqual(rankSearchMatches([{ work: "b" }, { work: "a" }], snap(["futanari"]), catalog).map(x => x.work), ["a", "b"]); });
+test("rotunda v1 weights are documented values and exclusion is zero", () => { assert.equal(rotundaWeight({ slug: "b" }, snap(), catalog), 1); assert.equal(rotundaWeight({ slug: "a" }, snap(["futanari"]), catalog), 1.75); const richer = { works: { a: { tags: ["x", "y"] }, c: { tags: ["x", "y", "z"] } } }; assert.equal(rotundaWeight({ slug: "a" }, snap(["x", "y"]), richer), 2.5); assert.equal(rotundaWeight({ slug: "c" }, snap(["x", "y", "z"]), richer), 3); assert.equal(rotundaWeight({ slug: "c" }, snap(["x", "y", "z"], ["x"]), richer), 0); });
+test("rotunda order is seeded, unique, excludes, and retains neutral diversity", () => { const works = [{ slug: "a" }, { slug: "b" }, { slug: "c" }, { slug: "b" }]; const one = personalizedRotundaOrder(works, snap(["futanari"]), catalog, "seed"); const two = personalizedRotundaOrder(works, snap(["futanari"]), catalog, "seed"); assert.deepEqual(one, two); assert.equal(new Set(one.map(x => x.slug)).size, one.length); assert(one.some(x => x.slug === "b")); assert(!personalizedRotundaOrder(works, snap([], ["futanari"]), catalog, "seed").some(x => x.slug === "a")); });

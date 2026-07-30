@@ -4,6 +4,8 @@ import { listBookmarks, readerUrl, removeBookmark } from "./data.js";
 import { navigate, safeNext } from "../router/router.js";
 import { getIdentityGeneration, isCurrentIdentity } from "../auth/session.js";
 import { normalizeAuthError } from "../auth/errors.js";
+import vocabulary from "../data/tag-vocabulary.json";
+import { personalizationStore } from "../personalization/store.js";
 
 const escape = value => String(value ?? "").replace(/[&<>'"]/g, char => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;" })[char]);
 const authRedirect = path => new URL(path, window.location.origin).href;
@@ -73,8 +75,27 @@ export async function bookmarksView(root, user) {
     await load();
 }
 export function settingsView(root, user) {
-    root.innerHTML = shell("Account settings", `<section><h2>Account</h2><p>${escape(user.email || "Email unavailable")} · ${escape(providers(user))}</p><button class="signout-button">Sign out</button><p class="signout-status" role="status"></p></section><section><h2>Content Preferences</h2><p class="preference-notice" role="status">Preferred and excluded tags are not editable yet. The catalog does not provide a reviewed user-facing tag vocabulary, so exposing internal tags would be unsafe and misleading.</p><fieldset disabled><legend>Preferred tags</legend><input aria-label="Preferred tags unavailable" placeholder="Coming after tag vocabulary review"></fieldset><fieldset disabled><legend>Excluded tags</legend><input aria-label="Excluded tags unavailable" placeholder="Coming after tag vocabulary review"></fieldset></section>`, "settings");
+    const allowed = vocabulary.tags.filter(tag => tag.status === "active" && tag.user_selectable);
+    root.innerHTML = shell("Account settings", `<section><h2>Account</h2><p>${escape(user.email || "Email unavailable")} · ${escape(providers(user))}</p><button class="signout-button">Sign out</button><p class="signout-status" role="status"></p></section><section class="tag-preferences"><h2>Content preferences</h2><p>Preferred tags make matching works appear more prominently while keeping other works discoverable.</p><p>Excluded tags hide matching works from Search and the Rotunda. Bookmarked works remain in Bookmarks.</p><p class="preference-status" role="status" aria-live="polite">Loading preferences…</p><div class="preference-editor"></div><button class="preference-reset" type="button">Reset personalization</button></section>`, "settings");
     bindSignOut(root);
+    const editor = root.querySelector(".preference-editor"), status = root.querySelector(".preference-status"), reset = root.querySelector(".preference-reset");
+    const controller = new AbortController(), { signal } = controller;
+    function render(snapshot) {
+        if (snapshot.status === "loading") { status.textContent = "Loading preferences…"; editor.replaceChildren(); return; }
+        if (snapshot.status === "error") { status.innerHTML = 'Preferences are unavailable. <button type="button" class="preference-retry">Retry</button>'; status.querySelector("button").onclick = () => personalizationStore.retry(); editor.replaceChildren(); return; }
+        status.textContent = snapshot.preferred.size || snapshot.excluded.size ? "Preferences loaded." : "No personalization selected.";
+        editor.innerHTML = ["preferred", "excluded"].map(type => `<fieldset><legend>${type === "preferred" ? "Preferred" : "Excluded"} tags</legend><div class="preference-chips">${[...snapshot[type]].map(key => `<button type="button" class="preference-chip" data-remove="${escape(key)}" aria-label="Remove ${escape(key)} from ${type} tags">${escape(allowed.find(t => t.tag_key === key)?.label || key)} ×</button>`).join("") || `<span>No ${type} tags.</span>`}</div><label>Add a ${type} tag<input type="search" list="tag-vocabulary-${type}" data-add="${type}" autocomplete="off"></label><datalist id="tag-vocabulary-${type}">${allowed.map(tag => `<option value="${escape(tag.label)}"></option>`).join("")}</datalist><button type="button" data-save="${type}">Add ${type} tag</button></fieldset>`).join("");
+    }
+    const unsubscribe = personalizationStore.subscribe(render);
+    editor.addEventListener("click", async event => {
+        const remove = event.target.closest("[data-remove]"), save = event.target.closest("[data-save]");
+        try {
+            if (remove) { remove.disabled = true; status.textContent = "Saving…"; await personalizationStore.remove(remove.dataset.remove); status.textContent = "Preference removed."; }
+            if (save) { const type = save.dataset.save, input = editor.querySelector(`[data-add="${type}"]`); const tag = allowed.find(item => item.label.toLowerCase() === input.value.trim().toLowerCase() || item.tag_key === input.value.trim().toLowerCase()); if (!tag) { status.textContent = "Choose a tag from the allowed list."; return; } save.disabled = true; status.textContent = "Saving…"; await personalizationStore.set(tag.tag_key, type); status.textContent = "Preference saved."; }
+        } catch { status.textContent = "The preference was not saved. Your previous settings were restored. Retry when ready."; }
+    }, { signal });
+    reset.addEventListener("click", async () => { if (!confirm("Reset all preferred and excluded tags?")) return; reset.disabled = true; status.textContent = "Saving…"; try { await personalizationStore.reset(); status.textContent = "Personalization reset."; } catch { status.textContent = "Reset failed. Your previous settings were restored."; } finally { reset.disabled = false; } }, { signal });
+    return () => { controller.abort(); unsubscribe(); };
 }
 
 function bindSignOut(root) {
