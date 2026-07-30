@@ -16,7 +16,12 @@ async function render(route) {
     if (route.kind === "account-not-found" || route.kind === "not-found") { notFoundView(root(), route.kind === "account-not-found"); focusHeading(); return; }
     const state = getAuthState();
     if (route.private && state.status === "loading") return loadingView(root());
-    if (route.private && state.status !== "authenticated") return navigate(`/login?next=${encodeURIComponent(safeNext(location.pathname + location.search + location.hash))}`, { replace: true });
+    if (route.private && state.status !== "authenticated") {
+        const callback = new URLSearchParams(location.search);
+        const error = callback.get("error"), description = callback.get("error_description");
+        const failure = description ? `&error=${encodeURIComponent(error || "oauth_error")}&error_description=${encodeURIComponent(description)}` : "";
+        return navigate(`/login?next=${encodeURIComponent(safeNext(location.pathname + location.search + location.hash))}${failure}`, { replace: true });
+    }
     if (["login", "signup", "forgot-password", "reset-password"].includes(route.kind)) {
         if (state.status === "authenticated" && route.kind !== "reset-password") return navigate(safeNext(new URLSearchParams(location.search).get("next")), { replace: true });
         loginView(root(), route.kind); focusHeading(); return;

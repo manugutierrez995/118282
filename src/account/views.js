@@ -1,7 +1,9 @@
 import { completePasswordReset, continueWithGoogle, requestPasswordReset, signInWithEmail, signOut, signUpWithEmail } from "../auth/session.js";
-import { accountSubnav } from "./navigation.js";
+import { accountPresentation, accountSubnav } from "./navigation.js";
 import { listBookmarks, readerUrl, removeBookmark } from "./data.js";
 import { navigate, safeNext } from "../router/router.js";
+import { getIdentityGeneration, isCurrentIdentity } from "../auth/session.js";
+import { normalizeAuthError } from "../auth/errors.js";
 
 const escape = value => String(value ?? "").replace(/[&<>'"]/g, char => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;" })[char]);
 const authRedirect = path => new URL(path, window.location.origin).href;
@@ -37,21 +39,26 @@ export function loginView(root, mode = "login") {
             if (mode === "reset-password") { await completePasswordReset(values.get("password")); status.textContent = "Password updated."; navigate("/account/profile", { replace: true }); }
         } catch { status.textContent = "We could not complete that request. Check your details and try again."; } finally { submit.disabled = false; }
     });
-    root.querySelector(".google-button")?.addEventListener("click", async event => { event.currentTarget.disabled = true; status.textContent = "Opening Google…"; try { sessionStorage.setItem("doku-account-next", next); await continueWithGoogle(authRedirect(next)); } catch { status.textContent = "Google login could not be started."; event.currentTarget.disabled = false; } });
+    const callbackError = new URLSearchParams(location.search).get("error_description");
+    if (callbackError) status.textContent = normalizeAuthError({ message: callbackError, code: new URLSearchParams(location.search).get("error") }, "google-callback").userMessage;
+    root.querySelector(".google-button")?.addEventListener("click", async event => { event.currentTarget.disabled = true; status.textContent = "Opening Google…"; try { await continueWithGoogle(next); } catch (error) { status.textContent = error.authDiagnostic?.userMessage || normalizeAuthError(error, "google-sign-in").userMessage; event.currentTarget.disabled = false; } });
 }
 export function profileView(root, user) {
     const metadata = user.user_metadata || {};
-    const avatar = /^https:\/\/[^\s]+$/i.test(metadata.avatar_url || "") ? `<img class="account-avatar" src="${escape(metadata.avatar_url)}" alt="">` : `<span class="account-avatar account-avatar-fallback" aria-hidden="true">${escape((metadata.full_name || user.email || "M")[0])}</span>`;
-    root.innerHTML = shell("Your profile", `<div class="profile-summary">${avatar}<div><h2>${escape(metadata.full_name || metadata.name || "Doku-Doujin member")}</h2><p>${escape(user.email || "Email unavailable")}</p></div></div><dl><dt>Account created</dt><dd>${escape(new Date(user.created_at).toLocaleDateString())}</dd><dt>Authentication providers</dt><dd>${escape(providers(user))}</dd></dl><div class="account-actions"><a data-route href="/account/bookmarks">View bookmarks</a><a data-route href="/account/settings">Open settings</a><button class="signout-button">Sign out</button></div>`, "profile");
-    root.querySelector(".signout-button").addEventListener("click", () => signOut().then(() => navigate("/", { replace: true })));
+    const presentation = accountPresentation(user);
+    const avatar = presentation.avatar ? `<img class="account-avatar" src="${escape(presentation.avatar)}" alt="">` : `<span class="account-avatar account-avatar-fallback" aria-hidden="true">${escape(presentation.fallback)}</span>`;
+    root.innerHTML = shell("Your profile", `<div class="profile-summary">${avatar}<div><h2>${escape(presentation.name)}</h2><p>${escape(presentation.email)}</p></div></div><dl><dt>Account created</dt><dd>${escape(user.created_at ? new Date(user.created_at).toLocaleDateString() : "Unavailable")}</dd><dt>Authentication providers</dt><dd>${escape(providers(user))}</dd></dl><div class="account-actions"><a data-route href="/account/bookmarks">View bookmarks</a><a data-route href="/account/settings">Open settings</a><button class="signout-button">Sign out</button><p class="signout-status" role="status"></p></div>`, "profile");
+    bindSignOut(root);
 }
 export async function bookmarksView(root, user) {
+    const identityGeneration = getIdentityGeneration();
     root.innerHTML = shell("Your bookmarks", `<p class="bookmark-status" role="status" aria-live="polite">Loading bookmarks…</p><div class="bookmark-list"></div>`, "bookmarks");
     const status = root.querySelector(".bookmark-status"), list = root.querySelector(".bookmark-list");
     async function load() {
         status.textContent = "Loading bookmarks…"; list.replaceChildren();
         try {
             const rows = await listBookmarks(user.id);
+            if (!isCurrentIdentity(user.id, identityGeneration)) return;
             if (!rows.length) { status.textContent = "You have no bookmarks yet."; return; }
             status.textContent = `${rows.length} bookmark${rows.length === 1 ? "" : "s"}.`;
             rows.forEach(row => {
@@ -61,12 +68,16 @@ export async function bookmarksView(root, user) {
                 item.querySelector("button").addEventListener("click", async event => { event.currentTarget.disabled = true; try { await removeBookmark(user.id, row.work_id); item.remove(); status.textContent = "Bookmark removed."; } catch { event.currentTarget.disabled = false; status.textContent = "Bookmark could not be removed. Try again."; } });
                 list.append(item);
             });
-        } catch { status.innerHTML = `Bookmarks could not be loaded. <button type="button">Retry</button>`; status.querySelector("button").addEventListener("click", load); }
+        } catch { if (!isCurrentIdentity(user.id, identityGeneration)) return; status.innerHTML = `Bookmarks could not be loaded. <button type="button">Retry</button>`; status.querySelector("button").addEventListener("click", load); }
     }
     await load();
 }
 export function settingsView(root, user) {
-    root.innerHTML = shell("Account settings", `<section><h2>Account</h2><p>${escape(user.email || "Email unavailable")} · ${escape(providers(user))}</p><button class="signout-button">Sign out</button></section><section><h2>Content Preferences</h2><p class="preference-notice" role="status">Preferred and excluded tags are not editable yet. The catalog does not provide a reviewed user-facing tag vocabulary, so exposing internal tags would be unsafe and misleading.</p><fieldset disabled><legend>Preferred tags</legend><input aria-label="Preferred tags unavailable" placeholder="Coming after tag vocabulary review"></fieldset><fieldset disabled><legend>Excluded tags</legend><input aria-label="Excluded tags unavailable" placeholder="Coming after tag vocabulary review"></fieldset></section>`, "settings");
-    root.querySelector(".signout-button").addEventListener("click", () => signOut().then(() => navigate("/", { replace: true })));
+    root.innerHTML = shell("Account settings", `<section><h2>Account</h2><p>${escape(user.email || "Email unavailable")} · ${escape(providers(user))}</p><button class="signout-button">Sign out</button><p class="signout-status" role="status"></p></section><section><h2>Content Preferences</h2><p class="preference-notice" role="status">Preferred and excluded tags are not editable yet. The catalog does not provide a reviewed user-facing tag vocabulary, so exposing internal tags would be unsafe and misleading.</p><fieldset disabled><legend>Preferred tags</legend><input aria-label="Preferred tags unavailable" placeholder="Coming after tag vocabulary review"></fieldset><fieldset disabled><legend>Excluded tags</legend><input aria-label="Excluded tags unavailable" placeholder="Coming after tag vocabulary review"></fieldset></section>`, "settings");
+    bindSignOut(root);
 }
 
+function bindSignOut(root) {
+    const button = root.querySelector(".signout-button"), status = root.querySelector(".signout-status");
+    button?.addEventListener("click", async () => { button.disabled = true; if (status) status.textContent = "Signing out…"; try { await signOut(); navigate("/", { replace: true }); } catch { button.disabled = false; if (status) status.textContent = "Sign out did not finish. Your account is still active; please try again."; } });
+}
