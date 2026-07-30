@@ -8,19 +8,25 @@
     "fillDetection": {
       "timeoutMs": 10000,
       "claimedGracePeriodMs": 5000,
+      "lateFillObservationMs": 10000,
+      "minimumVisibleWidth": 40,
+      "minimumVisibleHeight": 20,
+      "minimumVisibleArea": 800,
+      "requireRenderedCreativeForFilled": true,
+      "providerMutationMeansClaimedOnly": true,
+      "zeroSizeIframeMeansClaimedOnly": true,
+      "zeroSizeProviderNodeMeansClaimedOnly": true,
       "filledStateIsTerminal": true,
-      "acceptIframeAsFill": true,
-      "acceptProviderChildAsFill": true,
-      "acceptProviderMutationAsClaimed": true,
-      "fallbackOnlyWhenCompletelyEmpty": true,
-      "retryUntouchedOnce": false
+      "fallbackOnlyWhenCompletelyEmpty": true
     }
   },
   "verification": {
     "enabled": true,
-    "showPlacementLabels": true,
-    "showProviderState": true,
-    "showFallbackReason": true
+    "showPlacementLabels": false,
+    "showProviderState": false,
+    "showFallbackReason": false,
+    "logToConsole": true,
+    "exposeDebugAttributes": true
   },
   "placements": {
     "landing_top_leaderboard": { "enabled": true, "adId": "leaderboard_900x250", "location": "landing", "position": "top", "fallback": "doku-doujins" },

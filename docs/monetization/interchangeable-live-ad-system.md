@@ -30,9 +30,9 @@ The landing Rotunda has a dedicated full-width flex row whose only child is the 
 
 Delegate-CH head markup is parsed from the inventory and inserted into `document.head` only if an identical meta element is absent.
 
-## Verification labels
+## Nonvisual verification
 
-`verification` in `placements.json` controls the labels without a source edit. Labels contain only placement ID, advertisement ID, declared size, provider, state, and (for fallback) a reason. Set `verification.enabled` or `verification.showPlacementLabels` to `false` to hide them; restore both to `true` to inspect failures. Provider state and fallback-reason fields have independent switches.
+`verification` in `placements.json` keeps detection independent from diagnostics. Production-visible label switches remain disabled. Operators inspect concise development console transitions and the placement wrapper’s `data-ad-*` attributes; provider-owned markup never receives diagnostics.
 
 ## Operator procedures
 
@@ -42,7 +42,7 @@ Delegate-CH head markup is parsed from the inventory and inserted into `document
 4. **Disable one ad:** set that inventory entry's `enabled` to `false`.
 5. **Disable one placement:** set that placement's `enabled` to `false`.
 6. **Disable everything:** set top-level `enabled` to `false` in `placements.json` (or `ads.json`), or set `global.enabled` to `false`.
-7. **Inspect a failure:** enable all verification switches, inspect the state/reason label, Network panel, provider script response, iframe creation, and CSP or blocker messages. A visible region must resolve to a creative or branded fallback.
+7. **Inspect a failure:** use wrapper `data-ad-*` attributes, development console transitions, the Network panel, provider script response, iframe creation, and CSP or blocker messages. Do not enable user-facing labels. A visible region must resolve to a creative or branded fallback.
 8. **Replace ExoClick later:** replace each complete inventory snippet and provider/name metadata. Keep stable IDs and placement mappings; page components remain unchanged.
 
 ## Known limitations and rollback
@@ -50,3 +50,11 @@ Delegate-CH head markup is parsed from the inventory and inserted into `document
 Live fill cannot be established by unit tests or localhost because provider approval, browser policy, blockers, CSP, inventory, and network responses are external. Shared script deduplication assumes a provider loader can serve multiple independent `ins`/queue requests. The exact full provider-supplied popunder source was not present in this checkout or prompt beyond its declared configuration and boundary lines; deployment must not be treated as provider-verified until the authoritative full snippet is supplied and substituted.
 
 To roll back, revert the implementation commit, or disable top-level monetization first for immediate operational mitigation. Reverting restores the previous house-campaign placement system.
+
+## Rendered-creative fill detection
+
+Visible placements distinguish provider activity from a completed fill. A mutation, attribute change, placeholder, or zero-size node moves a slot only to `provider-claimed`. The slot reaches `filled` only when provider-created content passes the centralized rendered-width, rendered-height, and area thresholds. Configuration-time `ins` elements and reserved site wrappers are snapshotted and excluded from creative evidence. Images must also have loaded successfully; cross-origin iframes are evaluated safely from the iframe element's rendered rectangle only.
+
+Claimed slots retain a bounded grace period and then receive a layout-frame final inspection before the branded fallback is shown. The existing observer remains active for the configured finite late-fill window, during which a qualifying creative removes and replaces the fallback. Filled remains terminal.
+
+Production verification is nonvisual: placement labels, provider state, sizes, identifiers, and fallback reasons are disabled. State remains available through `data-ad-*` attributes, and concise development-only console logging remains independently configurable. Detection and fallback do not depend on visible-label settings.

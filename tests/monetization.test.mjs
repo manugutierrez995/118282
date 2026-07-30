@@ -73,5 +73,5 @@ test("page integrations remain placement-only and core content precedes optional
 
 test("verification is configured centrally and page markup has no provider snippets", async () => {
     const [manifestText, renderer, index] = await Promise.all([readFile(new URL("../src/data/monetization/placements.json", import.meta.url), "utf8"), readFile(new URL("../src/monetization/renderer.js", import.meta.url), "utf8"), readFile(new URL("../index.html", import.meta.url), "utf8")]);
-    assert.match(manifestText, /"verification"[\s\S]+"enabled": true/); assert.match(renderer, /doku-ad-verification/); assert.doesNotMatch(index, /exoclick|juicyads|adserver/i);
+    assert.match(manifestText, /"verification"[\s\S]+"enabled": true/); assert.doesNotMatch(renderer, /className = "doku-ad-verification"/); assert.match(renderer, /dataset\.adState/); assert.doesNotMatch(index, /exoclick|juicyads|adserver/i);
 });
