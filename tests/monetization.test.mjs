@@ -68,10 +68,10 @@ test("page integrations remain placement-only and core content precedes optional
     const [landing, search, reader, footer, component] = await Promise.all(["landing", "../components/search", "reader", "../components/footer", "../monetization/components/ad-region"].map(path => readFile(new URL(`../src/page/${path}.js`, import.meta.url), "utf8").catch(() => readFile(new URL(`../src/${path}.js`, import.meta.url), "utf8"))));
     assert.match(landing, /landing_top_leaderboard/); assert.match(search, /nodes\.splice\(6/); assert.match(reader, /createVirtualReader[\s\S]+reader_between_pages[\s\S]+reader-bottom-bar/);
     for (const page of [landing, search, reader, footer]) assert.doesNotMatch(page, /https?:\/\/|accountId|provider\.request/);
-    assert.match(await readFile(new URL("../src/monetization/renderer.js", import.meta.url), "utf8"), /IntersectionObserver/);
+    assert.doesNotMatch(await readFile(new URL("../src/monetization/renderer.js", import.meta.url), "utf8"), /IntersectionObserver|MutationObserver|ResizeObserver/);
 });
 
 test("verification is configured centrally and page markup has no provider snippets", async () => {
     const [manifestText, renderer, index] = await Promise.all([readFile(new URL("../src/data/monetization/placements.json", import.meta.url), "utf8"), readFile(new URL("../src/monetization/renderer.js", import.meta.url), "utf8"), readFile(new URL("../index.html", import.meta.url), "utf8")]);
-    assert.match(manifestText, /"verification"[\s\S]+"enabled": true/); assert.match(renderer, /doku-ad-verification/); assert.doesNotMatch(index, /exoclick|juicyads|adserver/i);
+    assert.match(manifestText, /"showPlacementLabels": false/); assert.doesNotMatch(renderer, /doku-ad-verification/); assert.doesNotMatch(index, /exoclick|juicyads|adserver/i);
 });

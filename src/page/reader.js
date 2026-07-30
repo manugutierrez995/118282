@@ -184,7 +184,7 @@ function installReaderChromeAutohide(bar, session) {
     showThenHide();
 }
 
-function createVirtualReader(wrapper, manifest, session) {
+function createVirtualReader(wrapper, manifest, session, readerIdentity) {
     const pages = [];
     let activePage = 0;
     let windowStart = 0;
@@ -287,9 +287,10 @@ function createVirtualReader(wrapper, manifest, session) {
             const adSlot = document.createElement("aside");
             adSlot.className = "reader-between-pages-ad";
             adSlot.dataset.afterPage = String(index + 1);
+            adSlot.dataset.adBreakId = `${readerIdentity}:break-${index + 1}-${adIndex}`;
             adSlot.setAttribute("aria-label", "Advertisement break");
             wrapper.appendChild(adSlot);
-            session.cleanups.push(renderAdRegion({ placement: "reader_between_pages", mount: adSlot, lazy: true }));
+            session.cleanups.push(renderAdRegion({ placement: "reader_between_pages", mount: adSlot }));
         }
         pages.push(page);
     }
@@ -445,7 +446,7 @@ async function renderManifestInto(root, manifestUrl, source, work, chapter) {
     anchor.id = "chapter-start";
     wrapper.appendChild(anchor);
 
-    createVirtualReader(wrapper, manifest, session);
+    createVirtualReader(wrapper, manifest, session, `${work}:${chapter}`);
 
     const videoAd = document.createElement("aside");
     videoAd.className = "reader-video-ad";
