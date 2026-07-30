@@ -1,83 +1,15 @@
-import { completePasswordReset, continueWithGoogle, requestPasswordReset, signInWithEmail, signOut, signUpWithEmail } from "../auth/session.js";
-import { accountPresentation, accountSubnav } from "./navigation.js";
-import { listBookmarks, readerUrl, removeBookmark } from "./data.js";
-import { navigate, safeNext } from "../router/router.js";
-import { getIdentityGeneration, isCurrentIdentity } from "../auth/session.js";
-import { normalizeAuthError } from "../auth/errors.js";
-
-const escape = value => String(value ?? "").replace(/[&<>'"]/g, char => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;" })[char]);
-const authRedirect = path => new URL(path, window.location.origin).href;
-function shell(title, body, active) {
-    return `<main class="account-page"><a data-route class="account-brand" href="/">Doku-Doujin</a>${active ? accountSubnav(active) : ""}<section class="account-panel"><h1 tabindex="-1">${title}</h1>${body}</section></main>`;
-}
-function providers(user) {
-    const values = new Set((user.identities || []).map(identity => identity.provider));
-    if (user.app_metadata?.provider) values.add(user.app_metadata.provider);
-    return [...values].map(value => value === "email" ? "Email and password" : value[0]?.toUpperCase() + value.slice(1)).join(", ") || "Not available";
-}
-export function loadingView(root) { root.innerHTML = shell("Loading account", `<p role="status">Restoring your secure session…</p>`); }
-export function notFoundView(root, account = false) { root.innerHTML = shell("Page not found", `<p>${account ? "That account page does not exist." : "That page does not exist."}</p><p><a data-route href="/">Return home</a></p>`); }
-export function loginView(root, mode = "login") {
-    const next = safeNext(new URLSearchParams(location.search).get("next"));
-    const config = {
-        login: ["Log in", "Log in", "No account?", "/signup", "Sign up"],
-        signup: ["Create account", "Sign up", "Already registered?", "/login", "Log in"],
-        "forgot-password": ["Reset password", "Send reset email", "Remembered it?", "/login", "Log in"],
-        "reset-password": ["Choose a new password", "Update password", "", "/login", "Log in"]
-    }[mode];
-    const email = mode !== "reset-password" ? `<label>Email address<input name="email" type="email" autocomplete="email" required></label>` : "";
-    const password = !["forgot-password"].includes(mode) ? `<label>${mode === "reset-password" ? "New password" : "Password"}<input name="password" type="password" autocomplete="${mode === "login" ? "current-password" : "new-password"}" minlength="8" required></label>` : "";
-    root.innerHTML = shell(config[0], `<form class="auth-form">${email}${password}<button class="account-primary" type="submit">${config[1]}</button><p class="form-status" role="status" aria-live="polite"></p></form>${["login", "signup"].includes(mode) ? '<div class="auth-divider"><span>or</span></div><button class="google-button" type="button">Continue with Google</button>' : ""}${mode === "login" ? '<p><a data-route href="/forgot-password">Forgot password?</a></p>' : ""}${config[2] ? `<p>${config[2]} <a data-route href="${config[3]}?next=${encodeURIComponent(next)}">${config[4]}</a></p>` : ""}`);
-    const form = root.querySelector("form"), status = root.querySelector(".form-status"), submit = form.querySelector("button");
-    form.addEventListener("submit", async event => {
-        event.preventDefault(); submit.disabled = true; status.textContent = "Working…";
-        const values = new FormData(form);
-        try {
-            if (mode === "login") { await signInWithEmail(values.get("email"), values.get("password")); navigate(next, { replace: true }); }
-            if (mode === "signup") { const data = await signUpWithEmail(values.get("email"), values.get("password"), authRedirect(`/login?next=${encodeURIComponent(next)}`)); status.textContent = data.session ? "Account created." : "Check your email to confirm your account, then log in."; if (data.session) navigate(next, { replace: true }); }
-            if (mode === "forgot-password") { await requestPasswordReset(values.get("email"), authRedirect("/reset-password")); status.textContent = "If an account can receive mail, reset instructions have been sent."; }
-            if (mode === "reset-password") { await completePasswordReset(values.get("password")); status.textContent = "Password updated."; navigate("/account/profile", { replace: true }); }
-        } catch { status.textContent = "We could not complete that request. Check your details and try again."; } finally { submit.disabled = false; }
-    });
-    const callbackError = new URLSearchParams(location.search).get("error_description");
-    if (callbackError) status.textContent = normalizeAuthError({ message: callbackError, code: new URLSearchParams(location.search).get("error") }, "google-callback").userMessage;
-    root.querySelector(".google-button")?.addEventListener("click", async event => { event.currentTarget.disabled = true; status.textContent = "Opening Google…"; try { await continueWithGoogle(next); } catch (error) { status.textContent = error.authDiagnostic?.userMessage || normalizeAuthError(error, "google-sign-in").userMessage; event.currentTarget.disabled = false; } });
-}
-export function profileView(root, user) {
-    const metadata = user.user_metadata || {};
-    const presentation = accountPresentation(user);
-    const avatar = presentation.avatar ? `<img class="account-avatar" src="${escape(presentation.avatar)}" alt="">` : `<span class="account-avatar account-avatar-fallback" aria-hidden="true">${escape(presentation.fallback)}</span>`;
-    root.innerHTML = shell("Your profile", `<div class="profile-summary">${avatar}<div><h2>${escape(presentation.name)}</h2><p>${escape(presentation.email)}</p></div></div><dl><dt>Account created</dt><dd>${escape(user.created_at ? new Date(user.created_at).toLocaleDateString() : "Unavailable")}</dd><dt>Authentication providers</dt><dd>${escape(providers(user))}</dd></dl><div class="account-actions"><a data-route href="/account/bookmarks">View bookmarks</a><a data-route href="/account/settings">Open settings</a><button class="signout-button">Sign out</button><p class="signout-status" role="status"></p></div>`, "profile");
-    bindSignOut(root);
-}
-export async function bookmarksView(root, user) {
-    const identityGeneration = getIdentityGeneration();
-    root.innerHTML = shell("Your bookmarks", `<p class="bookmark-status" role="status" aria-live="polite">Loading bookmarks…</p><div class="bookmark-list"></div>`, "bookmarks");
-    const status = root.querySelector(".bookmark-status"), list = root.querySelector(".bookmark-list");
-    async function load() {
-        status.textContent = "Loading bookmarks…"; list.replaceChildren();
-        try {
-            const rows = await listBookmarks(user.id);
-            if (!isCurrentIdentity(user.id, identityGeneration)) return;
-            if (!rows.length) { status.textContent = "You have no bookmarks yet."; return; }
-            status.textContent = `${rows.length} bookmark${rows.length === 1 ? "" : "s"}.`;
-            rows.forEach(row => {
-                const item = document.createElement("article"); item.className = "bookmark-card";
-                const work = row.work;
-                item.innerHTML = `${work?.thumb && /^https:\/\//.test(work.thumb) ? `<img src="${escape(work.thumb)}" alt="">` : ""}<div><h2>${escape(work?.display || "Work no longer available")}</h2><p>Saved ${escape(new Date(row.created_at).toLocaleDateString())}</p>${work ? `<a href="${readerUrl(work)}">Read using the current reader</a>` : "<p>Metadata could not be resolved.</p>"}</div><button type="button">Remove bookmark</button>`;
-                item.querySelector("button").addEventListener("click", async event => { event.currentTarget.disabled = true; try { await removeBookmark(user.id, row.work_id); item.remove(); status.textContent = "Bookmark removed."; } catch { event.currentTarget.disabled = false; status.textContent = "Bookmark could not be removed. Try again."; } });
-                list.append(item);
-            });
-        } catch { if (!isCurrentIdentity(user.id, identityGeneration)) return; status.innerHTML = `Bookmarks could not be loaded. <button type="button">Retry</button>`; status.querySelector("button").addEventListener("click", load); }
-    }
-    await load();
-}
-export function settingsView(root, user) {
-    root.innerHTML = shell("Account settings", `<section><h2>Account</h2><p>${escape(user.email || "Email unavailable")} · ${escape(providers(user))}</p><button class="signout-button">Sign out</button><p class="signout-status" role="status"></p></section><section><h2>Content Preferences</h2><p class="preference-notice" role="status">Preferred and excluded tags are not editable yet. The catalog does not provide a reviewed user-facing tag vocabulary, so exposing internal tags would be unsafe and misleading.</p><fieldset disabled><legend>Preferred tags</legend><input aria-label="Preferred tags unavailable" placeholder="Coming after tag vocabulary review"></fieldset><fieldset disabled><legend>Excluded tags</legend><input aria-label="Excluded tags unavailable" placeholder="Coming after tag vocabulary review"></fieldset></section>`, "settings");
-    bindSignOut(root);
-}
-
-function bindSignOut(root) {
-    const button = root.querySelector(".signout-button"), status = root.querySelector(".signout-status");
-    button?.addEventListener("click", async () => { button.disabled = true; if (status) status.textContent = "Signing out…"; try { await signOut(); navigate("/", { replace: true }); } catch { button.disabled = false; if (status) status.textContent = "Sign out did not finish. Your account is still active; please try again."; } });
-}
+import { accountPresentation, accountSubnav } from './navigation.js';
+import { createLocalProfile, deleteLocalProfile, importLocalProfile, saveActiveProfile, selectLocalProfile, clearActiveProfile } from '../local-profile/store.js';
+import { listBookmarks, readerUrl, removeBookmark } from './data.js';
+import { backupFilename, parseProfileBackup, serializeProfile } from '../local-profile/backup.js';
+import { navigate } from '../router/router.js';
+const escape=value=>String(value??'').replace(/[&<>'"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':'&quot;'}[c]));
+function shell(title,body,active){return `<main class="account-page"><a data-route class="account-brand" href="/">Doku-Doujin</a>${active?accountSubnav(active):''}<section class="account-panel"><h1 tabindex="-1">${title}</h1>${body}</section></main>`}
+const disclosure='<p class="local-profile-disclosure">This profile is stored in this browser. It does not automatically follow you to another device. Export a backup to preserve it before clearing browser data.</p>';
+export function notFoundView(root,account=false){root.innerHTML=shell('Page not found',`<p>${account?'That local profile page does not exist.':'That page does not exist.'}</p><p><a data-route href="/">Return home</a></p>`)}
+export function exportProfile(profile){const blob=new Blob([serializeProfile(profile)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=backupFilename(profile);a.click();setTimeout(()=>URL.revokeObjectURL(a.href),0)}
+if(typeof window!=='undefined')window.addEventListener('export-local-profile',async()=>{const {getLocalProfileState}=await import('../local-profile/store.js');const p=getLocalProfileState().profile;if(p)exportProfile(p)});
+export function profilesView(root,state,creating=false){const cards=state.profiles.map(p=>`<button type="button" class="profile-choice" data-id="${escape(p.profileId)}"><strong>${escape(p.displayName)}</strong><span>Created ${new Date(p.createdAt).toLocaleDateString()}</span></button>`).join('');root.innerHTML=shell(creating?'Create local profile':'Local profiles',`${disclosure}${state.error?'<p class="preference-notice" role="alert">Local storage could not be opened. Public browsing remains available. <button type="button" class="retry-storage">Retry</button></p>':''}<form class="auth-form"><label>Display name<input name="displayName" maxlength="80" required></label><button class="account-primary">Create local profile</button><p class="form-status" role="status"></p></form>${cards?`<h2>Profiles on this device</h2><div class="profile-choices">${cards}</div>`:''}<h2>Import backup</h2><input class="backup-file" type="file" accept="application/json,.json"><p class="import-status" role="status"></p>`);root.querySelector('.retry-storage')?.addEventListener('click',async()=>{const {retryLocalProfiles}=await import('../local-profile/store.js');await retryLocalProfiles()});root.querySelector('form').onsubmit=async e=>{e.preventDefault();const status=root.querySelector('.form-status');try{await createLocalProfile({displayName:new FormData(e.currentTarget).get('displayName')});navigate('/account/profile')}catch(err){status.textContent=err.message}};root.querySelectorAll('.profile-choice').forEach(b=>b.onclick=async()=>{await selectLocalProfile(b.dataset.id);navigate('/account/profile')});root.querySelector('.backup-file').onchange=async e=>{const status=root.querySelector('.import-status');try{const p=parseProfileBackup(await e.target.files[0].text());status.textContent=`Preview: ${p.displayName}, ${p.bookmarks.length} bookmarks, ${p.preferredTags.length} preferred tags. No existing profile will be overwritten.`;if(confirm(`Create a new local profile from backup “${p.displayName}”?`)){await importLocalProfile(p);navigate('/account/profile')}}catch(err){status.textContent=err.message}}}
+export function profileView(root,profile){const p=accountPresentation(profile),avatar=p.avatar?`<img class="account-avatar" src="${escape(p.avatar)}" alt="">`:`<span class="account-avatar account-avatar-fallback">${escape(p.fallback)}</span>`;root.innerHTML=shell('Your local profile',`${disclosure}<div class="profile-summary">${avatar}<div><h2>${escape(p.name)}</h2><p>Created ${new Date(profile.createdAt).toLocaleDateString()}</p></div></div><form class="auth-form rename-form"><label>Display name<input name="displayName" maxlength="80" value="${escape(profile.displayName)}" required></label><label>Avatar URL or image data<input name="avatar" value="${escape(profile.avatar||'')}"></label><button class="account-primary">Save profile</button><p role="status"></p></form><div class="account-actions"><a data-route href="/account/bookmarks">View bookmarks</a><a data-route href="/account/settings">Open settings</a><button class="export-button">Export backup</button><button class="switch-button">Switch local profile</button><button class="delete-button">Delete local profile</button></div>`,'profile');root.querySelector('.retry-storage')?.addEventListener('click',async()=>{const {retryLocalProfiles}=await import('../local-profile/store.js');await retryLocalProfiles()});root.querySelector('form').onsubmit=async e=>{e.preventDefault();const d=new FormData(e.currentTarget);try{await saveActiveProfile({displayName:d.get('displayName'),avatar:d.get('avatar')||null});e.currentTarget.querySelector('[role=status]').textContent='Saved in this browser.'}catch(err){e.currentTarget.querySelector('[role=status]').textContent=`Not saved: ${err.message}`}};root.querySelector('.export-button').onclick=()=>exportProfile(profile);root.querySelector('.switch-button').onclick=async()=>{await clearActiveProfile();navigate('/profiles')};root.querySelector('.delete-button').onclick=async()=>{if(confirm('Delete this local profile permanently?')){await deleteLocalProfile(profile.profileId);navigate('/profiles')}}}
+export async function bookmarksView(root,profile){root.innerHTML=shell('Your bookmarks',`${disclosure}<p class="bookmark-status" role="status"></p><div class="bookmark-list"></div><button class="clear-bookmarks">Clear bookmarks</button>`,'bookmarks');const rows=await listBookmarks(),status=root.querySelector('.bookmark-status'),list=root.querySelector('.bookmark-list');status.textContent=rows.length?`${rows.length} bookmark${rows.length===1?'':'s'}.`:'You have no bookmarks yet.';for(const row of rows){const item=document.createElement('article');item.className='bookmark-card';item.innerHTML=`${row.work?.thumb&&/^https:\/\//.test(row.work.thumb)?`<img src="${escape(row.work.thumb)}" alt="">`:''}<div><h2>${escape(row.work?.display||row.workId)}</h2><p>Saved ${new Date(row.createdAt).toLocaleDateString()}</p>${row.work?`<a href="${readerUrl(row.work)}">Read using the current reader</a>`:'<p>Metadata could not be resolved.</p>'}</div><button>Remove bookmark</button>`;item.querySelector('button').onclick=async()=>{await removeBookmark(profile.profileId,row.workId);item.remove()};list.append(item)}root.querySelector('.clear-bookmarks').onclick=async()=>{if(confirm('Clear every bookmark in this profile?')){await saveActiveProfile({bookmarks:[]});bookmarksView(root,profile)}}}
+export function settingsView(root,profile){root.innerHTML=shell('Local profile settings',`${disclosure}<p class="preference-notice" role="status"></p><form class="settings-form"><fieldset><legend>Preferred tags</legend><p>Increase prominence without hiding other works.</p><input name="preferred" value="${escape(profile.preferredTags.join(', '))}" placeholder="tag-one, tag-two"></fieldset><fieldset><legend>Excluded tags</legend><p>Matching works stay out of Search and the Rotunda; bookmarks remain available.</p><input name="excluded" value="${escape(profile.excludedTags.join(', '))}" placeholder="tag-one, tag-two"></fieldset><button class="account-primary">Save preferences</button><button type="button" class="reset-preferences">Reset preferences</button><button type="button" class="clear-comments">Delete archived local comments</button></form>`,'settings');const form=root.querySelector('form'),status=root.querySelector('.preference-notice'),values=s=>s.split(',').map(x=>x.trim());form.onsubmit=async e=>{e.preventDefault();const d=new FormData(form);try{await saveActiveProfile({preferredTags:values(d.get('preferred')),excludedTags:values(d.get('excluded'))});status.textContent='Preferences saved locally.'}catch(err){status.textContent=`Preferences were not saved: ${err.message}. Retry.`}};root.querySelector('.reset-preferences').onclick=async()=>{await saveActiveProfile({preferredTags:[],excludedTags:[]});settingsView(root,{...profile,preferredTags:[],excludedTags:[]})};root.querySelector('.clear-comments').onclick=async()=>{await saveActiveProfile({archivedComments:[]});status.textContent='Archived local comments deleted.'}}

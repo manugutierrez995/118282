@@ -1,3 +1,5 @@
+> **HISTORICAL / SUPERSEDED:** This document records the former remote-account architecture. Runtime accounts, bookmarks, preferences, and discussion posting were replaced by local browser profiles; see [`docs/local-first-browser-profiles.md`](../local-first-browser-profiles.md).
+
 # Worker and R2 boundaries
 
 **VERIFIED IN CONFIG/CODE:** no application Worker entry, `fetch()` handler, R2/KV/D1 binding, Pages Functions directory, Cache API, or service worker exists. Static asset routing is a Cloudflare platform function, not repository Worker logic.

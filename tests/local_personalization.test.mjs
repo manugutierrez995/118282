@@ -1,0 +1,4 @@
+import test from 'node:test';import assert from 'node:assert/strict';import { personalizeWorks } from '../src/local-profile/personalization.js';
+const catalog={version:1,works:{a:{tags:['preferred']},b:{tags:['excluded']},c:{tags:[]}}},profile={preferredTags:['preferred'],excludedTags:['excluded']};
+test('personalization excludes before cap and ranks preferred secondarily',()=>{const entries=[{slug:'b'},{slug:'c'},{slug:'a'}];assert.deepEqual(personalizeWorks(entries,profile,catalog,2).map(x=>x.slug),['a','c']);assert.deepEqual(personalizeWorks(entries,null,catalog,2).map(x=>x.slug),['b','c'])});
+test('Rotunda personalization fails open with no profile or storage result',()=>{const works=[{slug:'b'},{slug:'c'},{slug:'a'}];assert.deepEqual(personalizeWorks(works,profile,catalog).map(x=>x.slug),['a','c']);assert.deepEqual(personalizeWorks(works,null,catalog),works)});

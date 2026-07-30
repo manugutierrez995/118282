@@ -8,6 +8,12 @@ import { filterRotundaCandidates } from "../utils/tag.js";
 import storage from "../data/storage.json";
 import { ROTUNDA_MAX_MOUNTED, rotundaWindow } from "./rotunda_window.js";
 import "../styles/rotunda.css";
+import { getLocalProfileState, subscribeLocalProfiles } from "../local-profile/store.js";
+import { personalizeWorks } from "../local-profile/personalization.js";
+
+export function personalizeRotundaCandidates(works, profile, catalog = tagCatalog) {
+    return personalizeWorks(works, profile, catalog);
+}
 
 const ROTUNDA_METADATA_CACHE_MAX = 40;
 const ROTUNDA_THUMBNAIL_CACHE_MAX = 40;
@@ -109,7 +115,10 @@ export class Rotunda {
         const environment = storage.active;
         const sources = storage[environment]?.sources ?? {};
         const rawWorks = rotunda.works ?? [];
-        let works = filterRotundaCandidates(rawWorks, await visibilityPolicyStore.refresh(), tagCatalog);
+        let publicWorks;
+        try { publicWorks = filterRotundaCandidates(rawWorks, await visibilityPolicyStore.refresh(), tagCatalog); }
+        catch (error) { warnDev("Visibility refresh failed; keeping the public Rotunda.", error); publicWorks = filterRotundaCandidates(rawWorks, visibilityPolicyStore.get(), tagCatalog); }
+        let works = personalizeRotundaCandidates(publicWorks, getLocalProfileState().status === "ready" ? getLocalProfileState().profile : null);
         const defaultSource = rotunda.default?.source || "e";
         const metadataCache = new LruCache(ROTUNDA_METADATA_CACHE_MAX);
         const thumbnailCache = new LruCache(ROTUNDA_THUMBNAIL_CACHE_MAX);
@@ -505,12 +514,18 @@ export class Rotunda {
         window.addEventListener("resize", resizeCaption, { passive: true });
 
         const policyChange = event => {
-            works = filterRotundaCandidates(rawWorks, event.detail || visibilityPolicyStore.get(), tagCatalog);
+            publicWorks = filterRotundaCandidates(rawWorks, event.detail || visibilityPolicyStore.get(), tagCatalog);
+            works = personalizeRotundaCandidates(publicWorks, getLocalProfileState().status === "ready" ? getLocalProfileState().profile : null);
             absoluteActiveIndex = works.length ? ((absoluteActiveIndex % works.length) + works.length) % works.length : 0;
             metadataCache.clear();
             render();
         };
         visibilityPolicyStore.addEventListener("change", policyChange);
+        const unsubscribeProfile = subscribeLocalProfiles(state => {
+            works = personalizeRotundaCandidates(publicWorks, state.status === "ready" ? state.profile : null);
+            absoluteActiveIndex = works.length ? ((absoluteActiveIndex % works.length) + works.length) % works.length : 0;
+            render();
+        });
 
         if (import.meta.env.DEV) window.__rotundaDiagnostics = diagnostics;
         Rotunda.cleanup = () => {
@@ -523,6 +538,7 @@ export class Rotunda {
             window.removeEventListener("keydown", keydown);
             window.removeEventListener("resize", resizeCaption);
             visibilityPolicyStore.removeEventListener("change", policyChange);
+            unsubscribeProfile();
             container.removeEventListener("pointerenter", pointerEnter);
             container.removeEventListener("pointerleave", pointerLeave);
             viewport.removeEventListener("pointerdown", pointerDown);

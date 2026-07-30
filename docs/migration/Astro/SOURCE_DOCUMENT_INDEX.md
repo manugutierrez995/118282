@@ -1,3 +1,5 @@
+> **HISTORICAL / SUPERSEDED:** This document records the former remote-account architecture. Runtime accounts, bookmarks, preferences, and discussion posting were replaced by local browser profiles; see [`docs/local-first-browser-profiles.md`](../local-first-browser-profiles.md).
+
 # Source document index
 
 Code is the source of truth for current behavior; approved vision documents are direction. Dates are file-content dates when stated, otherwise **date unavailable**. This index covers every architecture/vision/migration-relevant Markdown document found under the required directories plus relevant root documents.

@@ -1,3 +1,5 @@
+> **HISTORICAL / SUPERSEDED:** This document records the former remote-account architecture. Runtime accounts, bookmarks, preferences, and discussion posting were replaced by local browser profiles; see [`docs/local-first-browser-profiles.md`](../local-first-browser-profiles.md).
+
 # Prompt for the next Codex run: Phase 1 only
 
 Work in the `10-year` repository. Read and follow all applicable `AGENTS.md` files.

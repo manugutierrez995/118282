@@ -1,3 +1,5 @@
+> **HISTORICAL / SUPERSEDED:** This document records the former remote-account architecture. Runtime accounts, bookmarks, preferences, and discussion posting were replaced by local browser profiles; see [`docs/local-first-browser-profiles.md`](../local-first-browser-profiles.md).
+
 # Account foundation decision log
 
 Each decision uses the requested record format.
