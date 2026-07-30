@@ -1,3 +1,6 @@
+import { renderAdRegion } from "../monetization/components/ad-region.js";
+
+let adCleanup;
 export class Footer {
     static start() {
         const footer = document.getElementById("footer");
@@ -19,6 +22,11 @@ export class Footer {
             window.scrollTo({ top: 0, behavior: reduced ? "auto" : "smooth" });
         });
 
-        footer.append(brand, top);
+        const promotion = document.createElement("aside");
+        promotion.className = "footer-ad-region";
+        promotion.setAttribute("aria-label", "Sponsored and site promotions");
+        footer.append(brand, promotion, top);
+        adCleanup?.();
+        adCleanup = renderAdRegion({ placement: "global_footer_banner", mount: promotion });
     }
 }

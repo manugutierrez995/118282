@@ -1,0 +1,6 @@
+{
+  "version": 1,
+  "campaigns": [
+    { "id": "explore-collection", "title": "Find your next illustrated story", "body": "Search the collection or spin the Rotunda again.", "image": "/monetization/house-orbit.svg", "destination": "/", "formats": ["leaderboard", "responsive-banner", "native-tile", "rectangle", "skyscraper"], "enabled": true, "placements": ["landing_below_rotunda", "search_after_6", "reader_chapter_end", "global_footer_banner", "rotunda_side_rail_right"], "priority": 10, "weight": 1, "accessibleLabel": "House promotion: explore the Doku-Doujin collection" }
+  ]
+}

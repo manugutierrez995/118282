@@ -2,6 +2,7 @@ import { normalize } from "../utils/normalize.js";
 import tagCatalog from "../data/tags.json";
 import { getLocalProfileState, subscribeLocalProfiles } from "../local-profile/store.js";
 import { personalizeWorks } from "../local-profile/personalization.js";
+import { renderAdRegion } from "../monetization/components/ad-region.js";
 
 const SEARCH_INDEX_URL = "/data/search.index.json";
 let searchIndexPromise = null;
@@ -34,7 +35,7 @@ function emitOpen(entry) {
 
 function renderResults(container, matches) {
     container.hidden = matches.length === 0;
-    container.replaceChildren(...matches.map((entry, index) => {
+    const nodes = matches.map((entry, index) => {
         const el = document.createElement("button");
         el.type = "button";
         el.className = "search-result";
@@ -42,7 +43,17 @@ function renderResults(container, matches) {
         el.textContent = entry.display;
         el.dataset.resultIndex = String(index);
         return el;
-    }));
+    });
+    if (matches.length > 6) {
+        const sponsored = document.createElement("div");
+        sponsored.className = "search-sponsored-region";
+        sponsored.setAttribute("role", "group");
+        sponsored.setAttribute("aria-label", "Sponsored or site promotion");
+        nodes.splice(6, 0, sponsored);
+    }
+    container.replaceChildren(...nodes);
+    const sponsored = container.querySelector(".search-sponsored-region");
+    return sponsored ? renderAdRegion({ placement: "search_after_6", mount: sponsored }) : null;
 }
 
 export function personalizeSearchResults(entries, profile, maximum = 12, catalog = tagCatalog) {
@@ -73,6 +84,7 @@ export class Search {
         const results = mount.querySelector(".search-results");
 
         let activeMatches = [];
+        let activeAdCleanup = null;
         let activeIndex = -1;
         let lastQuery = "";
 
@@ -159,7 +171,8 @@ export class Search {
             activeMatches = personalizeSearchResults(activeMatches, getLocalProfileState().status === "ready" ? getLocalProfileState().profile : null);
             lastQuery = query;
 
-            renderResults(results, activeMatches);
+            activeAdCleanup?.();
+            activeAdCleanup = renderResults(results, activeMatches);
             activeIndex = -1;
             clearTimeout(hideTimer);
             announceState();
@@ -185,6 +198,7 @@ export class Search {
         mount.dataset.searchContext = context;
         const unsubscribe = subscribeLocalProfiles(() => { if (lastQuery && input.value === lastQuery) input.dispatchEvent(new Event("input")); });
         return () => {
+            activeAdCleanup?.();
             unsubscribe();
             controller.abort();
             clearTimeout(hideTimer);
