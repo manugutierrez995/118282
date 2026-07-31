@@ -14,6 +14,22 @@
     "showFallbackReason": false,
     "logToConsole": true
   },
+  "fullscreenOverlay": {
+    "enabled": true,
+    "intervalMs": 180000,
+    "initialDelayMs": 180000,
+    "destinationUrl": "https://example.com",
+    "imageUrl": "",
+    "backgroundColor": "#000000",
+    "openInNewTab": true,
+    "showCloseButton": true,
+    "minimumVisibleMs": 1000,
+    "excludedRoutes": [
+      "/auth/",
+      "/checkout/",
+      "/operator/"
+    ]
+  },
   "placements": {
     "landing_top_leaderboard": { "enabled": true, "adId": "leaderboard_900x250", "location": "landing", "position": "top", "fallback": "doku-doujins" },
     "global_top_banner": { "enabled": true, "adId": "top_banner_728x90", "location": "global-header", "position": "below-header", "fallback": "doku-doujins" },

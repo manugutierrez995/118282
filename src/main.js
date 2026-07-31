@@ -5,6 +5,7 @@ import { Footer } from "./components/footer.js";
 import { startGhostText } from "./effects/ghost_text.js";
 import { initializeLocalProfiles } from "./local-profile/store.js";
 import { initializeGlobalMonetization } from "./monetization/global.js";
+import { initializeFullscreenOverlay } from "./monetization/fullscreen-overlay.js";
 
 async function boot() {
     try {
@@ -12,6 +13,7 @@ async function boot() {
         Page.start();
         initializeLocalProfiles();
         initializeGlobalMonetization();
+        initializeFullscreenOverlay();
         Footer.start();
         document.documentElement.dataset.appState = "ready";
         window.__finishStartup?.();

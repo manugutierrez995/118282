@@ -38,4 +38,5 @@ export function startRouter(render) {
 export function navigate(url, { replace = false } = {}) {
     history[replace ? "replaceState" : "pushState"]({}, "", url);
     handler?.();
+    window.dispatchEvent(new CustomEvent("doku:navigation"));
 }
