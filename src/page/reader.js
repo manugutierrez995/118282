@@ -5,6 +5,7 @@ import { Blocks } from "../components/blocks.js";
 import { Search } from "../components/search.js";
 import { mountDiscussion } from "../discussion/discussion.js";
 import { mountAccountNavigation } from "../account/navigation.js";
+import { navigate, workUrl } from "../router/router.js";
 import { renderAdRegion } from "../monetization/components/ad-region.js";
 import { readerBreaks } from "../monetization/placements.js";
 
@@ -24,9 +25,7 @@ async function getChapterList(workSlug) {
 }
 
 function openChapter(source, work, chapter) {
-    window.dispatchEvent(new CustomEvent("open-reader", {
-        detail: { source, work, chapter }
-    }));
+    navigate(workUrl(work, chapter));
 }
 
 function chapterLabel(chapter) {
@@ -59,7 +58,7 @@ function buildReaderNavBar(source, work, chapter, chapters, options = {}) {
     setResponsiveButtonLabel(homeButton, "Home", "⌂");
     homeButton.addEventListener("click", () => {
         document.body.classList.remove("reader-active");
-        window.location.href = "/";
+        navigate("/");
     });
 
     const prevButton = document.createElement("button");
@@ -487,12 +486,12 @@ if (import.meta.env.DEV) {
 }
 
 export class Reader {
-    static async start(work, chapter) {
+    static async start(work, chapter, options = {}) {
         const container = document.getElementById("reader-container");
 
         if (!container) return;
 
-        const source =
+        const source = options.source ||
             new URLSearchParams(window.location.search).get("source") || "e";
 
         const manifestUrl = Storage.manifest(source, work, chapter);
@@ -512,31 +511,9 @@ export class Reader {
     }
 }
 
-window.addEventListener("open-reader", async (e) => {
-    const entry = e.detail;
-    const root = document.getElementById("blocks-reader") || document.getElementById("blocks-root");
-
-    if (!root) {
-        console.warn("Reader: blocks-root missing. Refusing to wipe page.");
-        return;
-    }
-
-    const source = entry.source || "e";
+window.addEventListener("open-reader", (e) => {
+    const entry = e.detail || {};
     const work = entry.work || entry.slug || entry.work_slug;
     const chapter = entry.chapter || entry.chapter_path;
-
-    const manifestUrl =
-        entry.manifest_url || Storage.manifest(source, work, chapter);
-
-    try {
-        await renderManifestInto(root, manifestUrl, source, work, chapter);
-    } catch (err) {
-        console.error("Reader failed:", err);
-
-        root.innerHTML = `
-            <div class="reader-error">
-                <h2>Failed to load chapter</h2>
-            </div>
-        `;
-    }
+    if (work) navigate(workUrl(work, chapter));
 });

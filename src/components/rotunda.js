@@ -9,6 +9,7 @@ import storage from "../data/storage.json";
 import { ROTUNDA_MAX_MOUNTED, rotundaWindow } from "./rotunda_window.js";
 import "../styles/rotunda.css";
 import { getLocalProfileState, subscribeLocalProfiles } from "../local-profile/store.js";
+import { navigate, workUrl } from "../router/router.js";
 import { personalizeWorks } from "../local-profile/personalization.js";
 
 export function personalizeRotundaCandidates(works, profile, catalog = tagCatalog) {
@@ -75,9 +76,7 @@ class LruCache {
 }
 
 function openReader(card) {
-    window.dispatchEvent(new CustomEvent("open-reader", {
-        detail: { source: card.source, work: card.slug, chapter: card.chapter }
-    }));
+    navigate(workUrl(card.slug));
 }
 
 function initialCard(work, sources, defaultSource) {
