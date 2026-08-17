@@ -6998,15 +6998,6 @@
       "public": true
     },
     {
-      "slug": "Boku_Yaba_Mama_Im_Yaba_Mama_1",
-      "display": "Boku Yaba Mama I'm Yaba Mama (1)",
-      "source": "e",
-      "manifest": "works/Boku_Yaba_Mama_Im_Yaba_Mama_1.json",
-      "thumb": "https://cdn.564578634.xyz/works/Boku_Yaba_Mama_Im_Yaba_Mama_1/chapter_1/thumb.webp",
-      "tags": [],
-      "public": true
-    },
-    {
       "slug": "Boku_Yaba_Mama_Im_Yaba_Mama",
       "display": "Boku Yaba Mama I'm Yaba Mama",
       "source": "e",
@@ -7034,15 +7025,6 @@
       "public": true
     },
     {
-      "slug": "Cool-chan_wa_Sensei_Gakari_Miss_Cool_is_Senseis_Assistant_1",
-      "display": "Cool-chan wa Sensei Gakari Miss Cool is Sensei's Assistant (1)",
-      "source": "e",
-      "manifest": "works/Cool-chan_wa_Sensei_Gakari_Miss_Cool_is_Senseis_Assistant_1.json",
-      "thumb": "https://cdn.564578634.xyz/works/Cool-chan_wa_Sensei_Gakari_Miss_Cool_is_Senseis_Assistant_1/chapter_1/thumb.webp",
-      "tags": [],
-      "public": true
-    },
-    {
       "slug": "Cool-chan_wa_Sensei_Gakari_Miss_Cool_is_Senseis_Assistant",
       "display": "Cool-chan wa Sensei Gakari Miss Cool is Sensei's Assistant",
       "source": "e",
@@ -7057,15 +7039,6 @@
       "source": "e",
       "manifest": "works/Dekiai_Koubi_Blind_Love_Mating_1.json",
       "thumb": "https://cdn.564578634.xyz/works/Dekiai_Koubi_Blind_Love_Mating_1/chapter_1/thumb.webp",
-      "tags": [],
-      "public": true
-    },
-    {
-      "slug": "Dekiai_Koubi_Blind_Love_Mating_2",
-      "display": "Dekiai Koubi Blind Love Mating (2)",
-      "source": "e",
-      "manifest": "works/Dekiai_Koubi_Blind_Love_Mating_2.json",
-      "thumb": "https://cdn.564578634.xyz/works/Dekiai_Koubi_Blind_Love_Mating_2/chapter_1/thumb.webp",
       "tags": [],
       "public": true
     },
@@ -7124,15 +7097,6 @@
       "public": true
     },
     {
-      "slug": "Having_Free_Use_of_The_President_with_a_Perception_Blocking_App_1",
-      "display": "Having Free Use of The President with a Perception Blocking App (1)",
-      "source": "e",
-      "manifest": "works/Having_Free_Use_of_The_President_with_a_Perception_Blocking_App_1.json",
-      "thumb": "https://cdn.564578634.xyz/works/Having_Free_Use_of_The_President_with_a_Perception_Blocking_App_1/chapter_1/thumb.webp",
-      "tags": [],
-      "public": true
-    },
-    {
       "slug": "Having_Free_Use_of_The_President_with_a_Perception_Blocking_App",
       "display": "Having Free Use of The President with a Perception Blocking App",
       "source": "e",
@@ -7187,15 +7151,6 @@
       "public": true
     },
     {
-      "slug": "Imouto_no_Oppai_ga_Marudashi_Datta_Hanashi_2_1",
-      "display": "Imouto no Oppai ga Marudashi Datta Hanashi 2 (1)",
-      "source": "e",
-      "manifest": "works/Imouto_no_Oppai_ga_Marudashi_Datta_Hanashi_2_1.json",
-      "thumb": "https://cdn.564578634.xyz/works/Imouto_no_Oppai_ga_Marudashi_Datta_Hanashi_2_1/chapter_1/thumb.webp",
-      "tags": [],
-      "public": true
-    },
-    {
       "slug": "Imouto_no_Oppai_ga_Marudashi_Datta_Hanashi_2",
       "display": "Imouto no Oppai ga Marudashi Datta Hanashi 2",
       "source": "e",
@@ -7205,29 +7160,11 @@
       "public": true
     },
     {
-      "slug": "Imouto_wa_Mesu_Orc_1-4_1",
-      "display": "Imouto wa Mesu Orc 1-4 (1)",
-      "source": "e",
-      "manifest": "works/Imouto_wa_Mesu_Orc_1-4_1.json",
-      "thumb": "https://cdn.564578634.xyz/works/Imouto_wa_Mesu_Orc_1-4_1/chapter_1/thumb.webp",
-      "tags": [],
-      "public": true
-    },
-    {
       "slug": "Imouto_wa_Mesu_Orc_1-4",
       "display": "Imouto wa Mesu Orc 1-4",
       "source": "e",
       "manifest": "works/Imouto_wa_Mesu_Orc_1-4.json",
       "thumb": "https://cdn.564578634.xyz/works/Imouto_wa_Mesu_Orc_1-4/chapter_1/thumb.webp",
-      "tags": [],
-      "public": true
-    },
-    {
-      "slug": "Imouto_wa_Mesu_Orc_2_1",
-      "display": "Imouto wa Mesu Orc 2 (1)",
-      "source": "e",
-      "manifest": "works/Imouto_wa_Mesu_Orc_2_1.json",
-      "thumb": "https://cdn.564578634.xyz/works/Imouto_wa_Mesu_Orc_2_1/chapter_1/thumb.webp",
       "tags": [],
       "public": true
     },
@@ -7327,24 +7264,6 @@
       "source": "e",
       "manifest": "works/The_Melancholy_of_Carlo_Malvezzi.json",
       "thumb": "https://cdn.564578634.xyz/works/The_Melancholy_of_Carlo_Malvezzi/chapter_1/thumb.webp",
-      "tags": [],
-      "public": true
-    },
-    {
-      "slug": "Tsukiichi_Bed_Mei_King_1",
-      "display": "Tsukiichi Bed Mei King (1)",
-      "source": "e",
-      "manifest": "works/Tsukiichi_Bed_Mei_King_1.json",
-      "thumb": "https://cdn.564578634.xyz/works/Tsukiichi_Bed_Mei_King_1/chapter_1/thumb.webp",
-      "tags": [],
-      "public": true
-    },
-    {
-      "slug": "Tsukiichi_Bed_Mei_King_2",
-      "display": "Tsukiichi Bed Mei King (2)",
-      "source": "e",
-      "manifest": "works/Tsukiichi_Bed_Mei_King_2.json",
-      "thumb": "https://cdn.564578634.xyz/works/Tsukiichi_Bed_Mei_King_2/chapter_1/thumb.webp",
       "tags": [],
       "public": true
     },
