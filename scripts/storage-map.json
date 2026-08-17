@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-07-29T04:59:26Z",
+  "generated_at": "2026-08-17T01:05:21Z",
   "generator": "ingest-work.py",
-  "work_count": 377,
+  "work_count": 425,
   "works": [
     {
       "schema_version": 1,
@@ -254,6 +254,67 @@
         "status": "uploaded"
       },
       "generated_at": "2026-07-29T04:59:26Z",
+      "generator": "ingest-work.py"
+    },
+    {
+      "schema_version": 1,
+      "slug": "01",
+      "display": "はじめてのセフレ 第01巻",
+      "parent_work_id": 7064588593,
+      "source": "e",
+      "public": true,
+      "tags": [],
+      "storage": {
+        "provider": "cloudflare-r2",
+        "remote": "animeplex.lol:extended/works/01",
+        "prefix": "works/01",
+        "cdn_base_url": "https://cdn.564578634.xyz/works"
+      },
+      "urls": {
+        "work": "https://cdn.564578634.xyz/works/01/",
+        "manifest": "works/01.json",
+        "thumb": "https://cdn.564578634.xyz/works/01/chapter_1/thumb.webp",
+        "details": "https://cdn.564578634.xyz/works/01/chapter_1/details.json",
+        "archive": "https://cdn.564578634.xyz/works/01/chapter_1/はじめてのセフレ 第01巻.cbz"
+      },
+      "item_json": {
+        "count": 1,
+        "urls": [
+          "https://cdn.564578634.xyz/works/01/chapter_1/item.json"
+        ]
+      },
+      "content": {
+        "chapter_count": 1,
+        "page_count": 172,
+        "page_bytes": 65945904
+      },
+      "archive": {
+        "exists": true,
+        "filename": "はじめてのセフレ 第01巻.cbz",
+        "format": "cbz",
+        "size_bytes": 65961750,
+        "sha256": "15715069742de82e9e6da5cabafb7a8c67d19667ae0434df9808732cf0ecd744"
+      },
+      "files": {
+        "thumb_exists": true,
+        "details_exists": true,
+        "archive_exists": true,
+        "item_json_count": 1,
+        "non_image_file_count": 4
+      },
+      "fingerprints": {
+        "work_identity_sha256": "e517da0eb81903647c9dac3d961536ed612eedee7620476c4cc8f733f820d5da",
+        "archive_sha256": "15715069742de82e9e6da5cabafb7a8c67d19667ae0434df9808732cf0ecd744",
+        "archive_structure_sha256": "f311bd0ad42503fc595791c6b63d2c127aa549706060959730f76e1dd5815b06",
+        "page_tree_sha256": "7a4df868c07d94e5355546d54a851bd1e9d2a3766cf170c2d3711262ed9a364d"
+      },
+      "upload": {
+        "method": "rclone",
+        "remote": "animeplex.lol:extended/works/01",
+        "uploaded_at": "2026-08-17T01:05:21Z",
+        "status": "uploaded"
+      },
+      "generated_at": "2026-08-17T01:05:21Z",
       "generator": "ingest-work.py"
     },
     {
@@ -1266,6 +1327,128 @@
     },
     {
       "schema_version": 1,
+      "slug": "A_Day_Off_Getting_Milked_Dry_at_a_Hot_Spring_by_the_Subordinate_I_Thought_Was_Innocent",
+      "display": "A Day Off Getting Milked Dry at a Hot Spring by the Subordinate I Thought Was Innocent",
+      "parent_work_id": 8302819668,
+      "source": "e",
+      "public": true,
+      "tags": [],
+      "storage": {
+        "provider": "cloudflare-r2",
+        "remote": "animeplex.lol:extended/works/A_Day_Off_Getting_Milked_Dry_at_a_Hot_Spring_by_the_Subordinate_I_Thought_Was_Innocent",
+        "prefix": "works/A_Day_Off_Getting_Milked_Dry_at_a_Hot_Spring_by_the_Subordinate_I_Thought_Was_Innocent",
+        "cdn_base_url": "https://cdn.564578634.xyz/works"
+      },
+      "urls": {
+        "work": "https://cdn.564578634.xyz/works/A_Day_Off_Getting_Milked_Dry_at_a_Hot_Spring_by_the_Subordinate_I_Thought_Was_Innocent/",
+        "manifest": "works/A_Day_Off_Getting_Milked_Dry_at_a_Hot_Spring_by_the_Subordinate_I_Thought_Was_Innocent.json",
+        "thumb": "https://cdn.564578634.xyz/works/A_Day_Off_Getting_Milked_Dry_at_a_Hot_Spring_by_the_Subordinate_I_Thought_Was_Innocent/chapter_1/thumb.webp",
+        "details": "https://cdn.564578634.xyz/works/A_Day_Off_Getting_Milked_Dry_at_a_Hot_Spring_by_the_Subordinate_I_Thought_Was_Innocent/chapter_1/details.json",
+        "archive": "https://cdn.564578634.xyz/works/A_Day_Off_Getting_Milked_Dry_at_a_Hot_Spring_by_the_Subordinate_I_Thought_Was_Innocent/chapter_1/A Day Off Getting Milked Dry at a Hot Spring by the Subordinate I Thought Was Innocent.cbz"
+      },
+      "item_json": {
+        "count": 1,
+        "urls": [
+          "https://cdn.564578634.xyz/works/A_Day_Off_Getting_Milked_Dry_at_a_Hot_Spring_by_the_Subordinate_I_Thought_Was_Innocent/chapter_1/item.json"
+        ]
+      },
+      "content": {
+        "chapter_count": 1,
+        "page_count": 59,
+        "page_bytes": 42480964
+      },
+      "archive": {
+        "exists": true,
+        "filename": "A Day Off Getting Milked Dry at a Hot Spring by the Subordinate I Thought Was Innocent.cbz",
+        "format": "cbz",
+        "size_bytes": 42486296,
+        "sha256": "e22fe5ce136d3e01e839c26398de87c88a203e893c8f811f1ceacb7c80f65bd3"
+      },
+      "files": {
+        "thumb_exists": true,
+        "details_exists": true,
+        "archive_exists": true,
+        "item_json_count": 1,
+        "non_image_file_count": 4
+      },
+      "fingerprints": {
+        "work_identity_sha256": "e6cab733af6c47e2d975e3c069f3c679d86128e8830f0cfdd9c7da411bf17cac",
+        "archive_sha256": "e22fe5ce136d3e01e839c26398de87c88a203e893c8f811f1ceacb7c80f65bd3",
+        "archive_structure_sha256": "4340b491951448cf33f26397193b6c16732ff632f79b004cd52ad10aa11f0f31",
+        "page_tree_sha256": "83e80089d82f98eb0c9be2b59a88a6c4bed0f112e01c1a7ed2ace94905c8b6cf"
+      },
+      "upload": {
+        "method": "rclone",
+        "remote": "animeplex.lol:extended/works/A_Day_Off_Getting_Milked_Dry_at_a_Hot_Spring_by_the_Subordinate_I_Thought_Was_Innocent",
+        "uploaded_at": "2026-08-17T01:05:21Z",
+        "status": "uploaded"
+      },
+      "generated_at": "2026-08-17T01:05:21Z",
+      "generator": "ingest-work.py"
+    },
+    {
+      "schema_version": 1,
+      "slug": "A_manga_about_taking_a_bath_with_a_girl_who_is_ignorant_about_sex_and_having_sex_with_her.",
+      "display": "A manga about taking a bath with a girl who is ignorant about sex and having sex with her.",
+      "parent_work_id": 2181760153,
+      "source": "e",
+      "public": true,
+      "tags": [],
+      "storage": {
+        "provider": "cloudflare-r2",
+        "remote": "animeplex.lol:extended/works/A_manga_about_taking_a_bath_with_a_girl_who_is_ignorant_about_sex_and_having_sex_with_her.",
+        "prefix": "works/A_manga_about_taking_a_bath_with_a_girl_who_is_ignorant_about_sex_and_having_sex_with_her.",
+        "cdn_base_url": "https://cdn.564578634.xyz/works"
+      },
+      "urls": {
+        "work": "https://cdn.564578634.xyz/works/A_manga_about_taking_a_bath_with_a_girl_who_is_ignorant_about_sex_and_having_sex_with_her./",
+        "manifest": "works/A_manga_about_taking_a_bath_with_a_girl_who_is_ignorant_about_sex_and_having_sex_with_her..json",
+        "thumb": "https://cdn.564578634.xyz/works/A_manga_about_taking_a_bath_with_a_girl_who_is_ignorant_about_sex_and_having_sex_with_her./chapter_1/thumb.webp",
+        "details": "https://cdn.564578634.xyz/works/A_manga_about_taking_a_bath_with_a_girl_who_is_ignorant_about_sex_and_having_sex_with_her./chapter_1/details.json",
+        "archive": "https://cdn.564578634.xyz/works/A_manga_about_taking_a_bath_with_a_girl_who_is_ignorant_about_sex_and_having_sex_with_her./chapter_1/A manga about taking a bath with a girl who is ignorant about sex and having sex with her..cbz"
+      },
+      "item_json": {
+        "count": 1,
+        "urls": [
+          "https://cdn.564578634.xyz/works/A_manga_about_taking_a_bath_with_a_girl_who_is_ignorant_about_sex_and_having_sex_with_her./chapter_1/item.json"
+        ]
+      },
+      "content": {
+        "chapter_count": 1,
+        "page_count": 20,
+        "page_bytes": 4632066
+      },
+      "archive": {
+        "exists": true,
+        "filename": "A manga about taking a bath with a girl who is ignorant about sex and having sex with her..cbz",
+        "format": "cbz",
+        "size_bytes": 4633888,
+        "sha256": "66faf435902139d39580a3b2e769be47d17fe133f9663f385d8c0a232ac5bd71"
+      },
+      "files": {
+        "thumb_exists": true,
+        "details_exists": true,
+        "archive_exists": true,
+        "item_json_count": 1,
+        "non_image_file_count": 4
+      },
+      "fingerprints": {
+        "work_identity_sha256": "42bb73a7d739b3c878a0c47dc6fbaa71fd6767959f4e3d8ee492d63d01fbda86",
+        "archive_sha256": "66faf435902139d39580a3b2e769be47d17fe133f9663f385d8c0a232ac5bd71",
+        "archive_structure_sha256": "2ac460e720a0b929873b9a56ed33a24c2f18db823a99a747deee6bcc8d0c583f",
+        "page_tree_sha256": "ea21a3cffe5af1ebf64d0109767f77e2933a2f3846a57274e3e0c21ea94a5334"
+      },
+      "upload": {
+        "method": "rclone",
+        "remote": "animeplex.lol:extended/works/A_manga_about_taking_a_bath_with_a_girl_who_is_ignorant_about_sex_and_having_sex_with_her.",
+        "uploaded_at": "2026-08-17T01:05:21Z",
+        "status": "uploaded"
+      },
+      "generated_at": "2026-08-17T01:05:21Z",
+      "generator": "ingest-work.py"
+    },
+    {
+      "schema_version": 1,
       "slug": "Abakarete_Exposed",
       "display": "Abakarete Exposed",
       "parent_work_id": 4892132377,
@@ -1451,6 +1634,67 @@
         "status": "uploaded"
       },
       "generated_at": "2026-07-27T23:10:27Z",
+      "generator": "ingest-work.py"
+    },
+    {
+      "schema_version": 1,
+      "slug": "Aisuru_Tsuma_wa_Hei_no_Naka_My_beloved_wife_is_behind_bars",
+      "display": "Aisuru Tsuma wa Hei no Naka My beloved wife is behind bars",
+      "parent_work_id": 8104083342,
+      "source": "e",
+      "public": true,
+      "tags": [],
+      "storage": {
+        "provider": "cloudflare-r2",
+        "remote": "animeplex.lol:extended/works/Aisuru_Tsuma_wa_Hei_no_Naka_My_beloved_wife_is_behind_bars",
+        "prefix": "works/Aisuru_Tsuma_wa_Hei_no_Naka_My_beloved_wife_is_behind_bars",
+        "cdn_base_url": "https://cdn.564578634.xyz/works"
+      },
+      "urls": {
+        "work": "https://cdn.564578634.xyz/works/Aisuru_Tsuma_wa_Hei_no_Naka_My_beloved_wife_is_behind_bars/",
+        "manifest": "works/Aisuru_Tsuma_wa_Hei_no_Naka_My_beloved_wife_is_behind_bars.json",
+        "thumb": "https://cdn.564578634.xyz/works/Aisuru_Tsuma_wa_Hei_no_Naka_My_beloved_wife_is_behind_bars/chapter_1/thumb.webp",
+        "details": "https://cdn.564578634.xyz/works/Aisuru_Tsuma_wa_Hei_no_Naka_My_beloved_wife_is_behind_bars/chapter_1/details.json",
+        "archive": "https://cdn.564578634.xyz/works/Aisuru_Tsuma_wa_Hei_no_Naka_My_beloved_wife_is_behind_bars/chapter_1/Aisuru Tsuma wa Hei no Naka _ My beloved wife is behind bars.cbz"
+      },
+      "item_json": {
+        "count": 1,
+        "urls": [
+          "https://cdn.564578634.xyz/works/Aisuru_Tsuma_wa_Hei_no_Naka_My_beloved_wife_is_behind_bars/chapter_1/item.json"
+        ]
+      },
+      "content": {
+        "chapter_count": 1,
+        "page_count": 32,
+        "page_bytes": 6984450
+      },
+      "archive": {
+        "exists": true,
+        "filename": "Aisuru Tsuma wa Hei no Naka _ My beloved wife is behind bars.cbz",
+        "format": "cbz",
+        "size_bytes": 6987352,
+        "sha256": "e7800005d85c034b3b6d0f20e5e72041b98e99c12b1ab11f68ef058585c491a4"
+      },
+      "files": {
+        "thumb_exists": true,
+        "details_exists": true,
+        "archive_exists": true,
+        "item_json_count": 1,
+        "non_image_file_count": 4
+      },
+      "fingerprints": {
+        "work_identity_sha256": "82f6d0a0303fe70ddf258f1ee2503a8f0c9ae8585da3e15c4be2ee1610dc37d0",
+        "archive_sha256": "e7800005d85c034b3b6d0f20e5e72041b98e99c12b1ab11f68ef058585c491a4",
+        "archive_structure_sha256": "8aa76c4de07a81a25860549ab4b30de64d1b08f88fc6c4f2d10c64a4e826e465",
+        "page_tree_sha256": "c93f8b1655d2b3e38184b6831171bfa6b394e9a4419fe76e8269e15bf600c865"
+      },
+      "upload": {
+        "method": "rclone",
+        "remote": "animeplex.lol:extended/works/Aisuru_Tsuma_wa_Hei_no_Naka_My_beloved_wife_is_behind_bars",
+        "uploaded_at": "2026-08-17T01:05:21Z",
+        "status": "uploaded"
+      },
+      "generated_at": "2026-08-17T01:05:21Z",
       "generator": "ingest-work.py"
     },
     {
@@ -2022,6 +2266,67 @@
     },
     {
       "schema_version": 1,
+      "slug": "Anthony",
+      "display": "Anthony",
+      "parent_work_id": 7363513062,
+      "source": "e",
+      "public": true,
+      "tags": [],
+      "storage": {
+        "provider": "cloudflare-r2",
+        "remote": "animeplex.lol:extended/works/Anthony",
+        "prefix": "works/Anthony",
+        "cdn_base_url": "https://cdn.564578634.xyz/works"
+      },
+      "urls": {
+        "work": "https://cdn.564578634.xyz/works/Anthony/",
+        "manifest": "works/Anthony.json",
+        "thumb": "https://cdn.564578634.xyz/works/Anthony/chapter_1/thumb.webp",
+        "details": "https://cdn.564578634.xyz/works/Anthony/chapter_1/details.json",
+        "archive": "https://cdn.564578634.xyz/works/Anthony/chapter_1/Anthony.cbz"
+      },
+      "item_json": {
+        "count": 1,
+        "urls": [
+          "https://cdn.564578634.xyz/works/Anthony/chapter_1/item.json"
+        ]
+      },
+      "content": {
+        "chapter_count": 1,
+        "page_count": 32,
+        "page_bytes": 5180692
+      },
+      "archive": {
+        "exists": true,
+        "filename": "Anthony.cbz",
+        "format": "cbz",
+        "size_bytes": 5183594,
+        "sha256": "190977bdc97d855fb9bb6db9d6e26f6a78febde5fde3887e1324261539b28a19"
+      },
+      "files": {
+        "thumb_exists": true,
+        "details_exists": true,
+        "archive_exists": true,
+        "item_json_count": 1,
+        "non_image_file_count": 4
+      },
+      "fingerprints": {
+        "work_identity_sha256": "a661c9063336e93224b140f3c1b6f0f977c4998b31298588badc4fa3a8b5fb4d",
+        "archive_sha256": "190977bdc97d855fb9bb6db9d6e26f6a78febde5fde3887e1324261539b28a19",
+        "archive_structure_sha256": "5ba0020ea1129a02e1bd7f5da9341d52bacb55173a03244bb79d3ff8266cac9b",
+        "page_tree_sha256": "bacbc19f514af03806afc2d904cc5dfbb1e9a3e1f60483056ccf9cd5bfa6e693"
+      },
+      "upload": {
+        "method": "rclone",
+        "remote": "animeplex.lol:extended/works/Anthony",
+        "uploaded_at": "2026-08-17T01:05:21Z",
+        "status": "uploaded"
+      },
+      "generated_at": "2026-08-17T01:05:21Z",
+      "generator": "ingest-work.py"
+    },
+    {
+      "schema_version": 1,
       "slug": "Archive_May_2024",
       "display": "Archive May 2024",
       "parent_work_id": 2404516024,
@@ -2274,6 +2579,67 @@
     },
     {
       "schema_version": 1,
+      "slug": "BABY_DREAM",
+      "display": "BABY DREAM",
+      "parent_work_id": 2821985569,
+      "source": "e",
+      "public": true,
+      "tags": [],
+      "storage": {
+        "provider": "cloudflare-r2",
+        "remote": "animeplex.lol:extended/works/BABY_DREAM",
+        "prefix": "works/BABY_DREAM",
+        "cdn_base_url": "https://cdn.564578634.xyz/works"
+      },
+      "urls": {
+        "work": "https://cdn.564578634.xyz/works/BABY_DREAM/",
+        "manifest": "works/BABY_DREAM.json",
+        "thumb": "https://cdn.564578634.xyz/works/BABY_DREAM/chapter_1/thumb.webp",
+        "details": "https://cdn.564578634.xyz/works/BABY_DREAM/chapter_1/details.json",
+        "archive": "https://cdn.564578634.xyz/works/BABY_DREAM/chapter_1/BABY DREAM.cbz"
+      },
+      "item_json": {
+        "count": 1,
+        "urls": [
+          "https://cdn.564578634.xyz/works/BABY_DREAM/chapter_1/item.json"
+        ]
+      },
+      "content": {
+        "chapter_count": 1,
+        "page_count": 27,
+        "page_bytes": 5100124
+      },
+      "archive": {
+        "exists": true,
+        "filename": "BABY DREAM.cbz",
+        "format": "cbz",
+        "size_bytes": 5103440,
+        "sha256": "7ed046b57111e4a060cb110a4c8a6e1ef22f18b439dd196f2708b029de19aa9d"
+      },
+      "files": {
+        "thumb_exists": true,
+        "details_exists": true,
+        "archive_exists": true,
+        "item_json_count": 1,
+        "non_image_file_count": 4
+      },
+      "fingerprints": {
+        "work_identity_sha256": "53c10519dfb25bd3eb977a51efb0433e925b09e0ead036ccd793920322925d02",
+        "archive_sha256": "7ed046b57111e4a060cb110a4c8a6e1ef22f18b439dd196f2708b029de19aa9d",
+        "archive_structure_sha256": "c32c1119f1db32431465fe6e82ad05d96d4a82f80b278c3f603defa0575ce9fb",
+        "page_tree_sha256": "4f77739bdb755b674818b03d045c228b817e28e50fd27cd4320790a89d502d5c"
+      },
+      "upload": {
+        "method": "rclone",
+        "remote": "animeplex.lol:extended/works/BABY_DREAM",
+        "uploaded_at": "2026-08-17T01:05:21Z",
+        "status": "uploaded"
+      },
+      "generated_at": "2026-08-17T01:05:21Z",
+      "generator": "ingest-work.py"
+    },
+    {
+      "schema_version": 1,
       "slug": "BAD_END_HEAVEN_5",
       "display": "BAD END HEAVEN 5",
       "parent_work_id": 2063473953,
@@ -2396,6 +2762,67 @@
         "status": "uploaded"
       },
       "generated_at": "2026-07-27T23:10:27Z",
+      "generator": "ingest-work.py"
+    },
+    {
+      "schema_version": 1,
+      "slug": "Baka_Kanojo_ga_Hamedori_Hamatte_Baka-Sex_wo_Toukou_Suru_Hanashi",
+      "display": "Baka Kanojo ga Hamedori Hamatte Baka-Sex wo Toukou Suru Hanashi",
+      "parent_work_id": 3356258422,
+      "source": "e",
+      "public": true,
+      "tags": [],
+      "storage": {
+        "provider": "cloudflare-r2",
+        "remote": "animeplex.lol:extended/works/Baka_Kanojo_ga_Hamedori_Hamatte_Baka-Sex_wo_Toukou_Suru_Hanashi",
+        "prefix": "works/Baka_Kanojo_ga_Hamedori_Hamatte_Baka-Sex_wo_Toukou_Suru_Hanashi",
+        "cdn_base_url": "https://cdn.564578634.xyz/works"
+      },
+      "urls": {
+        "work": "https://cdn.564578634.xyz/works/Baka_Kanojo_ga_Hamedori_Hamatte_Baka-Sex_wo_Toukou_Suru_Hanashi/",
+        "manifest": "works/Baka_Kanojo_ga_Hamedori_Hamatte_Baka-Sex_wo_Toukou_Suru_Hanashi.json",
+        "thumb": "https://cdn.564578634.xyz/works/Baka_Kanojo_ga_Hamedori_Hamatte_Baka-Sex_wo_Toukou_Suru_Hanashi/chapter_1/thumb.webp",
+        "details": "https://cdn.564578634.xyz/works/Baka_Kanojo_ga_Hamedori_Hamatte_Baka-Sex_wo_Toukou_Suru_Hanashi/chapter_1/details.json",
+        "archive": "https://cdn.564578634.xyz/works/Baka_Kanojo_ga_Hamedori_Hamatte_Baka-Sex_wo_Toukou_Suru_Hanashi/chapter_1/Baka Kanojo ga Hamedori Hamatte Baka-Sex wo Toukou Suru Hanashi.cbz"
+      },
+      "item_json": {
+        "count": 1,
+        "urls": [
+          "https://cdn.564578634.xyz/works/Baka_Kanojo_ga_Hamedori_Hamatte_Baka-Sex_wo_Toukou_Suru_Hanashi/chapter_1/item.json"
+        ]
+      },
+      "content": {
+        "chapter_count": 1,
+        "page_count": 57,
+        "page_bytes": 11616406
+      },
+      "archive": {
+        "exists": true,
+        "filename": "Baka Kanojo ga Hamedori Hamatte Baka-Sex wo Toukou Suru Hanashi.cbz",
+        "format": "cbz",
+        "size_bytes": 11621882,
+        "sha256": "bcc424d9635871d5de27715ab2e7d9e3dd9dc57b6e042ba644e3b3ae92a67e15"
+      },
+      "files": {
+        "thumb_exists": true,
+        "details_exists": true,
+        "archive_exists": true,
+        "item_json_count": 1,
+        "non_image_file_count": 4
+      },
+      "fingerprints": {
+        "work_identity_sha256": "23f26f47a665d8385187f43a5a043445511298c5991c8326bc4adbdefe047468",
+        "archive_sha256": "bcc424d9635871d5de27715ab2e7d9e3dd9dc57b6e042ba644e3b3ae92a67e15",
+        "archive_structure_sha256": "83e39be9f2e5ae3738d64380ac2de0be31a33c4d1c481e3c609adc6fa8247390",
+        "page_tree_sha256": "bf2b0138e68535bcf594827ae77ec24ec2caf954f84915c7320d5eec6d63d439"
+      },
+      "upload": {
+        "method": "rclone",
+        "remote": "animeplex.lol:extended/works/Baka_Kanojo_ga_Hamedori_Hamatte_Baka-Sex_wo_Toukou_Suru_Hanashi",
+        "uploaded_at": "2026-08-17T01:05:21Z",
+        "status": "uploaded"
+      },
+      "generated_at": "2026-08-17T01:05:21Z",
       "generator": "ingest-work.py"
     },
     {
@@ -2709,6 +3136,67 @@
         "status": "uploaded"
       },
       "generated_at": "2026-07-29T03:51:39Z",
+      "generator": "ingest-work.py"
+    },
+    {
+      "schema_version": 1,
+      "slug": "Blackmailing_My_Boss_Using_My_Power_To_Recognize_Women_By_Their_Asses_2",
+      "display": "Blackmailing My Boss Using My Power To Recognize Women By Their Asses 2",
+      "parent_work_id": 5516974804,
+      "source": "e",
+      "public": true,
+      "tags": [],
+      "storage": {
+        "provider": "cloudflare-r2",
+        "remote": "animeplex.lol:extended/works/Blackmailing_My_Boss_Using_My_Power_To_Recognize_Women_By_Their_Asses_2",
+        "prefix": "works/Blackmailing_My_Boss_Using_My_Power_To_Recognize_Women_By_Their_Asses_2",
+        "cdn_base_url": "https://cdn.564578634.xyz/works"
+      },
+      "urls": {
+        "work": "https://cdn.564578634.xyz/works/Blackmailing_My_Boss_Using_My_Power_To_Recognize_Women_By_Their_Asses_2/",
+        "manifest": "works/Blackmailing_My_Boss_Using_My_Power_To_Recognize_Women_By_Their_Asses_2.json",
+        "thumb": "https://cdn.564578634.xyz/works/Blackmailing_My_Boss_Using_My_Power_To_Recognize_Women_By_Their_Asses_2/chapter_1/thumb.webp",
+        "details": "https://cdn.564578634.xyz/works/Blackmailing_My_Boss_Using_My_Power_To_Recognize_Women_By_Their_Asses_2/chapter_1/details.json",
+        "archive": "https://cdn.564578634.xyz/works/Blackmailing_My_Boss_Using_My_Power_To_Recognize_Women_By_Their_Asses_2/chapter_1/Blackmailing My Boss Using My Power To Recognize Women By Their Asses 2.cbz"
+      },
+      "item_json": {
+        "count": 1,
+        "urls": [
+          "https://cdn.564578634.xyz/works/Blackmailing_My_Boss_Using_My_Power_To_Recognize_Women_By_Their_Asses_2/chapter_1/item.json"
+        ]
+      },
+      "content": {
+        "chapter_count": 1,
+        "page_count": 45,
+        "page_bytes": 17352792
+      },
+      "archive": {
+        "exists": true,
+        "filename": "Blackmailing My Boss Using My Power To Recognize Women By Their Asses 2.cbz",
+        "format": "cbz",
+        "size_bytes": 17357138,
+        "sha256": "7e83e928d44cdcc1f9a72f4d6f73626e757c912f3f685005a6869b6cff923d40"
+      },
+      "files": {
+        "thumb_exists": true,
+        "details_exists": true,
+        "archive_exists": true,
+        "item_json_count": 1,
+        "non_image_file_count": 4
+      },
+      "fingerprints": {
+        "work_identity_sha256": "9da7e729e61b5dfd51a0158fa4b0319d811c8281b4a6c5c97023cbdbe6ffab0e",
+        "archive_sha256": "7e83e928d44cdcc1f9a72f4d6f73626e757c912f3f685005a6869b6cff923d40",
+        "archive_structure_sha256": "709f4e04606a58a42b59c228eeaa21596e1ac47bb954da8214a4e471a54e990b",
+        "page_tree_sha256": "63ab172b6d36708b17d1972c72e08ee7d7a1dc5c590e475e06ee1cf3eb416efa"
+      },
+      "upload": {
+        "method": "rclone",
+        "remote": "animeplex.lol:extended/works/Blackmailing_My_Boss_Using_My_Power_To_Recognize_Women_By_Their_Asses_2",
+        "uploaded_at": "2026-08-17T01:05:21Z",
+        "status": "uploaded"
+      },
+      "generated_at": "2026-08-17T01:05:21Z",
       "generator": "ingest-work.py"
     },
     {
@@ -3217,6 +3705,128 @@
     },
     {
       "schema_version": 1,
+      "slug": "Boku_Yaba_Mama_Im_Yaba_Mama",
+      "display": "Boku Yaba Mama I'm Yaba Mama",
+      "parent_work_id": 8819424557,
+      "source": "e",
+      "public": true,
+      "tags": [],
+      "storage": {
+        "provider": "cloudflare-r2",
+        "remote": "animeplex.lol:extended/works/Boku_Yaba_Mama_Im_Yaba_Mama",
+        "prefix": "works/Boku_Yaba_Mama_Im_Yaba_Mama",
+        "cdn_base_url": "https://cdn.564578634.xyz/works"
+      },
+      "urls": {
+        "work": "https://cdn.564578634.xyz/works/Boku_Yaba_Mama_Im_Yaba_Mama/",
+        "manifest": "works/Boku_Yaba_Mama_Im_Yaba_Mama.json",
+        "thumb": "https://cdn.564578634.xyz/works/Boku_Yaba_Mama_Im_Yaba_Mama/chapter_1/thumb.webp",
+        "details": "https://cdn.564578634.xyz/works/Boku_Yaba_Mama_Im_Yaba_Mama/chapter_1/details.json",
+        "archive": "https://cdn.564578634.xyz/works/Boku_Yaba_Mama_Im_Yaba_Mama/chapter_1/Boku Yaba Mama _ I'm Yaba Mama.cbz"
+      },
+      "item_json": {
+        "count": 1,
+        "urls": [
+          "https://cdn.564578634.xyz/works/Boku_Yaba_Mama_Im_Yaba_Mama/chapter_1/item.json"
+        ]
+      },
+      "content": {
+        "chapter_count": 1,
+        "page_count": 44,
+        "page_bytes": 2282884
+      },
+      "archive": {
+        "exists": true,
+        "filename": "Boku Yaba Mama _ I'm Yaba Mama.cbz",
+        "format": "cbz",
+        "size_bytes": 2286866,
+        "sha256": "e724e2e4ca4e605227bcc05a39bdc8965014c74bddde1a4b8afdbe108d71f2ae"
+      },
+      "files": {
+        "thumb_exists": true,
+        "details_exists": true,
+        "archive_exists": true,
+        "item_json_count": 1,
+        "non_image_file_count": 4
+      },
+      "fingerprints": {
+        "work_identity_sha256": "6469b75e3cf078927c46140dc46fb4d733ebd7e0aa13d21a0cdc472eece61236",
+        "archive_sha256": "e724e2e4ca4e605227bcc05a39bdc8965014c74bddde1a4b8afdbe108d71f2ae",
+        "archive_structure_sha256": "5f6510422960913d018b5bf4b7b3941b3e11a96c2661eb790c560c1f8c70c751",
+        "page_tree_sha256": "ecd7ad9e2b5d462443e5f688af486dbc79778d8ef395d2a12da5128910cab2ed"
+      },
+      "upload": {
+        "method": "rclone",
+        "remote": "animeplex.lol:extended/works/Boku_Yaba_Mama_Im_Yaba_Mama",
+        "uploaded_at": "2026-08-17T01:05:21Z",
+        "status": "uploaded"
+      },
+      "generated_at": "2026-08-17T01:05:21Z",
+      "generator": "ingest-work.py"
+    },
+    {
+      "schema_version": 1,
+      "slug": "Boku_Yaba_Mama_Im_Yaba_Mama_1",
+      "display": "Boku Yaba Mama I'm Yaba Mama (1)",
+      "parent_work_id": 2367463963,
+      "source": "e",
+      "public": true,
+      "tags": [],
+      "storage": {
+        "provider": "cloudflare-r2",
+        "remote": "animeplex.lol:extended/works/Boku_Yaba_Mama_Im_Yaba_Mama_1",
+        "prefix": "works/Boku_Yaba_Mama_Im_Yaba_Mama_1",
+        "cdn_base_url": "https://cdn.564578634.xyz/works"
+      },
+      "urls": {
+        "work": "https://cdn.564578634.xyz/works/Boku_Yaba_Mama_Im_Yaba_Mama_1/",
+        "manifest": "works/Boku_Yaba_Mama_Im_Yaba_Mama_1.json",
+        "thumb": "https://cdn.564578634.xyz/works/Boku_Yaba_Mama_Im_Yaba_Mama_1/chapter_1/thumb.webp",
+        "details": "https://cdn.564578634.xyz/works/Boku_Yaba_Mama_Im_Yaba_Mama_1/chapter_1/details.json",
+        "archive": "https://cdn.564578634.xyz/works/Boku_Yaba_Mama_Im_Yaba_Mama_1/chapter_1/Boku Yaba Mama _ I'm Yaba Mama (1).cbz"
+      },
+      "item_json": {
+        "count": 1,
+        "urls": [
+          "https://cdn.564578634.xyz/works/Boku_Yaba_Mama_Im_Yaba_Mama_1/chapter_1/item.json"
+        ]
+      },
+      "content": {
+        "chapter_count": 1,
+        "page_count": 44,
+        "page_bytes": 2282884
+      },
+      "archive": {
+        "exists": true,
+        "filename": "Boku Yaba Mama _ I'm Yaba Mama (1).cbz",
+        "format": "cbz",
+        "size_bytes": 2286866,
+        "sha256": "d43d23617d026bfe61bb9b0bb4f2b0075e347fabbf842569b6546f1d7ef7c0c6"
+      },
+      "files": {
+        "thumb_exists": true,
+        "details_exists": true,
+        "archive_exists": true,
+        "item_json_count": 1,
+        "non_image_file_count": 4
+      },
+      "fingerprints": {
+        "work_identity_sha256": "5995f728880ce0d1e6f6e8b83b9286081d058341263acd30491bb4bdfad1ee59",
+        "archive_sha256": "d43d23617d026bfe61bb9b0bb4f2b0075e347fabbf842569b6546f1d7ef7c0c6",
+        "archive_structure_sha256": "5f6510422960913d018b5bf4b7b3941b3e11a96c2661eb790c560c1f8c70c751",
+        "page_tree_sha256": "ecd7ad9e2b5d462443e5f688af486dbc79778d8ef395d2a12da5128910cab2ed"
+      },
+      "upload": {
+        "method": "rclone",
+        "remote": "animeplex.lol:extended/works/Boku_Yaba_Mama_Im_Yaba_Mama_1",
+        "uploaded_at": "2026-08-17T01:05:21Z",
+        "status": "uploaded"
+      },
+      "generated_at": "2026-08-17T01:05:21Z",
+      "generator": "ingest-work.py"
+    },
+    {
+      "schema_version": 1,
       "slug": "Bokukko_Osananajimi_no_Honshou",
       "display": "Bokukko Osananajimi no Honshou",
       "parent_work_id": 7443329013,
@@ -3276,6 +3886,67 @@
         "status": "uploaded"
       },
       "generated_at": "2026-07-29T04:59:26Z",
+      "generator": "ingest-work.py"
+    },
+    {
+      "schema_version": 1,
+      "slug": "BokuYaba_5-nengo_Sabun_Matome_BokuYaba_5_Years_Later_-Summary_of_Changes-",
+      "display": "BokuYaba 5-nengo Sabun Matome BokuYaba 5 Years Later -Summary of Changes-",
+      "parent_work_id": 2378050707,
+      "source": "e",
+      "public": true,
+      "tags": [],
+      "storage": {
+        "provider": "cloudflare-r2",
+        "remote": "animeplex.lol:extended/works/BokuYaba_5-nengo_Sabun_Matome_BokuYaba_5_Years_Later_-Summary_of_Changes-",
+        "prefix": "works/BokuYaba_5-nengo_Sabun_Matome_BokuYaba_5_Years_Later_-Summary_of_Changes-",
+        "cdn_base_url": "https://cdn.564578634.xyz/works"
+      },
+      "urls": {
+        "work": "https://cdn.564578634.xyz/works/BokuYaba_5-nengo_Sabun_Matome_BokuYaba_5_Years_Later_-Summary_of_Changes-/",
+        "manifest": "works/BokuYaba_5-nengo_Sabun_Matome_BokuYaba_5_Years_Later_-Summary_of_Changes-.json",
+        "thumb": "https://cdn.564578634.xyz/works/BokuYaba_5-nengo_Sabun_Matome_BokuYaba_5_Years_Later_-Summary_of_Changes-/chapter_1/thumb.webp",
+        "details": "https://cdn.564578634.xyz/works/BokuYaba_5-nengo_Sabun_Matome_BokuYaba_5_Years_Later_-Summary_of_Changes-/chapter_1/details.json",
+        "archive": "https://cdn.564578634.xyz/works/BokuYaba_5-nengo_Sabun_Matome_BokuYaba_5_Years_Later_-Summary_of_Changes-/chapter_1/BokuYaba 5-nengo Sabun Matome _ BokuYaba 5 Years Later -Summary of Changes-.cbz"
+      },
+      "item_json": {
+        "count": 1,
+        "urls": [
+          "https://cdn.564578634.xyz/works/BokuYaba_5-nengo_Sabun_Matome_BokuYaba_5_Years_Later_-Summary_of_Changes-/chapter_1/item.json"
+        ]
+      },
+      "content": {
+        "chapter_count": 1,
+        "page_count": 40,
+        "page_bytes": 10146568
+      },
+      "archive": {
+        "exists": true,
+        "filename": "BokuYaba 5-nengo Sabun Matome _ BokuYaba 5 Years Later -Summary of Changes-.cbz",
+        "format": "cbz",
+        "size_bytes": 10150412,
+        "sha256": "23006e96bb1fe1a71e2648ca73ea7a377f422980164eeefbc0f2f050418990b6"
+      },
+      "files": {
+        "thumb_exists": true,
+        "details_exists": true,
+        "archive_exists": true,
+        "item_json_count": 1,
+        "non_image_file_count": 4
+      },
+      "fingerprints": {
+        "work_identity_sha256": "f911d8a2a33144c8049a55418bc38b7f1f32f35bb413eaff4b191652140619b0",
+        "archive_sha256": "23006e96bb1fe1a71e2648ca73ea7a377f422980164eeefbc0f2f050418990b6",
+        "archive_structure_sha256": "cd0cb48b2ee157c9acf8a163184f854b060bdf9638cb618f5cf14f854c9f7ea1",
+        "page_tree_sha256": "6006283060b1b6a93163205a834011df16fcfb464499d3ab131d8091a226c0f5"
+      },
+      "upload": {
+        "method": "rclone",
+        "remote": "animeplex.lol:extended/works/BokuYaba_5-nengo_Sabun_Matome_BokuYaba_5_Years_Later_-Summary_of_Changes-",
+        "uploaded_at": "2026-08-17T01:05:21Z",
+        "status": "uploaded"
+      },
+      "generated_at": "2026-08-17T01:05:21Z",
       "generator": "ingest-work.py"
     },
     {
@@ -3402,6 +4073,67 @@
         "status": "uploaded"
       },
       "generated_at": "2026-07-29T04:59:26Z",
+      "generator": "ingest-work.py"
+    },
+    {
+      "schema_version": 1,
+      "slug": "Buka_ni_UraAcc_o_Shiraretara_If_My_Subordinate_Finds_Out_About_My_Secret_Alt_Account",
+      "display": "Buka ni #UraAcc o Shiraretara If My Subordinate Finds Out About My Secret Alt Account",
+      "parent_work_id": 9549753445,
+      "source": "e",
+      "public": true,
+      "tags": [],
+      "storage": {
+        "provider": "cloudflare-r2",
+        "remote": "animeplex.lol:extended/works/Buka_ni_UraAcc_o_Shiraretara_If_My_Subordinate_Finds_Out_About_My_Secret_Alt_Account",
+        "prefix": "works/Buka_ni_UraAcc_o_Shiraretara_If_My_Subordinate_Finds_Out_About_My_Secret_Alt_Account",
+        "cdn_base_url": "https://cdn.564578634.xyz/works"
+      },
+      "urls": {
+        "work": "https://cdn.564578634.xyz/works/Buka_ni_UraAcc_o_Shiraretara_If_My_Subordinate_Finds_Out_About_My_Secret_Alt_Account/",
+        "manifest": "works/Buka_ni_UraAcc_o_Shiraretara_If_My_Subordinate_Finds_Out_About_My_Secret_Alt_Account.json",
+        "thumb": "https://cdn.564578634.xyz/works/Buka_ni_UraAcc_o_Shiraretara_If_My_Subordinate_Finds_Out_About_My_Secret_Alt_Account/chapter_1/thumb.webp",
+        "details": "https://cdn.564578634.xyz/works/Buka_ni_UraAcc_o_Shiraretara_If_My_Subordinate_Finds_Out_About_My_Secret_Alt_Account/chapter_1/details.json",
+        "archive": "https://cdn.564578634.xyz/works/Buka_ni_UraAcc_o_Shiraretara_If_My_Subordinate_Finds_Out_About_My_Secret_Alt_Account/chapter_1/Buka ni #UraAcc o Shiraretara _ If My Subordinate Finds Out About My Secret Alt Account.cbz"
+      },
+      "item_json": {
+        "count": 1,
+        "urls": [
+          "https://cdn.564578634.xyz/works/Buka_ni_UraAcc_o_Shiraretara_If_My_Subordinate_Finds_Out_About_My_Secret_Alt_Account/chapter_1/item.json"
+        ]
+      },
+      "content": {
+        "chapter_count": 1,
+        "page_count": 35,
+        "page_bytes": 13053068
+      },
+      "archive": {
+        "exists": true,
+        "filename": "Buka ni #UraAcc o Shiraretara _ If My Subordinate Finds Out About My Secret Alt Account.cbz",
+        "format": "cbz",
+        "size_bytes": 13056658,
+        "sha256": "619182b8d9d950f11853139d2775862860696fed1ac1cbcc63449d688601d54c"
+      },
+      "files": {
+        "thumb_exists": true,
+        "details_exists": true,
+        "archive_exists": true,
+        "item_json_count": 1,
+        "non_image_file_count": 4
+      },
+      "fingerprints": {
+        "work_identity_sha256": "7fa46cada8ddd5824a059dd0731222adaa5de8de55014d1dbd5c5fc3a0047a91",
+        "archive_sha256": "619182b8d9d950f11853139d2775862860696fed1ac1cbcc63449d688601d54c",
+        "archive_structure_sha256": "9f0197330ce2df5d75b76edc948bff8dea6b5ff8ebfcba9de891f802a538ede0",
+        "page_tree_sha256": "8b102ae02db11beb0476e557a3b96983bda7c129798a4b091ff2b7a212d3452f"
+      },
+      "upload": {
+        "method": "rclone",
+        "remote": "animeplex.lol:extended/works/Buka_ni_UraAcc_o_Shiraretara_If_My_Subordinate_Finds_Out_About_My_Secret_Alt_Account",
+        "uploaded_at": "2026-08-17T01:05:21Z",
+        "status": "uploaded"
+      },
+      "generated_at": "2026-08-17T01:05:21Z",
       "generator": "ingest-work.py"
     },
     {
@@ -4351,6 +5083,128 @@
     },
     {
       "schema_version": 1,
+      "slug": "Cool-chan_wa_Sensei_Gakari_Miss_Cool_is_Senseis_Assistant",
+      "display": "Cool-chan wa Sensei Gakari Miss Cool is Sensei's Assistant",
+      "parent_work_id": 5502126955,
+      "source": "e",
+      "public": true,
+      "tags": [],
+      "storage": {
+        "provider": "cloudflare-r2",
+        "remote": "animeplex.lol:extended/works/Cool-chan_wa_Sensei_Gakari_Miss_Cool_is_Senseis_Assistant",
+        "prefix": "works/Cool-chan_wa_Sensei_Gakari_Miss_Cool_is_Senseis_Assistant",
+        "cdn_base_url": "https://cdn.564578634.xyz/works"
+      },
+      "urls": {
+        "work": "https://cdn.564578634.xyz/works/Cool-chan_wa_Sensei_Gakari_Miss_Cool_is_Senseis_Assistant/",
+        "manifest": "works/Cool-chan_wa_Sensei_Gakari_Miss_Cool_is_Senseis_Assistant.json",
+        "thumb": "https://cdn.564578634.xyz/works/Cool-chan_wa_Sensei_Gakari_Miss_Cool_is_Senseis_Assistant/chapter_1/thumb.webp",
+        "details": "https://cdn.564578634.xyz/works/Cool-chan_wa_Sensei_Gakari_Miss_Cool_is_Senseis_Assistant/chapter_1/details.json",
+        "archive": "https://cdn.564578634.xyz/works/Cool-chan_wa_Sensei_Gakari_Miss_Cool_is_Senseis_Assistant/chapter_1/Cool-chan wa Sensei Gakari _ Miss Cool is Sensei's Assistant.cbz"
+      },
+      "item_json": {
+        "count": 1,
+        "urls": [
+          "https://cdn.564578634.xyz/works/Cool-chan_wa_Sensei_Gakari_Miss_Cool_is_Senseis_Assistant/chapter_1/item.json"
+        ]
+      },
+      "content": {
+        "chapter_count": 1,
+        "page_count": 35,
+        "page_bytes": 21395436
+      },
+      "archive": {
+        "exists": true,
+        "filename": "Cool-chan wa Sensei Gakari _ Miss Cool is Sensei's Assistant.cbz",
+        "format": "cbz",
+        "size_bytes": 21398608,
+        "sha256": "4c9a250b0effe7a4f03a56efe65d27ffbbb892f9f46f0bfc0d63e46868144bd1"
+      },
+      "files": {
+        "thumb_exists": true,
+        "details_exists": true,
+        "archive_exists": true,
+        "item_json_count": 1,
+        "non_image_file_count": 4
+      },
+      "fingerprints": {
+        "work_identity_sha256": "26a56988881b0af75ba6e7dc1cc0857de2ae69915f822f3bf216aa5cbd0edbe1",
+        "archive_sha256": "4c9a250b0effe7a4f03a56efe65d27ffbbb892f9f46f0bfc0d63e46868144bd1",
+        "archive_structure_sha256": "8fd9168fb4b33c8e1a66e80b7cf0c84f745a48eb0ebf2036624881d84f3d7094",
+        "page_tree_sha256": "c089248f801707cb7e878354c04bf86a86462a3129b8ed0982c56b430cb38f5a"
+      },
+      "upload": {
+        "method": "rclone",
+        "remote": "animeplex.lol:extended/works/Cool-chan_wa_Sensei_Gakari_Miss_Cool_is_Senseis_Assistant",
+        "uploaded_at": "2026-08-17T01:05:21Z",
+        "status": "uploaded"
+      },
+      "generated_at": "2026-08-17T01:05:21Z",
+      "generator": "ingest-work.py"
+    },
+    {
+      "schema_version": 1,
+      "slug": "Cool-chan_wa_Sensei_Gakari_Miss_Cool_is_Senseis_Assistant_1",
+      "display": "Cool-chan wa Sensei Gakari Miss Cool is Sensei's Assistant (1)",
+      "parent_work_id": 4554083611,
+      "source": "e",
+      "public": true,
+      "tags": [],
+      "storage": {
+        "provider": "cloudflare-r2",
+        "remote": "animeplex.lol:extended/works/Cool-chan_wa_Sensei_Gakari_Miss_Cool_is_Senseis_Assistant_1",
+        "prefix": "works/Cool-chan_wa_Sensei_Gakari_Miss_Cool_is_Senseis_Assistant_1",
+        "cdn_base_url": "https://cdn.564578634.xyz/works"
+      },
+      "urls": {
+        "work": "https://cdn.564578634.xyz/works/Cool-chan_wa_Sensei_Gakari_Miss_Cool_is_Senseis_Assistant_1/",
+        "manifest": "works/Cool-chan_wa_Sensei_Gakari_Miss_Cool_is_Senseis_Assistant_1.json",
+        "thumb": "https://cdn.564578634.xyz/works/Cool-chan_wa_Sensei_Gakari_Miss_Cool_is_Senseis_Assistant_1/chapter_1/thumb.webp",
+        "details": "https://cdn.564578634.xyz/works/Cool-chan_wa_Sensei_Gakari_Miss_Cool_is_Senseis_Assistant_1/chapter_1/details.json",
+        "archive": "https://cdn.564578634.xyz/works/Cool-chan_wa_Sensei_Gakari_Miss_Cool_is_Senseis_Assistant_1/chapter_1/Cool-chan wa Sensei Gakari _ Miss Cool is Sensei's Assistant (1).cbz"
+      },
+      "item_json": {
+        "count": 1,
+        "urls": [
+          "https://cdn.564578634.xyz/works/Cool-chan_wa_Sensei_Gakari_Miss_Cool_is_Senseis_Assistant_1/chapter_1/item.json"
+        ]
+      },
+      "content": {
+        "chapter_count": 1,
+        "page_count": 35,
+        "page_bytes": 21395436
+      },
+      "archive": {
+        "exists": true,
+        "filename": "Cool-chan wa Sensei Gakari _ Miss Cool is Sensei's Assistant (1).cbz",
+        "format": "cbz",
+        "size_bytes": 21398608,
+        "sha256": "873c40e9deb51ecf6ec5338e8d0a56fddc40321e5e3100e00ba37e5c4b7e76f3"
+      },
+      "files": {
+        "thumb_exists": true,
+        "details_exists": true,
+        "archive_exists": true,
+        "item_json_count": 1,
+        "non_image_file_count": 4
+      },
+      "fingerprints": {
+        "work_identity_sha256": "efed8ecffed270037bff3f3cc759add3bdda301b63531c15dcf95d37435be7c8",
+        "archive_sha256": "873c40e9deb51ecf6ec5338e8d0a56fddc40321e5e3100e00ba37e5c4b7e76f3",
+        "archive_structure_sha256": "8fd9168fb4b33c8e1a66e80b7cf0c84f745a48eb0ebf2036624881d84f3d7094",
+        "page_tree_sha256": "c089248f801707cb7e878354c04bf86a86462a3129b8ed0982c56b430cb38f5a"
+      },
+      "upload": {
+        "method": "rclone",
+        "remote": "animeplex.lol:extended/works/Cool-chan_wa_Sensei_Gakari_Miss_Cool_is_Senseis_Assistant_1",
+        "uploaded_at": "2026-08-17T01:05:21Z",
+        "status": "uploaded"
+      },
+      "generated_at": "2026-08-17T01:05:21Z",
+      "generator": "ingest-work.py"
+    },
+    {
+      "schema_version": 1,
       "slug": "Cuckolded_Fap_Material_Gir",
       "display": "Cuckolded Fap Material Gir",
       "parent_work_id": 8660236153,
@@ -4981,6 +5835,189 @@
     },
     {
       "schema_version": 1,
+      "slug": "Dekiai_Koubi_Blind_Love_Mating",
+      "display": "Dekiai Koubi Blind Love Mating",
+      "parent_work_id": 2845839125,
+      "source": "e",
+      "public": true,
+      "tags": [],
+      "storage": {
+        "provider": "cloudflare-r2",
+        "remote": "animeplex.lol:extended/works/Dekiai_Koubi_Blind_Love_Mating",
+        "prefix": "works/Dekiai_Koubi_Blind_Love_Mating",
+        "cdn_base_url": "https://cdn.564578634.xyz/works"
+      },
+      "urls": {
+        "work": "https://cdn.564578634.xyz/works/Dekiai_Koubi_Blind_Love_Mating/",
+        "manifest": "works/Dekiai_Koubi_Blind_Love_Mating.json",
+        "thumb": "https://cdn.564578634.xyz/works/Dekiai_Koubi_Blind_Love_Mating/chapter_1/thumb.webp",
+        "details": "https://cdn.564578634.xyz/works/Dekiai_Koubi_Blind_Love_Mating/chapter_1/details.json",
+        "archive": "https://cdn.564578634.xyz/works/Dekiai_Koubi_Blind_Love_Mating/chapter_1/Dekiai Koubi Blind Love Mating.cbz"
+      },
+      "item_json": {
+        "count": 1,
+        "urls": [
+          "https://cdn.564578634.xyz/works/Dekiai_Koubi_Blind_Love_Mating/chapter_1/item.json"
+        ]
+      },
+      "content": {
+        "chapter_count": 1,
+        "page_count": 18,
+        "page_bytes": 17913382
+      },
+      "archive": {
+        "exists": true,
+        "filename": "Dekiai Koubi Blind Love Mating.cbz",
+        "format": "cbz",
+        "size_bytes": 17915024,
+        "sha256": "9379d8b1fd843d88acfd748526ebf1e9fa0cdc3088531ac43da476cb413197dc"
+      },
+      "files": {
+        "thumb_exists": true,
+        "details_exists": true,
+        "archive_exists": true,
+        "item_json_count": 1,
+        "non_image_file_count": 4
+      },
+      "fingerprints": {
+        "work_identity_sha256": "c1e715af4e7476128140cd5089487b15521e64556100eb3813aefc85d4a62e8e",
+        "archive_sha256": "9379d8b1fd843d88acfd748526ebf1e9fa0cdc3088531ac43da476cb413197dc",
+        "archive_structure_sha256": "06a2c68974e2940bdca96601f2a838ccffa4ce1911c4e06adcdd26948f484b46",
+        "page_tree_sha256": "1bc0c17d4198af692ec7c564ffda73ca4f04f9a0aff76dce6560fc493f3d6572"
+      },
+      "upload": {
+        "method": "rclone",
+        "remote": "animeplex.lol:extended/works/Dekiai_Koubi_Blind_Love_Mating",
+        "uploaded_at": "2026-08-17T01:05:21Z",
+        "status": "uploaded"
+      },
+      "generated_at": "2026-08-17T01:05:21Z",
+      "generator": "ingest-work.py"
+    },
+    {
+      "schema_version": 1,
+      "slug": "Dekiai_Koubi_Blind_Love_Mating_1",
+      "display": "Dekiai Koubi Blind Love Mating (1)",
+      "parent_work_id": 2636047249,
+      "source": "e",
+      "public": true,
+      "tags": [],
+      "storage": {
+        "provider": "cloudflare-r2",
+        "remote": "animeplex.lol:extended/works/Dekiai_Koubi_Blind_Love_Mating_1",
+        "prefix": "works/Dekiai_Koubi_Blind_Love_Mating_1",
+        "cdn_base_url": "https://cdn.564578634.xyz/works"
+      },
+      "urls": {
+        "work": "https://cdn.564578634.xyz/works/Dekiai_Koubi_Blind_Love_Mating_1/",
+        "manifest": "works/Dekiai_Koubi_Blind_Love_Mating_1.json",
+        "thumb": "https://cdn.564578634.xyz/works/Dekiai_Koubi_Blind_Love_Mating_1/chapter_1/thumb.webp",
+        "details": "https://cdn.564578634.xyz/works/Dekiai_Koubi_Blind_Love_Mating_1/chapter_1/details.json",
+        "archive": "https://cdn.564578634.xyz/works/Dekiai_Koubi_Blind_Love_Mating_1/chapter_1/Dekiai Koubi Blind Love Mating (1).cbz"
+      },
+      "item_json": {
+        "count": 1,
+        "urls": [
+          "https://cdn.564578634.xyz/works/Dekiai_Koubi_Blind_Love_Mating_1/chapter_1/item.json"
+        ]
+      },
+      "content": {
+        "chapter_count": 1,
+        "page_count": 18,
+        "page_bytes": 17913382
+      },
+      "archive": {
+        "exists": true,
+        "filename": "Dekiai Koubi Blind Love Mating (1).cbz",
+        "format": "cbz",
+        "size_bytes": 17915024,
+        "sha256": "929b0dd233fe1190d19c3483a9829214421caa33ffee10e4884ab9012933f3fa"
+      },
+      "files": {
+        "thumb_exists": true,
+        "details_exists": true,
+        "archive_exists": true,
+        "item_json_count": 1,
+        "non_image_file_count": 4
+      },
+      "fingerprints": {
+        "work_identity_sha256": "7bb25f0e327bbfa843f0e72bbbde80054f270ff57e352b8e65d9c350c30dbefc",
+        "archive_sha256": "929b0dd233fe1190d19c3483a9829214421caa33ffee10e4884ab9012933f3fa",
+        "archive_structure_sha256": "06a2c68974e2940bdca96601f2a838ccffa4ce1911c4e06adcdd26948f484b46",
+        "page_tree_sha256": "1bc0c17d4198af692ec7c564ffda73ca4f04f9a0aff76dce6560fc493f3d6572"
+      },
+      "upload": {
+        "method": "rclone",
+        "remote": "animeplex.lol:extended/works/Dekiai_Koubi_Blind_Love_Mating_1",
+        "uploaded_at": "2026-08-17T01:05:21Z",
+        "status": "uploaded"
+      },
+      "generated_at": "2026-08-17T01:05:21Z",
+      "generator": "ingest-work.py"
+    },
+    {
+      "schema_version": 1,
+      "slug": "Dekiai_Koubi_Blind_Love_Mating_2",
+      "display": "Dekiai Koubi Blind Love Mating (2)",
+      "parent_work_id": 6948727201,
+      "source": "e",
+      "public": true,
+      "tags": [],
+      "storage": {
+        "provider": "cloudflare-r2",
+        "remote": "animeplex.lol:extended/works/Dekiai_Koubi_Blind_Love_Mating_2",
+        "prefix": "works/Dekiai_Koubi_Blind_Love_Mating_2",
+        "cdn_base_url": "https://cdn.564578634.xyz/works"
+      },
+      "urls": {
+        "work": "https://cdn.564578634.xyz/works/Dekiai_Koubi_Blind_Love_Mating_2/",
+        "manifest": "works/Dekiai_Koubi_Blind_Love_Mating_2.json",
+        "thumb": "https://cdn.564578634.xyz/works/Dekiai_Koubi_Blind_Love_Mating_2/chapter_1/thumb.webp",
+        "details": "https://cdn.564578634.xyz/works/Dekiai_Koubi_Blind_Love_Mating_2/chapter_1/details.json",
+        "archive": "https://cdn.564578634.xyz/works/Dekiai_Koubi_Blind_Love_Mating_2/chapter_1/Dekiai Koubi Blind Love Mating (2).cbz"
+      },
+      "item_json": {
+        "count": 1,
+        "urls": [
+          "https://cdn.564578634.xyz/works/Dekiai_Koubi_Blind_Love_Mating_2/chapter_1/item.json"
+        ]
+      },
+      "content": {
+        "chapter_count": 1,
+        "page_count": 18,
+        "page_bytes": 17913382
+      },
+      "archive": {
+        "exists": true,
+        "filename": "Dekiai Koubi Blind Love Mating (2).cbz",
+        "format": "cbz",
+        "size_bytes": 17915024,
+        "sha256": "f187c4802db33f5462c7d3aa5466313bf6b36878e92b4e1d0aa00aa36abef324"
+      },
+      "files": {
+        "thumb_exists": true,
+        "details_exists": true,
+        "archive_exists": true,
+        "item_json_count": 1,
+        "non_image_file_count": 4
+      },
+      "fingerprints": {
+        "work_identity_sha256": "2884fa9b60c191d029987b325df2b4469bd51ea60d8cfcdfa1538e38a9af4705",
+        "archive_sha256": "f187c4802db33f5462c7d3aa5466313bf6b36878e92b4e1d0aa00aa36abef324",
+        "archive_structure_sha256": "06a2c68974e2940bdca96601f2a838ccffa4ce1911c4e06adcdd26948f484b46",
+        "page_tree_sha256": "1bc0c17d4198af692ec7c564ffda73ca4f04f9a0aff76dce6560fc493f3d6572"
+      },
+      "upload": {
+        "method": "rclone",
+        "remote": "animeplex.lol:extended/works/Dekiai_Koubi_Blind_Love_Mating_2",
+        "uploaded_at": "2026-08-17T01:05:21Z",
+        "status": "uploaded"
+      },
+      "generated_at": "2026-08-17T01:05:21Z",
+      "generator": "ingest-work.py"
+    },
+    {
+      "schema_version": 1,
       "slug": "DENJI_X_POWER_HAPPY_BREEDING",
       "display": "DENJI X POWER HAPPY BREEDING",
       "parent_work_id": 8538617008,
@@ -5292,6 +6329,67 @@
         "status": "uploaded"
       },
       "generated_at": "2026-07-27T23:10:27Z",
+      "generator": "ingest-work.py"
+    },
+    {
+      "schema_version": 1,
+      "slug": "Dobashi_Gentei.",
+      "display": "Dobashi Gentei.",
+      "parent_work_id": 2363144369,
+      "source": "e",
+      "public": true,
+      "tags": [],
+      "storage": {
+        "provider": "cloudflare-r2",
+        "remote": "animeplex.lol:extended/works/Dobashi_Gentei.",
+        "prefix": "works/Dobashi_Gentei.",
+        "cdn_base_url": "https://cdn.564578634.xyz/works"
+      },
+      "urls": {
+        "work": "https://cdn.564578634.xyz/works/Dobashi_Gentei./",
+        "manifest": "works/Dobashi_Gentei..json",
+        "thumb": "https://cdn.564578634.xyz/works/Dobashi_Gentei./chapter_1/thumb.webp",
+        "details": "https://cdn.564578634.xyz/works/Dobashi_Gentei./chapter_1/details.json",
+        "archive": "https://cdn.564578634.xyz/works/Dobashi_Gentei./chapter_1/Dobashi Gentei..cbz"
+      },
+      "item_json": {
+        "count": 1,
+        "urls": [
+          "https://cdn.564578634.xyz/works/Dobashi_Gentei./chapter_1/item.json"
+        ]
+      },
+      "content": {
+        "chapter_count": 1,
+        "page_count": 21,
+        "page_bytes": 3946598
+      },
+      "archive": {
+        "exists": true,
+        "filename": "Dobashi Gentei..cbz",
+        "format": "cbz",
+        "size_bytes": 3948510,
+        "sha256": "c900ba9b91c94a10f8b8d2256d0704869a6b60e37aab612c7d3a4e9bb6ab14e1"
+      },
+      "files": {
+        "thumb_exists": true,
+        "details_exists": true,
+        "archive_exists": true,
+        "item_json_count": 1,
+        "non_image_file_count": 4
+      },
+      "fingerprints": {
+        "work_identity_sha256": "c5a7db1824223f90bb0ab22208319f3a31a3b0795e921b7619125c87c31cc900",
+        "archive_sha256": "c900ba9b91c94a10f8b8d2256d0704869a6b60e37aab612c7d3a4e9bb6ab14e1",
+        "archive_structure_sha256": "816bc6de657c834e2fa107960fbf95d19e7c55105cfcc635c1b810754fb26db1",
+        "page_tree_sha256": "37def3b60be64e00b2c40474c2b8ec9fe678b8e9595716483626c6fe3e3c3ea1"
+      },
+      "upload": {
+        "method": "rclone",
+        "remote": "animeplex.lol:extended/works/Dobashi_Gentei.",
+        "uploaded_at": "2026-08-17T01:05:21Z",
+        "status": "uploaded"
+      },
+      "generated_at": "2026-08-17T01:05:21Z",
       "generator": "ingest-work.py"
     },
     {
@@ -5611,6 +6709,67 @@
     },
     {
       "schema_version": 1,
+      "slug": "Downer_Ninpou_Tsuma_wa_Teishu_Kanpaku_Otto_wo_Wakara_Seru",
+      "display": "Downer Ninpou Tsuma wa Teishu Kanpaku Otto wo Wakara Seru",
+      "parent_work_id": 2234453990,
+      "source": "e",
+      "public": true,
+      "tags": [],
+      "storage": {
+        "provider": "cloudflare-r2",
+        "remote": "animeplex.lol:extended/works/Downer_Ninpou_Tsuma_wa_Teishu_Kanpaku_Otto_wo_Wakara_Seru",
+        "prefix": "works/Downer_Ninpou_Tsuma_wa_Teishu_Kanpaku_Otto_wo_Wakara_Seru",
+        "cdn_base_url": "https://cdn.564578634.xyz/works"
+      },
+      "urls": {
+        "work": "https://cdn.564578634.xyz/works/Downer_Ninpou_Tsuma_wa_Teishu_Kanpaku_Otto_wo_Wakara_Seru/",
+        "manifest": "works/Downer_Ninpou_Tsuma_wa_Teishu_Kanpaku_Otto_wo_Wakara_Seru.json",
+        "thumb": "https://cdn.564578634.xyz/works/Downer_Ninpou_Tsuma_wa_Teishu_Kanpaku_Otto_wo_Wakara_Seru/chapter_1/thumb.webp",
+        "details": "https://cdn.564578634.xyz/works/Downer_Ninpou_Tsuma_wa_Teishu_Kanpaku_Otto_wo_Wakara_Seru/chapter_1/details.json",
+        "archive": "https://cdn.564578634.xyz/works/Downer_Ninpou_Tsuma_wa_Teishu_Kanpaku_Otto_wo_Wakara_Seru/chapter_1/Downer Ninpou Tsuma wa Teishu Kanpaku Otto wo Wakara Seru.cbz"
+      },
+      "item_json": {
+        "count": 1,
+        "urls": [
+          "https://cdn.564578634.xyz/works/Downer_Ninpou_Tsuma_wa_Teishu_Kanpaku_Otto_wo_Wakara_Seru/chapter_1/item.json"
+        ]
+      },
+      "content": {
+        "chapter_count": 1,
+        "page_count": 105,
+        "page_bytes": 24914340
+      },
+      "archive": {
+        "exists": true,
+        "filename": "Downer Ninpou Tsuma wa Teishu Kanpaku Otto wo Wakara Seru.cbz",
+        "format": "cbz",
+        "size_bytes": 24924646,
+        "sha256": "a04c86b11d82af46638977b8953a5925f5be383dd3a3591766e4173de8f40efb"
+      },
+      "files": {
+        "thumb_exists": true,
+        "details_exists": true,
+        "archive_exists": true,
+        "item_json_count": 1,
+        "non_image_file_count": 4
+      },
+      "fingerprints": {
+        "work_identity_sha256": "183efcb726c7a014fecdf9930daf18419fb64d7f542b043d235625c483582687",
+        "archive_sha256": "a04c86b11d82af46638977b8953a5925f5be383dd3a3591766e4173de8f40efb",
+        "archive_structure_sha256": "1631b89a71d58943f8b0c9b9070ba5c284eda42491ad4b30cf85083b0cb06623",
+        "page_tree_sha256": "a93bde2bd941d45030f2c53b49fb80a4516a9a7f8509787c67c9021cebe4c953"
+      },
+      "upload": {
+        "method": "rclone",
+        "remote": "animeplex.lol:extended/works/Downer_Ninpou_Tsuma_wa_Teishu_Kanpaku_Otto_wo_Wakara_Seru",
+        "uploaded_at": "2026-08-17T01:05:21Z",
+        "status": "uploaded"
+      },
+      "generated_at": "2026-08-17T01:05:21Z",
+      "generator": "ingest-work.py"
+    },
+    {
+      "schema_version": 1,
       "slug": "ED_Shika_Umarenai_Shima_de_Yuiitsu_no_Zetsurin_2",
       "display": "ED Shika Umarenai Shima de Yuiitsu no Zetsurin 2",
       "parent_work_id": 5765289791,
@@ -5703,15 +6862,15 @@
       },
       "content": {
         "chapter_count": 1,
-        "page_count": 162,
-        "page_bytes": 30416526
+        "page_count": 183,
+        "page_bytes": 35103508
       },
       "archive": {
         "exists": true,
         "filename": "EggCandy.cbz",
         "format": "cbz",
-        "size_bytes": 30435250,
-        "sha256": "32fc64f8f1b25ecf7ba2ba568ab976aa2f25e8868ff9c3a437afbf7f79c7344a"
+        "size_bytes": 35120366,
+        "sha256": "6cab15f59adce35a925518a8bac4cf419cf7b5fbe944445efd64f04a2ad07a35"
       },
       "files": {
         "thumb_exists": true,
@@ -5721,18 +6880,18 @@
         "non_image_file_count": 4
       },
       "fingerprints": {
-        "work_identity_sha256": "f9aefcdef7553979d8d9dec971dbac4c51e0f6de7c8593819d4c829b15cf25d7",
-        "archive_sha256": "32fc64f8f1b25ecf7ba2ba568ab976aa2f25e8868ff9c3a437afbf7f79c7344a",
-        "archive_structure_sha256": "623958dbd23c4f0392143819c5712d73b55af66ff6e2635fbec7239def9db41b",
-        "page_tree_sha256": "5add59bba0d26a86efddbffda9cabf5b6f9f2fcff40d5f4d50df58464a3fb07e"
+        "work_identity_sha256": "9b51d72d9b4c6949e3cf560d9207081e09b63a1e0e326840285cd29eca59e704",
+        "archive_sha256": "6cab15f59adce35a925518a8bac4cf419cf7b5fbe944445efd64f04a2ad07a35",
+        "archive_structure_sha256": "143cb2969203eb3045ffac4fb76854ac92e5cb4ce6602c43c735f94dd584ac83",
+        "page_tree_sha256": "71da4f549762f0381fdd563c69bbccf228b48177b90f16378992cdfe41728b64"
       },
       "upload": {
         "method": "rclone",
         "remote": "animeplex.lol:extended/works/EggCandy",
-        "uploaded_at": "2026-07-29T04:59:26Z",
+        "uploaded_at": "2026-08-17T01:05:21Z",
         "status": "uploaded"
       },
-      "generated_at": "2026-07-29T04:59:26Z",
+      "generated_at": "2026-08-17T01:05:21Z",
       "generator": "ingest-work.py"
     },
     {
@@ -6241,6 +7400,67 @@
     },
     {
       "schema_version": 1,
+      "slug": "Futa_Ona_Dai_Ni_Shou_A_Certain_Futanari_Girls_Masturbation_Diary_Ch.2_FutaOna_2_decensored",
+      "display": "Futa Ona Dai Ni Shou A Certain Futanari Girl's Masturbation Diary Ch.2 FutaOna 2 (decensored)",
+      "parent_work_id": 5844620916,
+      "source": "e",
+      "public": true,
+      "tags": [],
+      "storage": {
+        "provider": "cloudflare-r2",
+        "remote": "animeplex.lol:extended/works/Futa_Ona_Dai_Ni_Shou_A_Certain_Futanari_Girls_Masturbation_Diary_Ch.2_FutaOna_2_decensored",
+        "prefix": "works/Futa_Ona_Dai_Ni_Shou_A_Certain_Futanari_Girls_Masturbation_Diary_Ch.2_FutaOna_2_decensored",
+        "cdn_base_url": "https://cdn.564578634.xyz/works"
+      },
+      "urls": {
+        "work": "https://cdn.564578634.xyz/works/Futa_Ona_Dai_Ni_Shou_A_Certain_Futanari_Girls_Masturbation_Diary_Ch.2_FutaOna_2_decensored/",
+        "manifest": "works/Futa_Ona_Dai_Ni_Shou_A_Certain_Futanari_Girls_Masturbation_Diary_Ch.2_FutaOna_2_decensored.json",
+        "thumb": "https://cdn.564578634.xyz/works/Futa_Ona_Dai_Ni_Shou_A_Certain_Futanari_Girls_Masturbation_Diary_Ch.2_FutaOna_2_decensored/chapter_1/thumb.webp",
+        "details": "https://cdn.564578634.xyz/works/Futa_Ona_Dai_Ni_Shou_A_Certain_Futanari_Girls_Masturbation_Diary_Ch.2_FutaOna_2_decensored/chapter_1/details.json",
+        "archive": "https://cdn.564578634.xyz/works/Futa_Ona_Dai_Ni_Shou_A_Certain_Futanari_Girls_Masturbation_Diary_Ch.2_FutaOna_2_decensored/chapter_1/Futa Ona Dai Ni Shou _ A Certain Futanari Girl's Masturbation Diary Ch.2_ FutaOna 2 (decensored).cbz"
+      },
+      "item_json": {
+        "count": 1,
+        "urls": [
+          "https://cdn.564578634.xyz/works/Futa_Ona_Dai_Ni_Shou_A_Certain_Futanari_Girls_Masturbation_Diary_Ch.2_FutaOna_2_decensored/chapter_1/item.json"
+        ]
+      },
+      "content": {
+        "chapter_count": 1,
+        "page_count": 32,
+        "page_bytes": 9088480
+      },
+      "archive": {
+        "exists": true,
+        "filename": "Futa Ona Dai Ni Shou _ A Certain Futanari Girl's Masturbation Diary Ch.2_ FutaOna 2 (decensored).cbz",
+        "format": "cbz",
+        "size_bytes": 9091382,
+        "sha256": "c9d2ae6a76e7ce76e69363ad8f95891ccc77c621c518c701aee49b528e42f191"
+      },
+      "files": {
+        "thumb_exists": true,
+        "details_exists": true,
+        "archive_exists": true,
+        "item_json_count": 1,
+        "non_image_file_count": 4
+      },
+      "fingerprints": {
+        "work_identity_sha256": "1c709f5203d34305a34c95d3bfb88e71cb5dfe7a3ca3e5f1e2daf34c5cd35ed4",
+        "archive_sha256": "c9d2ae6a76e7ce76e69363ad8f95891ccc77c621c518c701aee49b528e42f191",
+        "archive_structure_sha256": "cd9595adc49678991fd3c6a6f15d0d306293f41255d4a049d408e3dbfa09e21b",
+        "page_tree_sha256": "38d54bfa31ebd6f1226b9a655f402e46dbceb9e74d83d2522fe6151958f2e4a3"
+      },
+      "upload": {
+        "method": "rclone",
+        "remote": "animeplex.lol:extended/works/Futa_Ona_Dai_Ni_Shou_A_Certain_Futanari_Girls_Masturbation_Diary_Ch.2_FutaOna_2_decensored",
+        "uploaded_at": "2026-08-17T01:05:21Z",
+        "status": "uploaded"
+      },
+      "generated_at": "2026-08-17T01:05:21Z",
+      "generator": "ingest-work.py"
+    },
+    {
+      "schema_version": 1,
       "slug": "Futa_sis_Ejaculation_Management",
       "display": "Futa sis Ejaculation Management",
       "parent_work_id": 5325558784,
@@ -6552,6 +7772,67 @@
         "status": "uploaded"
       },
       "generated_at": "2026-07-29T04:59:26Z",
+      "generator": "ingest-work.py"
+    },
+    {
+      "schema_version": 1,
+      "slug": "Gal_Mama-san_Anna-san",
+      "display": "Gal Mama-san ~Anna-san~",
+      "parent_work_id": 4972361802,
+      "source": "e",
+      "public": true,
+      "tags": [],
+      "storage": {
+        "provider": "cloudflare-r2",
+        "remote": "animeplex.lol:extended/works/Gal_Mama-san_Anna-san",
+        "prefix": "works/Gal_Mama-san_Anna-san",
+        "cdn_base_url": "https://cdn.564578634.xyz/works"
+      },
+      "urls": {
+        "work": "https://cdn.564578634.xyz/works/Gal_Mama-san_Anna-san/",
+        "manifest": "works/Gal_Mama-san_Anna-san.json",
+        "thumb": "https://cdn.564578634.xyz/works/Gal_Mama-san_Anna-san/chapter_1/thumb.webp",
+        "details": "https://cdn.564578634.xyz/works/Gal_Mama-san_Anna-san/chapter_1/details.json",
+        "archive": "https://cdn.564578634.xyz/works/Gal_Mama-san_Anna-san/chapter_1/Gal Mama-san ~Anna-san~.cbz"
+      },
+      "item_json": {
+        "count": 1,
+        "urls": [
+          "https://cdn.564578634.xyz/works/Gal_Mama-san_Anna-san/chapter_1/item.json"
+        ]
+      },
+      "content": {
+        "chapter_count": 1,
+        "page_count": 34,
+        "page_bytes": 5415346
+      },
+      "archive": {
+        "exists": true,
+        "filename": "Gal Mama-san ~Anna-san~.cbz",
+        "format": "cbz",
+        "size_bytes": 5418428,
+        "sha256": "c2b0338c9460b6f16dc05f917e1dee3e4aaf7e642d07d03e964d92143136a2f6"
+      },
+      "files": {
+        "thumb_exists": true,
+        "details_exists": true,
+        "archive_exists": true,
+        "item_json_count": 1,
+        "non_image_file_count": 4
+      },
+      "fingerprints": {
+        "work_identity_sha256": "10d7b8b1bf9f23929d32bcafed37bf1b33392d4d1666d2cba8d8892099fa4a5e",
+        "archive_sha256": "c2b0338c9460b6f16dc05f917e1dee3e4aaf7e642d07d03e964d92143136a2f6",
+        "archive_structure_sha256": "7eeb219310df35ac7b6aab4b7e5986d6746f4abedbc79b7d13911ce8b245a806",
+        "page_tree_sha256": "45bc5fb0e76e75db4c95ee89479a1c4f526004e6f04c0bd57c6882915bac6f8c"
+      },
+      "upload": {
+        "method": "rclone",
+        "remote": "animeplex.lol:extended/works/Gal_Mama-san_Anna-san",
+        "uploaded_at": "2026-08-17T01:05:21Z",
+        "status": "uploaded"
+      },
+      "generated_at": "2026-08-17T01:05:21Z",
       "generator": "ingest-work.py"
     },
     {
@@ -7564,6 +8845,131 @@
     },
     {
       "schema_version": 1,
+      "slug": "Hahaue_mo_Mesu_Orc_1",
+      "display": "Hahaue mo Mesu Orc 1",
+      "parent_work_id": 6893265152,
+      "source": "e",
+      "public": true,
+      "tags": [],
+      "storage": {
+        "provider": "cloudflare-r2",
+        "remote": "animeplex.lol:extended/works/Hahaue_mo_Mesu_Orc_1",
+        "prefix": "works/Hahaue_mo_Mesu_Orc_1",
+        "cdn_base_url": "https://cdn.564578634.xyz/works"
+      },
+      "urls": {
+        "work": "https://cdn.564578634.xyz/works/Hahaue_mo_Mesu_Orc_1/",
+        "manifest": "works/Hahaue_mo_Mesu_Orc_1.json",
+        "thumb": "https://cdn.564578634.xyz/works/Hahaue_mo_Mesu_Orc_1/url_snapshots/20260816T213059.323Z/thumb.webp",
+        "details": "https://cdn.564578634.xyz/works/Hahaue_mo_Mesu_Orc_1/url_snapshots/20260816T213059.323Z/details.json",
+        "archive": "https://cdn.564578634.xyz/works/Hahaue_mo_Mesu_Orc_1/url_snapshots/20260816T213059.323Z/Hahaue mo Mesu Orc 1.cbz"
+      },
+      "item_json": {
+        "count": 65,
+        "urls": [
+          "https://cdn.564578634.xyz/works/Hahaue_mo_Mesu_Orc_1/url_snapshots/20260816T213059.323Z/item.json",
+          "https://cdn.564578634.xyz/works/Hahaue_mo_Mesu_Orc_1/url_snapshots/20260816T213516.783Z/item.json",
+          "https://cdn.564578634.xyz/works/Hahaue_mo_Mesu_Orc_1/url_snapshots/20260816T213548.429Z/item.json",
+          "https://cdn.564578634.xyz/works/Hahaue_mo_Mesu_Orc_1/url_snapshots/20260816T213606.885Z/item.json",
+          "https://cdn.564578634.xyz/works/Hahaue_mo_Mesu_Orc_1/url_snapshots/20260816T213636.565Z/item.json",
+          "https://cdn.564578634.xyz/works/Hahaue_mo_Mesu_Orc_1/url_snapshots/20260816T213700.519Z/item.json",
+          "https://cdn.564578634.xyz/works/Hahaue_mo_Mesu_Orc_1/url_snapshots/20260816T213718.115Z/item.json",
+          "https://cdn.564578634.xyz/works/Hahaue_mo_Mesu_Orc_1/url_snapshots/20260816T213727.762Z/item.json",
+          "https://cdn.564578634.xyz/works/Hahaue_mo_Mesu_Orc_1/url_snapshots/20260816T213901.899Z/item.json",
+          "https://cdn.564578634.xyz/works/Hahaue_mo_Mesu_Orc_1/url_snapshots/20260816T214155.510Z/item.json",
+          "https://cdn.564578634.xyz/works/Hahaue_mo_Mesu_Orc_1/url_snapshots/20260816T214351.990Z/item.json",
+          "https://cdn.564578634.xyz/works/Hahaue_mo_Mesu_Orc_1/url_snapshots/20260816T214445.771Z/item.json",
+          "https://cdn.564578634.xyz/works/Hahaue_mo_Mesu_Orc_1/url_snapshots/20260816T214456.782Z/item.json",
+          "https://cdn.564578634.xyz/works/Hahaue_mo_Mesu_Orc_1/url_snapshots/20260816T214554.816Z/item.json",
+          "https://cdn.564578634.xyz/works/Hahaue_mo_Mesu_Orc_1/url_snapshots/20260816T214813.535Z/item.json",
+          "https://cdn.564578634.xyz/works/Hahaue_mo_Mesu_Orc_1/url_snapshots/20260816T215022.217Z/item.json",
+          "https://cdn.564578634.xyz/works/Hahaue_mo_Mesu_Orc_1/url_snapshots/20260816T215136.102Z/item.json",
+          "https://cdn.564578634.xyz/works/Hahaue_mo_Mesu_Orc_1/url_snapshots/20260816T215148.312Z/item.json",
+          "https://cdn.564578634.xyz/works/Hahaue_mo_Mesu_Orc_1/url_snapshots/20260816T215301.620Z/item.json",
+          "https://cdn.564578634.xyz/works/Hahaue_mo_Mesu_Orc_1/url_snapshots/20260816T215903.078Z/item.json",
+          "https://cdn.564578634.xyz/works/Hahaue_mo_Mesu_Orc_1/url_snapshots/20260816T215915.708Z/item.json",
+          "https://cdn.564578634.xyz/works/Hahaue_mo_Mesu_Orc_1/url_snapshots/20260816T220343.844Z/item.json",
+          "https://cdn.564578634.xyz/works/Hahaue_mo_Mesu_Orc_1/url_snapshots/20260816T220652.269Z/item.json",
+          "https://cdn.564578634.xyz/works/Hahaue_mo_Mesu_Orc_1/url_snapshots/20260816T220700.547Z/item.json",
+          "https://cdn.564578634.xyz/works/Hahaue_mo_Mesu_Orc_1/url_snapshots/20260816T220922.885Z/item.json",
+          "https://cdn.564578634.xyz/works/Hahaue_mo_Mesu_Orc_1/url_snapshots/20260816T221206.604Z/item.json",
+          "https://cdn.564578634.xyz/works/Hahaue_mo_Mesu_Orc_1/url_snapshots/20260816T221413.768Z/item.json",
+          "https://cdn.564578634.xyz/works/Hahaue_mo_Mesu_Orc_1/url_snapshots/20260816T221443.800Z/item.json",
+          "https://cdn.564578634.xyz/works/Hahaue_mo_Mesu_Orc_1/url_snapshots/20260816T221616.304Z/item.json",
+          "https://cdn.564578634.xyz/works/Hahaue_mo_Mesu_Orc_1/url_snapshots/20260816T221811.442Z/item.json",
+          "https://cdn.564578634.xyz/works/Hahaue_mo_Mesu_Orc_1/url_snapshots/20260816T221941.464Z/item.json",
+          "https://cdn.564578634.xyz/works/Hahaue_mo_Mesu_Orc_1/url_snapshots/20260816T222215.106Z/item.json",
+          "https://cdn.564578634.xyz/works/Hahaue_mo_Mesu_Orc_1/url_snapshots/20260816T222417.396Z/item.json",
+          "https://cdn.564578634.xyz/works/Hahaue_mo_Mesu_Orc_1/url_snapshots/20260816T222549.869Z/item.json",
+          "https://cdn.564578634.xyz/works/Hahaue_mo_Mesu_Orc_1/url_snapshots/20260816T222600.440Z/item.json",
+          "https://cdn.564578634.xyz/works/Hahaue_mo_Mesu_Orc_1/url_snapshots/20260816T222836.173Z/item.json",
+          "https://cdn.564578634.xyz/works/Hahaue_mo_Mesu_Orc_1/url_snapshots/20260816T222845.972Z/item.json",
+          "https://cdn.564578634.xyz/works/Hahaue_mo_Mesu_Orc_1/url_snapshots/20260816T223111.649Z/item.json",
+          "https://cdn.564578634.xyz/works/Hahaue_mo_Mesu_Orc_1/url_snapshots/20260816T223124.077Z/item.json",
+          "https://cdn.564578634.xyz/works/Hahaue_mo_Mesu_Orc_1/url_snapshots/20260816T223620.954Z/item.json",
+          "https://cdn.564578634.xyz/works/Hahaue_mo_Mesu_Orc_1/url_snapshots/20260816T224321.155Z/item.json",
+          "https://cdn.564578634.xyz/works/Hahaue_mo_Mesu_Orc_1/url_snapshots/20260816T224328.387Z/item.json",
+          "https://cdn.564578634.xyz/works/Hahaue_mo_Mesu_Orc_1/url_snapshots/20260816T224430.406Z/item.json",
+          "https://cdn.564578634.xyz/works/Hahaue_mo_Mesu_Orc_1/url_snapshots/20260816T225542.145Z/item.json",
+          "https://cdn.564578634.xyz/works/Hahaue_mo_Mesu_Orc_1/url_snapshots/20260816T225836.487Z/item.json",
+          "https://cdn.564578634.xyz/works/Hahaue_mo_Mesu_Orc_1/url_snapshots/20260816T225843.684Z/item.json",
+          "https://cdn.564578634.xyz/works/Hahaue_mo_Mesu_Orc_1/url_snapshots/20260816T230112.029Z/item.json",
+          "https://cdn.564578634.xyz/works/Hahaue_mo_Mesu_Orc_1/url_snapshots/20260816T230128.256Z/item.json",
+          "https://cdn.564578634.xyz/works/Hahaue_mo_Mesu_Orc_1/url_snapshots/20260816T230437.595Z/item.json",
+          "https://cdn.564578634.xyz/works/Hahaue_mo_Mesu_Orc_1/url_snapshots/20260816T230741.672Z/item.json",
+          "https://cdn.564578634.xyz/works/Hahaue_mo_Mesu_Orc_1/url_snapshots/20260816T230848.570Z/item.json",
+          "https://cdn.564578634.xyz/works/Hahaue_mo_Mesu_Orc_1/url_snapshots/20260816T231230.325Z/item.json",
+          "https://cdn.564578634.xyz/works/Hahaue_mo_Mesu_Orc_1/url_snapshots/20260816T231720.023Z/item.json",
+          "https://cdn.564578634.xyz/works/Hahaue_mo_Mesu_Orc_1/url_snapshots/20260816T231808.014Z/item.json",
+          "https://cdn.564578634.xyz/works/Hahaue_mo_Mesu_Orc_1/url_snapshots/20260816T231914.561Z/item.json",
+          "https://cdn.564578634.xyz/works/Hahaue_mo_Mesu_Orc_1/url_snapshots/20260816T232158.370Z/item.json",
+          "https://cdn.564578634.xyz/works/Hahaue_mo_Mesu_Orc_1/url_snapshots/20260816T232212.421Z/item.json",
+          "https://cdn.564578634.xyz/works/Hahaue_mo_Mesu_Orc_1/url_snapshots/20260816T232322.679Z/item.json",
+          "https://cdn.564578634.xyz/works/Hahaue_mo_Mesu_Orc_1/url_snapshots/20260816T232555.735Z/item.json",
+          "https://cdn.564578634.xyz/works/Hahaue_mo_Mesu_Orc_1/url_snapshots/20260816T232751.161Z/item.json",
+          "https://cdn.564578634.xyz/works/Hahaue_mo_Mesu_Orc_1/url_snapshots/20260816T232932.650Z/item.json",
+          "https://cdn.564578634.xyz/works/Hahaue_mo_Mesu_Orc_1/url_snapshots/20260816T233035.116Z/item.json",
+          "https://cdn.564578634.xyz/works/Hahaue_mo_Mesu_Orc_1/url_snapshots/20260816T233409.676Z/item.json",
+          "https://cdn.564578634.xyz/works/Hahaue_mo_Mesu_Orc_1/url_snapshots/20260816T233547.441Z/item.json",
+          "https://cdn.564578634.xyz/works/Hahaue_mo_Mesu_Orc_1/Hahaue mo Mesu Orc 1/item.json"
+        ]
+      },
+      "content": {
+        "chapter_count": 65,
+        "page_count": 90,
+        "page_bytes": 54758669
+      },
+      "archive": {
+        "exists": true,
+        "filename": "Hahaue mo Mesu Orc 1.cbz",
+        "format": "cbz",
+        "size_bytes": 991972563,
+        "sha256": "9ff44c897f03edfe9bda228ca1cabd21410104777900af4698ac6be2deda0d25"
+      },
+      "files": {
+        "thumb_exists": true,
+        "details_exists": true,
+        "archive_exists": true,
+        "item_json_count": 65,
+        "non_image_file_count": 68
+      },
+      "fingerprints": {
+        "work_identity_sha256": "119cda5ea77d3006406baee1d96e3862537178578a8ddb85b6192da7366f9e22",
+        "archive_sha256": "9ff44c897f03edfe9bda228ca1cabd21410104777900af4698ac6be2deda0d25",
+        "archive_structure_sha256": "d8facf3ad958c7296a420474556ddcc74e4d20781249ec2ddf272ea45b0e0e71",
+        "page_tree_sha256": "569896338b1ecae4045c97a0e69ea6a9b7e81a616e80a3770bf6a2f8b44026cb"
+      },
+      "upload": {
+        "method": "rclone",
+        "remote": "animeplex.lol:extended/works/Hahaue_mo_Mesu_Orc_1",
+        "uploaded_at": "2026-08-17T01:05:21Z",
+        "status": "uploaded"
+      },
+      "generated_at": "2026-08-17T01:05:21Z",
+      "generator": "ingest-work.py"
+    },
+    {
+      "schema_version": 1,
       "slug": "Hakaba_Ningen_no_Kowashikata",
       "display": "Hakaba] Ningen no Kowashikata",
       "parent_work_id": 7446590162,
@@ -7749,6 +9155,128 @@
         "status": "uploaded"
       },
       "generated_at": "2026-07-27T23:10:27Z",
+      "generator": "ingest-work.py"
+    },
+    {
+      "schema_version": 1,
+      "slug": "Having_Free_Use_of_The_President_with_a_Perception_Blocking_App",
+      "display": "Having Free Use of The President with a Perception Blocking App",
+      "parent_work_id": 8970432417,
+      "source": "e",
+      "public": true,
+      "tags": [],
+      "storage": {
+        "provider": "cloudflare-r2",
+        "remote": "animeplex.lol:extended/works/Having_Free_Use_of_The_President_with_a_Perception_Blocking_App",
+        "prefix": "works/Having_Free_Use_of_The_President_with_a_Perception_Blocking_App",
+        "cdn_base_url": "https://cdn.564578634.xyz/works"
+      },
+      "urls": {
+        "work": "https://cdn.564578634.xyz/works/Having_Free_Use_of_The_President_with_a_Perception_Blocking_App/",
+        "manifest": "works/Having_Free_Use_of_The_President_with_a_Perception_Blocking_App.json",
+        "thumb": "https://cdn.564578634.xyz/works/Having_Free_Use_of_The_President_with_a_Perception_Blocking_App/chapter_1/thumb.webp",
+        "details": "https://cdn.564578634.xyz/works/Having_Free_Use_of_The_President_with_a_Perception_Blocking_App/chapter_1/details.json",
+        "archive": "https://cdn.564578634.xyz/works/Having_Free_Use_of_The_President_with_a_Perception_Blocking_App/chapter_1/Having Free Use of The President with a Perception Blocking App.cbz"
+      },
+      "item_json": {
+        "count": 1,
+        "urls": [
+          "https://cdn.564578634.xyz/works/Having_Free_Use_of_The_President_with_a_Perception_Blocking_App/chapter_1/item.json"
+        ]
+      },
+      "content": {
+        "chapter_count": 1,
+        "page_count": 40,
+        "page_bytes": 12075922
+      },
+      "archive": {
+        "exists": true,
+        "filename": "Having Free Use of The President with a Perception Blocking App.cbz",
+        "format": "cbz",
+        "size_bytes": 12079544,
+        "sha256": "4b062ad554f8d507ee5dce46c14eb30cf4407fc3e47ea969eee73dc42c691a47"
+      },
+      "files": {
+        "thumb_exists": true,
+        "details_exists": true,
+        "archive_exists": true,
+        "item_json_count": 1,
+        "non_image_file_count": 4
+      },
+      "fingerprints": {
+        "work_identity_sha256": "c65fa1a565ef123e2b71b8b6d94c9bfa701de25394ce0bfefabdd2e95e312c8d",
+        "archive_sha256": "4b062ad554f8d507ee5dce46c14eb30cf4407fc3e47ea969eee73dc42c691a47",
+        "archive_structure_sha256": "d4c36def5e6fe6c1e488596ad4972887ce211306727b7c0ddac39398c726fdb0",
+        "page_tree_sha256": "110c61cdd6978c21a578a1135a0f2d4e91f0be26e2aaf7835e0c34e32ea3a175"
+      },
+      "upload": {
+        "method": "rclone",
+        "remote": "animeplex.lol:extended/works/Having_Free_Use_of_The_President_with_a_Perception_Blocking_App",
+        "uploaded_at": "2026-08-17T01:05:21Z",
+        "status": "uploaded"
+      },
+      "generated_at": "2026-08-17T01:05:21Z",
+      "generator": "ingest-work.py"
+    },
+    {
+      "schema_version": 1,
+      "slug": "Having_Free_Use_of_The_President_with_a_Perception_Blocking_App_1",
+      "display": "Having Free Use of The President with a Perception Blocking App (1)",
+      "parent_work_id": 6161037513,
+      "source": "e",
+      "public": true,
+      "tags": [],
+      "storage": {
+        "provider": "cloudflare-r2",
+        "remote": "animeplex.lol:extended/works/Having_Free_Use_of_The_President_with_a_Perception_Blocking_App_1",
+        "prefix": "works/Having_Free_Use_of_The_President_with_a_Perception_Blocking_App_1",
+        "cdn_base_url": "https://cdn.564578634.xyz/works"
+      },
+      "urls": {
+        "work": "https://cdn.564578634.xyz/works/Having_Free_Use_of_The_President_with_a_Perception_Blocking_App_1/",
+        "manifest": "works/Having_Free_Use_of_The_President_with_a_Perception_Blocking_App_1.json",
+        "thumb": "https://cdn.564578634.xyz/works/Having_Free_Use_of_The_President_with_a_Perception_Blocking_App_1/chapter_1/thumb.webp",
+        "details": "https://cdn.564578634.xyz/works/Having_Free_Use_of_The_President_with_a_Perception_Blocking_App_1/chapter_1/details.json",
+        "archive": "https://cdn.564578634.xyz/works/Having_Free_Use_of_The_President_with_a_Perception_Blocking_App_1/chapter_1/Having Free Use of The President with a Perception Blocking App (1).cbz"
+      },
+      "item_json": {
+        "count": 1,
+        "urls": [
+          "https://cdn.564578634.xyz/works/Having_Free_Use_of_The_President_with_a_Perception_Blocking_App_1/chapter_1/item.json"
+        ]
+      },
+      "content": {
+        "chapter_count": 1,
+        "page_count": 40,
+        "page_bytes": 12075922
+      },
+      "archive": {
+        "exists": true,
+        "filename": "Having Free Use of The President with a Perception Blocking App (1).cbz",
+        "format": "cbz",
+        "size_bytes": 12079544,
+        "sha256": "c3372c7a204c8602c326e96d7c15e8815be8202f10657d3e2eba008f29b0d1f2"
+      },
+      "files": {
+        "thumb_exists": true,
+        "details_exists": true,
+        "archive_exists": true,
+        "item_json_count": 1,
+        "non_image_file_count": 4
+      },
+      "fingerprints": {
+        "work_identity_sha256": "2da52cfed62b653222e062b02f6c847726a07743ecd5396bfb2fb5ea824c4c0c",
+        "archive_sha256": "c3372c7a204c8602c326e96d7c15e8815be8202f10657d3e2eba008f29b0d1f2",
+        "archive_structure_sha256": "d4c36def5e6fe6c1e488596ad4972887ce211306727b7c0ddac39398c726fdb0",
+        "page_tree_sha256": "110c61cdd6978c21a578a1135a0f2d4e91f0be26e2aaf7835e0c34e32ea3a175"
+      },
+      "upload": {
+        "method": "rclone",
+        "remote": "animeplex.lol:extended/works/Having_Free_Use_of_The_President_with_a_Perception_Blocking_App_1",
+        "uploaded_at": "2026-08-17T01:05:21Z",
+        "status": "uploaded"
+      },
+      "generated_at": "2026-08-17T01:05:21Z",
       "generator": "ingest-work.py"
     },
     {
@@ -7942,6 +9470,67 @@
     },
     {
       "schema_version": 1,
+      "slug": "Hina-chan_is_Interested_in_Sex",
+      "display": "Hina-chan is Interested in Sex",
+      "parent_work_id": 3559369859,
+      "source": "e",
+      "public": true,
+      "tags": [],
+      "storage": {
+        "provider": "cloudflare-r2",
+        "remote": "animeplex.lol:extended/works/Hina-chan_is_Interested_in_Sex",
+        "prefix": "works/Hina-chan_is_Interested_in_Sex",
+        "cdn_base_url": "https://cdn.564578634.xyz/works"
+      },
+      "urls": {
+        "work": "https://cdn.564578634.xyz/works/Hina-chan_is_Interested_in_Sex/",
+        "manifest": "works/Hina-chan_is_Interested_in_Sex.json",
+        "thumb": "https://cdn.564578634.xyz/works/Hina-chan_is_Interested_in_Sex/chapter_1/thumb.webp",
+        "details": "https://cdn.564578634.xyz/works/Hina-chan_is_Interested_in_Sex/chapter_1/details.json",
+        "archive": "https://cdn.564578634.xyz/works/Hina-chan_is_Interested_in_Sex/chapter_1/Hina-chan is Interested in Sex.cbz"
+      },
+      "item_json": {
+        "count": 1,
+        "urls": [
+          "https://cdn.564578634.xyz/works/Hina-chan_is_Interested_in_Sex/chapter_1/item.json"
+        ]
+      },
+      "content": {
+        "chapter_count": 1,
+        "page_count": 22,
+        "page_bytes": 25745788
+      },
+      "archive": {
+        "exists": true,
+        "filename": "Hina-chan is Interested in Sex.cbz",
+        "format": "cbz",
+        "size_bytes": 25747790,
+        "sha256": "f534f9d08e1dd170722a79c837a14023c54e75ad0ba6bef209bb33a0483eac53"
+      },
+      "files": {
+        "thumb_exists": true,
+        "details_exists": true,
+        "archive_exists": true,
+        "item_json_count": 1,
+        "non_image_file_count": 4
+      },
+      "fingerprints": {
+        "work_identity_sha256": "1bc02e01d813212af6a4bd295afcf610d125f1a2b9b1a34690220e69e4eab0f7",
+        "archive_sha256": "f534f9d08e1dd170722a79c837a14023c54e75ad0ba6bef209bb33a0483eac53",
+        "archive_structure_sha256": "f2cd7bdcf33d86ad7d8dfecf16d5ad6fbf89b41e44e58f814840a82ebbbf04ee",
+        "page_tree_sha256": "3a14336309b07b909926b4353f581fc27beb4102519c224250d851ff7124c082"
+      },
+      "upload": {
+        "method": "rclone",
+        "remote": "animeplex.lol:extended/works/Hina-chan_is_Interested_in_Sex",
+        "uploaded_at": "2026-08-17T01:05:21Z",
+        "status": "uploaded"
+      },
+      "generated_at": "2026-08-17T01:05:21Z",
+      "generator": "ingest-work.py"
+    },
+    {
+      "schema_version": 1,
       "slug": "Hitozuma_Hiromi_wa_Aitsu_no_Iinari_Married_MILF_Hiromi_Cant_Say_No_to_Him",
       "display": "Hitozuma Hiromi wa Aitsu no Iinari Married MILF Hiromi Can't Say No to Him",
       "parent_work_id": 5304597216,
@@ -8131,6 +9720,128 @@
     },
     {
       "schema_version": 1,
+      "slug": "Hokenshitsu_no_Sensei_Minako-sensei",
+      "display": "Hokenshitsu no ~Sensei Minako-sensei~",
+      "parent_work_id": 3467178180,
+      "source": "e",
+      "public": true,
+      "tags": [],
+      "storage": {
+        "provider": "cloudflare-r2",
+        "remote": "animeplex.lol:extended/works/Hokenshitsu_no_Sensei_Minako-sensei",
+        "prefix": "works/Hokenshitsu_no_Sensei_Minako-sensei",
+        "cdn_base_url": "https://cdn.564578634.xyz/works"
+      },
+      "urls": {
+        "work": "https://cdn.564578634.xyz/works/Hokenshitsu_no_Sensei_Minako-sensei/",
+        "manifest": "works/Hokenshitsu_no_Sensei_Minako-sensei.json",
+        "thumb": "https://cdn.564578634.xyz/works/Hokenshitsu_no_Sensei_Minako-sensei/chapter_1/thumb.webp",
+        "details": "https://cdn.564578634.xyz/works/Hokenshitsu_no_Sensei_Minako-sensei/chapter_1/details.json",
+        "archive": "https://cdn.564578634.xyz/works/Hokenshitsu_no_Sensei_Minako-sensei/chapter_1/Hokenshitsu no ~Sensei Minako-sensei~.cbz"
+      },
+      "item_json": {
+        "count": 1,
+        "urls": [
+          "https://cdn.564578634.xyz/works/Hokenshitsu_no_Sensei_Minako-sensei/chapter_1/item.json"
+        ]
+      },
+      "content": {
+        "chapter_count": 1,
+        "page_count": 9,
+        "page_bytes": 2072446
+      },
+      "archive": {
+        "exists": true,
+        "filename": "Hokenshitsu no ~Sensei Minako-sensei~.cbz",
+        "format": "cbz",
+        "size_bytes": 2073260,
+        "sha256": "04a6fb15a17822145109739060d210136b92a9a9dcd41c879426d7d1fa35fa57"
+      },
+      "files": {
+        "thumb_exists": true,
+        "details_exists": true,
+        "archive_exists": true,
+        "item_json_count": 1,
+        "non_image_file_count": 4
+      },
+      "fingerprints": {
+        "work_identity_sha256": "809ce8dd0b4130c2515f91d09e40a1f3a8342f821315532cffc90e70113654f9",
+        "archive_sha256": "04a6fb15a17822145109739060d210136b92a9a9dcd41c879426d7d1fa35fa57",
+        "archive_structure_sha256": "93e1782d5d1baf0dc7def0eb2e2db6bc119dee95a4f82e10db344b3e81b400ab",
+        "page_tree_sha256": "50e831e28dd962332fde14b0308918cf4bde05c991314eaab1fdbd6f68d3fbea"
+      },
+      "upload": {
+        "method": "rclone",
+        "remote": "animeplex.lol:extended/works/Hokenshitsu_no_Sensei_Minako-sensei",
+        "uploaded_at": "2026-08-17T01:05:21Z",
+        "status": "uploaded"
+      },
+      "generated_at": "2026-08-17T01:05:21Z",
+      "generator": "ingest-work.py"
+    },
+    {
+      "schema_version": 1,
+      "slug": "Honban_Niizuma_Chinami-chan_1-3_Oohaba_Kahitsu_Ban",
+      "display": "Honban! Niizuma Chinami-chan 1-3 Oohaba Kahitsu Ban",
+      "parent_work_id": 2153577118,
+      "source": "e",
+      "public": true,
+      "tags": [],
+      "storage": {
+        "provider": "cloudflare-r2",
+        "remote": "animeplex.lol:extended/works/Honban_Niizuma_Chinami-chan_1-3_Oohaba_Kahitsu_Ban",
+        "prefix": "works/Honban_Niizuma_Chinami-chan_1-3_Oohaba_Kahitsu_Ban",
+        "cdn_base_url": "https://cdn.564578634.xyz/works"
+      },
+      "urls": {
+        "work": "https://cdn.564578634.xyz/works/Honban_Niizuma_Chinami-chan_1-3_Oohaba_Kahitsu_Ban/",
+        "manifest": "works/Honban_Niizuma_Chinami-chan_1-3_Oohaba_Kahitsu_Ban.json",
+        "thumb": "https://cdn.564578634.xyz/works/Honban_Niizuma_Chinami-chan_1-3_Oohaba_Kahitsu_Ban/chapter_1/thumb.webp",
+        "details": "https://cdn.564578634.xyz/works/Honban_Niizuma_Chinami-chan_1-3_Oohaba_Kahitsu_Ban/chapter_1/details.json",
+        "archive": "https://cdn.564578634.xyz/works/Honban_Niizuma_Chinami-chan_1-3_Oohaba_Kahitsu_Ban/chapter_1/Honban! Niizuma Chinami-chan 1-3 Oohaba Kahitsu Ban.cbz"
+      },
+      "item_json": {
+        "count": 1,
+        "urls": [
+          "https://cdn.564578634.xyz/works/Honban_Niizuma_Chinami-chan_1-3_Oohaba_Kahitsu_Ban/chapter_1/item.json"
+        ]
+      },
+      "content": {
+        "chapter_count": 1,
+        "page_count": 110,
+        "page_bytes": 31063736
+      },
+      "archive": {
+        "exists": true,
+        "filename": "Honban! Niizuma Chinami-chan 1-3 Oohaba Kahitsu Ban.cbz",
+        "format": "cbz",
+        "size_bytes": 31073878,
+        "sha256": "3c2c4caffd82ff8cc261f10cee64176ca3ac6a5765a73dfd3ff7c423dfd5bed4"
+      },
+      "files": {
+        "thumb_exists": true,
+        "details_exists": true,
+        "archive_exists": true,
+        "item_json_count": 1,
+        "non_image_file_count": 4
+      },
+      "fingerprints": {
+        "work_identity_sha256": "f1be469248bd42fa7d3d07b16791f9d25ce2057437502f2de0d00c72e3100a93",
+        "archive_sha256": "3c2c4caffd82ff8cc261f10cee64176ca3ac6a5765a73dfd3ff7c423dfd5bed4",
+        "archive_structure_sha256": "b9638fedf1652693f6d37c2671f5a9568107b4028e67d659b878df14b184a981",
+        "page_tree_sha256": "ce01d3735ed82d66e3e6bd89d2aa2a7dc19ef0852280cc16a1905629e61e59fd"
+      },
+      "upload": {
+        "method": "rclone",
+        "remote": "animeplex.lol:extended/works/Honban_Niizuma_Chinami-chan_1-3_Oohaba_Kahitsu_Ban",
+        "uploaded_at": "2026-08-17T01:05:21Z",
+        "status": "uploaded"
+      },
+      "generated_at": "2026-08-17T01:05:21Z",
+      "generator": "ingest-work.py"
+    },
+    {
+      "schema_version": 1,
       "slug": "Hoshikute_Motomete._I_want_and_I_yearn_for.",
       "display": "Hoshikute, Motomete. I want, and I yearn for.",
       "parent_work_id": 4524504750,
@@ -8253,6 +9964,67 @@
         "status": "uploaded"
       },
       "generated_at": "2026-07-27T23:10:27Z",
+      "generator": "ingest-work.py"
+    },
+    {
+      "schema_version": 1,
+      "slug": "How_to_Make_Your_Older_Sister_Your_Lover",
+      "display": "How to Make Your Older Sister Your Lover",
+      "parent_work_id": 2313699770,
+      "source": "e",
+      "public": true,
+      "tags": [],
+      "storage": {
+        "provider": "cloudflare-r2",
+        "remote": "animeplex.lol:extended/works/How_to_Make_Your_Older_Sister_Your_Lover",
+        "prefix": "works/How_to_Make_Your_Older_Sister_Your_Lover",
+        "cdn_base_url": "https://cdn.564578634.xyz/works"
+      },
+      "urls": {
+        "work": "https://cdn.564578634.xyz/works/How_to_Make_Your_Older_Sister_Your_Lover/",
+        "manifest": "works/How_to_Make_Your_Older_Sister_Your_Lover.json",
+        "thumb": "https://cdn.564578634.xyz/works/How_to_Make_Your_Older_Sister_Your_Lover/chapter_1/thumb.webp",
+        "details": "https://cdn.564578634.xyz/works/How_to_Make_Your_Older_Sister_Your_Lover/chapter_1/details.json",
+        "archive": "https://cdn.564578634.xyz/works/How_to_Make_Your_Older_Sister_Your_Lover/chapter_1/How to Make Your Older Sister Your Lover.cbz"
+      },
+      "item_json": {
+        "count": 1,
+        "urls": [
+          "https://cdn.564578634.xyz/works/How_to_Make_Your_Older_Sister_Your_Lover/chapter_1/item.json"
+        ]
+      },
+      "content": {
+        "chapter_count": 1,
+        "page_count": 20,
+        "page_bytes": 6624460
+      },
+      "archive": {
+        "exists": true,
+        "filename": "How to Make Your Older Sister Your Lover.cbz",
+        "format": "cbz",
+        "size_bytes": 6626282,
+        "sha256": "b8a5934c2371c4d04133af7d8e40e1cba02802ed07f63014b3a2190e40f1e3d5"
+      },
+      "files": {
+        "thumb_exists": true,
+        "details_exists": true,
+        "archive_exists": true,
+        "item_json_count": 1,
+        "non_image_file_count": 4
+      },
+      "fingerprints": {
+        "work_identity_sha256": "05ba952a5fb4b5e363a6d61d32b3400591cdc69f5cc8b986a11604cfe10c031d",
+        "archive_sha256": "b8a5934c2371c4d04133af7d8e40e1cba02802ed07f63014b3a2190e40f1e3d5",
+        "archive_structure_sha256": "f5556d6b642cb2ced7ab10db7bf2bc07141198c6d1b1601fbea638c9d8fb9eed",
+        "page_tree_sha256": "4c1f8c83144bccd37bd9639a8fb44ba9e49a97d8a1eb84cd2a05cd646c61798b"
+      },
+      "upload": {
+        "method": "rclone",
+        "remote": "animeplex.lol:extended/works/How_to_Make_Your_Older_Sister_Your_Lover",
+        "uploaded_at": "2026-08-17T01:05:21Z",
+        "status": "uploaded"
+      },
+      "generated_at": "2026-08-17T01:05:21Z",
       "generator": "ingest-work.py"
     },
     {
@@ -8442,6 +10214,67 @@
         "status": "uploaded"
       },
       "generated_at": "2026-07-29T04:59:26Z",
+      "generator": "ingest-work.py"
+    },
+    {
+      "schema_version": 1,
+      "slug": "Ichigun_Joshi_no_Otoshikata_Zenpen_Corrupting_the_Queen_Bee_Part_1",
+      "display": "Ichigun Joshi no Otoshikata Zenpen｜Corrupting the Queen Bee Part 1",
+      "parent_work_id": 1717557805,
+      "source": "e",
+      "public": true,
+      "tags": [],
+      "storage": {
+        "provider": "cloudflare-r2",
+        "remote": "animeplex.lol:extended/works/Ichigun_Joshi_no_Otoshikata_Zenpen_Corrupting_the_Queen_Bee_Part_1",
+        "prefix": "works/Ichigun_Joshi_no_Otoshikata_Zenpen_Corrupting_the_Queen_Bee_Part_1",
+        "cdn_base_url": "https://cdn.564578634.xyz/works"
+      },
+      "urls": {
+        "work": "https://cdn.564578634.xyz/works/Ichigun_Joshi_no_Otoshikata_Zenpen_Corrupting_the_Queen_Bee_Part_1/",
+        "manifest": "works/Ichigun_Joshi_no_Otoshikata_Zenpen_Corrupting_the_Queen_Bee_Part_1.json",
+        "thumb": "https://cdn.564578634.xyz/works/Ichigun_Joshi_no_Otoshikata_Zenpen_Corrupting_the_Queen_Bee_Part_1/chapter_1/thumb.webp",
+        "details": "https://cdn.564578634.xyz/works/Ichigun_Joshi_no_Otoshikata_Zenpen_Corrupting_the_Queen_Bee_Part_1/chapter_1/details.json",
+        "archive": "https://cdn.564578634.xyz/works/Ichigun_Joshi_no_Otoshikata_Zenpen_Corrupting_the_Queen_Bee_Part_1/chapter_1/Ichigun Joshi no Otoshikata Zenpen｜Corrupting the Queen Bee Part 1.cbz"
+      },
+      "item_json": {
+        "count": 1,
+        "urls": [
+          "https://cdn.564578634.xyz/works/Ichigun_Joshi_no_Otoshikata_Zenpen_Corrupting_the_Queen_Bee_Part_1/chapter_1/item.json"
+        ]
+      },
+      "content": {
+        "chapter_count": 1,
+        "page_count": 51,
+        "page_bytes": 17273362
+      },
+      "archive": {
+        "exists": true,
+        "filename": "Ichigun Joshi no Otoshikata Zenpen｜Corrupting the Queen Bee Part 1.cbz",
+        "format": "cbz",
+        "size_bytes": 17277974,
+        "sha256": "6879e29317f51e6bc67f5ba8d1de7dc3da3ca23c2a25ef0ccf92adb1b4480cbd"
+      },
+      "files": {
+        "thumb_exists": true,
+        "details_exists": true,
+        "archive_exists": true,
+        "item_json_count": 1,
+        "non_image_file_count": 4
+      },
+      "fingerprints": {
+        "work_identity_sha256": "edde6f7f648a81b1a360173f604d343117d561cf724b5548779ad15944f8bafb",
+        "archive_sha256": "6879e29317f51e6bc67f5ba8d1de7dc3da3ca23c2a25ef0ccf92adb1b4480cbd",
+        "archive_structure_sha256": "8102e0384f681c5651e9801081c5724d7def53407bf530203643dba620352f18",
+        "page_tree_sha256": "091fc8946c5876e393c4fa7e5e34f5cf58226ffe23d98fe1f2d26ef5e1a23d51"
+      },
+      "upload": {
+        "method": "rclone",
+        "remote": "animeplex.lol:extended/works/Ichigun_Joshi_no_Otoshikata_Zenpen_Corrupting_the_Queen_Bee_Part_1",
+        "uploaded_at": "2026-08-17T01:05:21Z",
+        "status": "uploaded"
+      },
+      "generated_at": "2026-08-17T01:05:21Z",
       "generator": "ingest-work.py"
     },
     {
@@ -8820,6 +10653,372 @@
         "status": "uploaded"
       },
       "generated_at": "2026-07-27T23:10:27Z",
+      "generator": "ingest-work.py"
+    },
+    {
+      "schema_version": 1,
+      "slug": "Imouto_no_Oppai_ga_Marudashi_Datta_Hanashi_2",
+      "display": "Imouto no Oppai ga Marudashi Datta Hanashi 2",
+      "parent_work_id": 3466471856,
+      "source": "e",
+      "public": true,
+      "tags": [],
+      "storage": {
+        "provider": "cloudflare-r2",
+        "remote": "animeplex.lol:extended/works/Imouto_no_Oppai_ga_Marudashi_Datta_Hanashi_2",
+        "prefix": "works/Imouto_no_Oppai_ga_Marudashi_Datta_Hanashi_2",
+        "cdn_base_url": "https://cdn.564578634.xyz/works"
+      },
+      "urls": {
+        "work": "https://cdn.564578634.xyz/works/Imouto_no_Oppai_ga_Marudashi_Datta_Hanashi_2/",
+        "manifest": "works/Imouto_no_Oppai_ga_Marudashi_Datta_Hanashi_2.json",
+        "thumb": "https://cdn.564578634.xyz/works/Imouto_no_Oppai_ga_Marudashi_Datta_Hanashi_2/chapter_1/thumb.webp",
+        "details": "https://cdn.564578634.xyz/works/Imouto_no_Oppai_ga_Marudashi_Datta_Hanashi_2/chapter_1/details.json",
+        "archive": "https://cdn.564578634.xyz/works/Imouto_no_Oppai_ga_Marudashi_Datta_Hanashi_2/chapter_1/Imouto no Oppai ga Marudashi Datta Hanashi 2.cbz"
+      },
+      "item_json": {
+        "count": 1,
+        "urls": [
+          "https://cdn.564578634.xyz/works/Imouto_no_Oppai_ga_Marudashi_Datta_Hanashi_2/chapter_1/item.json"
+        ]
+      },
+      "content": {
+        "chapter_count": 1,
+        "page_count": 20,
+        "page_bytes": 2492458
+      },
+      "archive": {
+        "exists": true,
+        "filename": "Imouto no Oppai ga Marudashi Datta Hanashi 2.cbz",
+        "format": "cbz",
+        "size_bytes": 2494320,
+        "sha256": "e150883b3d6fcd2c3d6b7a87772ed03b931dc16b72486396bc1fee51f553ecd8"
+      },
+      "files": {
+        "thumb_exists": true,
+        "details_exists": true,
+        "archive_exists": true,
+        "item_json_count": 1,
+        "non_image_file_count": 4
+      },
+      "fingerprints": {
+        "work_identity_sha256": "813357f30407583b8994cb0d56c615f76e6029dd3a330d6ada82cd091d5e789a",
+        "archive_sha256": "e150883b3d6fcd2c3d6b7a87772ed03b931dc16b72486396bc1fee51f553ecd8",
+        "archive_structure_sha256": "5fdd882f4701a971c3f0a2436bd14c535f8f5f9e7b8291878f499a17bfd344f1",
+        "page_tree_sha256": "ce2a18927ce38de4007737bff83468e3a46b06c2e972cff6c540508655ed8138"
+      },
+      "upload": {
+        "method": "rclone",
+        "remote": "animeplex.lol:extended/works/Imouto_no_Oppai_ga_Marudashi_Datta_Hanashi_2",
+        "uploaded_at": "2026-08-17T01:05:21Z",
+        "status": "uploaded"
+      },
+      "generated_at": "2026-08-17T01:05:21Z",
+      "generator": "ingest-work.py"
+    },
+    {
+      "schema_version": 1,
+      "slug": "Imouto_no_Oppai_ga_Marudashi_Datta_Hanashi_2_1",
+      "display": "Imouto no Oppai ga Marudashi Datta Hanashi 2 (1)",
+      "parent_work_id": 5547923804,
+      "source": "e",
+      "public": true,
+      "tags": [],
+      "storage": {
+        "provider": "cloudflare-r2",
+        "remote": "animeplex.lol:extended/works/Imouto_no_Oppai_ga_Marudashi_Datta_Hanashi_2_1",
+        "prefix": "works/Imouto_no_Oppai_ga_Marudashi_Datta_Hanashi_2_1",
+        "cdn_base_url": "https://cdn.564578634.xyz/works"
+      },
+      "urls": {
+        "work": "https://cdn.564578634.xyz/works/Imouto_no_Oppai_ga_Marudashi_Datta_Hanashi_2_1/",
+        "manifest": "works/Imouto_no_Oppai_ga_Marudashi_Datta_Hanashi_2_1.json",
+        "thumb": "https://cdn.564578634.xyz/works/Imouto_no_Oppai_ga_Marudashi_Datta_Hanashi_2_1/chapter_1/thumb.webp",
+        "details": "https://cdn.564578634.xyz/works/Imouto_no_Oppai_ga_Marudashi_Datta_Hanashi_2_1/chapter_1/details.json",
+        "archive": "https://cdn.564578634.xyz/works/Imouto_no_Oppai_ga_Marudashi_Datta_Hanashi_2_1/chapter_1/Imouto no Oppai ga Marudashi Datta Hanashi 2 (1).cbz"
+      },
+      "item_json": {
+        "count": 1,
+        "urls": [
+          "https://cdn.564578634.xyz/works/Imouto_no_Oppai_ga_Marudashi_Datta_Hanashi_2_1/chapter_1/item.json"
+        ]
+      },
+      "content": {
+        "chapter_count": 1,
+        "page_count": 20,
+        "page_bytes": 2492458
+      },
+      "archive": {
+        "exists": true,
+        "filename": "Imouto no Oppai ga Marudashi Datta Hanashi 2 (1).cbz",
+        "format": "cbz",
+        "size_bytes": 2494320,
+        "sha256": "5238a3dca0554173cc50a2814e3fbb56544cd8e5591b11107889e03798feba64"
+      },
+      "files": {
+        "thumb_exists": true,
+        "details_exists": true,
+        "archive_exists": true,
+        "item_json_count": 1,
+        "non_image_file_count": 4
+      },
+      "fingerprints": {
+        "work_identity_sha256": "95bc835ed082941e1f4fcb897b921449d1565c29b6ce68e9fea4c3e6528a05f7",
+        "archive_sha256": "5238a3dca0554173cc50a2814e3fbb56544cd8e5591b11107889e03798feba64",
+        "archive_structure_sha256": "5fdd882f4701a971c3f0a2436bd14c535f8f5f9e7b8291878f499a17bfd344f1",
+        "page_tree_sha256": "ce2a18927ce38de4007737bff83468e3a46b06c2e972cff6c540508655ed8138"
+      },
+      "upload": {
+        "method": "rclone",
+        "remote": "animeplex.lol:extended/works/Imouto_no_Oppai_ga_Marudashi_Datta_Hanashi_2_1",
+        "uploaded_at": "2026-08-17T01:05:21Z",
+        "status": "uploaded"
+      },
+      "generated_at": "2026-08-17T01:05:21Z",
+      "generator": "ingest-work.py"
+    },
+    {
+      "schema_version": 1,
+      "slug": "Imouto_wa_Mesu_Orc_1-4",
+      "display": "Imouto wa Mesu Orc 1-4",
+      "parent_work_id": 9577986256,
+      "source": "e",
+      "public": true,
+      "tags": [],
+      "storage": {
+        "provider": "cloudflare-r2",
+        "remote": "animeplex.lol:extended/works/Imouto_wa_Mesu_Orc_1-4",
+        "prefix": "works/Imouto_wa_Mesu_Orc_1-4",
+        "cdn_base_url": "https://cdn.564578634.xyz/works"
+      },
+      "urls": {
+        "work": "https://cdn.564578634.xyz/works/Imouto_wa_Mesu_Orc_1-4/",
+        "manifest": "works/Imouto_wa_Mesu_Orc_1-4.json",
+        "thumb": "https://cdn.564578634.xyz/works/Imouto_wa_Mesu_Orc_1-4/chapter_1/thumb.webp",
+        "details": "https://cdn.564578634.xyz/works/Imouto_wa_Mesu_Orc_1-4/chapter_1/details.json",
+        "archive": "https://cdn.564578634.xyz/works/Imouto_wa_Mesu_Orc_1-4/chapter_1/Imouto wa Mesu Orc 1-4.cbz"
+      },
+      "item_json": {
+        "count": 1,
+        "urls": [
+          "https://cdn.564578634.xyz/works/Imouto_wa_Mesu_Orc_1-4/chapter_1/item.json"
+        ]
+      },
+      "content": {
+        "chapter_count": 1,
+        "page_count": 101,
+        "page_bytes": 82070996
+      },
+      "archive": {
+        "exists": true,
+        "filename": "Imouto wa Mesu Orc 1-4.cbz",
+        "format": "cbz",
+        "size_bytes": 82080310,
+        "sha256": "13395d79c9f804049cc25991dc1ec001fde2baf9a00051427341ca76609f1f88"
+      },
+      "files": {
+        "thumb_exists": true,
+        "details_exists": true,
+        "archive_exists": true,
+        "item_json_count": 1,
+        "non_image_file_count": 4
+      },
+      "fingerprints": {
+        "work_identity_sha256": "de12a9848b60df127785d0529e2d845c9bf8a5e3f365f910b0f735e30afc4c85",
+        "archive_sha256": "13395d79c9f804049cc25991dc1ec001fde2baf9a00051427341ca76609f1f88",
+        "archive_structure_sha256": "9b85890f07be2ee84d82ee2809055b8de8eb33f642cc4ae755f04bb49d77dbd2",
+        "page_tree_sha256": "3381c3749768453dafc827cf1c06aec4dfc602ff8fc8ab7c1ab5d58450b0957f"
+      },
+      "upload": {
+        "method": "rclone",
+        "remote": "animeplex.lol:extended/works/Imouto_wa_Mesu_Orc_1-4",
+        "uploaded_at": "2026-08-17T01:05:21Z",
+        "status": "uploaded"
+      },
+      "generated_at": "2026-08-17T01:05:21Z",
+      "generator": "ingest-work.py"
+    },
+    {
+      "schema_version": 1,
+      "slug": "Imouto_wa_Mesu_Orc_1-4_1",
+      "display": "Imouto wa Mesu Orc 1-4 (1)",
+      "parent_work_id": 9284376385,
+      "source": "e",
+      "public": true,
+      "tags": [],
+      "storage": {
+        "provider": "cloudflare-r2",
+        "remote": "animeplex.lol:extended/works/Imouto_wa_Mesu_Orc_1-4_1",
+        "prefix": "works/Imouto_wa_Mesu_Orc_1-4_1",
+        "cdn_base_url": "https://cdn.564578634.xyz/works"
+      },
+      "urls": {
+        "work": "https://cdn.564578634.xyz/works/Imouto_wa_Mesu_Orc_1-4_1/",
+        "manifest": "works/Imouto_wa_Mesu_Orc_1-4_1.json",
+        "thumb": "https://cdn.564578634.xyz/works/Imouto_wa_Mesu_Orc_1-4_1/chapter_1/thumb.webp",
+        "details": "https://cdn.564578634.xyz/works/Imouto_wa_Mesu_Orc_1-4_1/chapter_1/details.json",
+        "archive": "https://cdn.564578634.xyz/works/Imouto_wa_Mesu_Orc_1-4_1/chapter_1/Imouto wa Mesu Orc 1-4 (1).cbz"
+      },
+      "item_json": {
+        "count": 1,
+        "urls": [
+          "https://cdn.564578634.xyz/works/Imouto_wa_Mesu_Orc_1-4_1/chapter_1/item.json"
+        ]
+      },
+      "content": {
+        "chapter_count": 1,
+        "page_count": 101,
+        "page_bytes": 82070996
+      },
+      "archive": {
+        "exists": true,
+        "filename": "Imouto wa Mesu Orc 1-4 (1).cbz",
+        "format": "cbz",
+        "size_bytes": 82080310,
+        "sha256": "53dcee9c01e0925d5dba759e6ada3ee7042b9beab7d0fafb2b24bb1102ad574a"
+      },
+      "files": {
+        "thumb_exists": true,
+        "details_exists": true,
+        "archive_exists": true,
+        "item_json_count": 1,
+        "non_image_file_count": 4
+      },
+      "fingerprints": {
+        "work_identity_sha256": "e4b6e6c3b6e03a26b300380b23139313d52b2d3c22d630a709ddbc149f79814f",
+        "archive_sha256": "53dcee9c01e0925d5dba759e6ada3ee7042b9beab7d0fafb2b24bb1102ad574a",
+        "archive_structure_sha256": "9b85890f07be2ee84d82ee2809055b8de8eb33f642cc4ae755f04bb49d77dbd2",
+        "page_tree_sha256": "3381c3749768453dafc827cf1c06aec4dfc602ff8fc8ab7c1ab5d58450b0957f"
+      },
+      "upload": {
+        "method": "rclone",
+        "remote": "animeplex.lol:extended/works/Imouto_wa_Mesu_Orc_1-4_1",
+        "uploaded_at": "2026-08-17T01:05:21Z",
+        "status": "uploaded"
+      },
+      "generated_at": "2026-08-17T01:05:21Z",
+      "generator": "ingest-work.py"
+    },
+    {
+      "schema_version": 1,
+      "slug": "Imouto_wa_Mesu_Orc_2",
+      "display": "Imouto wa Mesu Orc 2",
+      "parent_work_id": 3930515581,
+      "source": "e",
+      "public": true,
+      "tags": [],
+      "storage": {
+        "provider": "cloudflare-r2",
+        "remote": "animeplex.lol:extended/works/Imouto_wa_Mesu_Orc_2",
+        "prefix": "works/Imouto_wa_Mesu_Orc_2",
+        "cdn_base_url": "https://cdn.564578634.xyz/works"
+      },
+      "urls": {
+        "work": "https://cdn.564578634.xyz/works/Imouto_wa_Mesu_Orc_2/",
+        "manifest": "works/Imouto_wa_Mesu_Orc_2.json",
+        "thumb": "https://cdn.564578634.xyz/works/Imouto_wa_Mesu_Orc_2/chapter_1/thumb.webp",
+        "details": "https://cdn.564578634.xyz/works/Imouto_wa_Mesu_Orc_2/chapter_1/details.json",
+        "archive": "https://cdn.564578634.xyz/works/Imouto_wa_Mesu_Orc_2/chapter_1/Imouto wa Mesu Orc 2.cbz"
+      },
+      "item_json": {
+        "count": 1,
+        "urls": [
+          "https://cdn.564578634.xyz/works/Imouto_wa_Mesu_Orc_2/chapter_1/item.json"
+        ]
+      },
+      "content": {
+        "chapter_count": 1,
+        "page_count": 31,
+        "page_bytes": 14077876
+      },
+      "archive": {
+        "exists": true,
+        "filename": "Imouto wa Mesu Orc 2.cbz",
+        "format": "cbz",
+        "size_bytes": 14080688,
+        "sha256": "be7011820d35677f3705a0c48a9f546ae67756c2338f1d2ceeafd42ca74b2666"
+      },
+      "files": {
+        "thumb_exists": true,
+        "details_exists": true,
+        "archive_exists": true,
+        "item_json_count": 1,
+        "non_image_file_count": 4
+      },
+      "fingerprints": {
+        "work_identity_sha256": "8b1ed72addd26101317da48de2494f3455e7b676dd1bdb802c07a0272b7b87cd",
+        "archive_sha256": "be7011820d35677f3705a0c48a9f546ae67756c2338f1d2ceeafd42ca74b2666",
+        "archive_structure_sha256": "42a151eef5ca9e9b600b0f52155b76faa55c230b2d01b9ccc5a2af0f659d6f5b",
+        "page_tree_sha256": "f30afe8bd8e60bf1aad22a49c3e1cc01a31555e856dba456688c7007bbcdd067"
+      },
+      "upload": {
+        "method": "rclone",
+        "remote": "animeplex.lol:extended/works/Imouto_wa_Mesu_Orc_2",
+        "uploaded_at": "2026-08-17T01:05:21Z",
+        "status": "uploaded"
+      },
+      "generated_at": "2026-08-17T01:05:21Z",
+      "generator": "ingest-work.py"
+    },
+    {
+      "schema_version": 1,
+      "slug": "Imouto_wa_Mesu_Orc_2_1",
+      "display": "Imouto wa Mesu Orc 2 (1)",
+      "parent_work_id": 4422523850,
+      "source": "e",
+      "public": true,
+      "tags": [],
+      "storage": {
+        "provider": "cloudflare-r2",
+        "remote": "animeplex.lol:extended/works/Imouto_wa_Mesu_Orc_2_1",
+        "prefix": "works/Imouto_wa_Mesu_Orc_2_1",
+        "cdn_base_url": "https://cdn.564578634.xyz/works"
+      },
+      "urls": {
+        "work": "https://cdn.564578634.xyz/works/Imouto_wa_Mesu_Orc_2_1/",
+        "manifest": "works/Imouto_wa_Mesu_Orc_2_1.json",
+        "thumb": "https://cdn.564578634.xyz/works/Imouto_wa_Mesu_Orc_2_1/chapter_1/thumb.webp",
+        "details": "https://cdn.564578634.xyz/works/Imouto_wa_Mesu_Orc_2_1/chapter_1/details.json",
+        "archive": "https://cdn.564578634.xyz/works/Imouto_wa_Mesu_Orc_2_1/chapter_1/Imouto wa Mesu Orc 2 (1).cbz"
+      },
+      "item_json": {
+        "count": 1,
+        "urls": [
+          "https://cdn.564578634.xyz/works/Imouto_wa_Mesu_Orc_2_1/chapter_1/item.json"
+        ]
+      },
+      "content": {
+        "chapter_count": 1,
+        "page_count": 31,
+        "page_bytes": 14077876
+      },
+      "archive": {
+        "exists": true,
+        "filename": "Imouto wa Mesu Orc 2 (1).cbz",
+        "format": "cbz",
+        "size_bytes": 14080688,
+        "sha256": "f7bd9669442428a3eff08e15c779558856ff7b76d886a23192027130e26e69f8"
+      },
+      "files": {
+        "thumb_exists": true,
+        "details_exists": true,
+        "archive_exists": true,
+        "item_json_count": 1,
+        "non_image_file_count": 4
+      },
+      "fingerprints": {
+        "work_identity_sha256": "6ad7bdf30e1ed23397d258904d4305c648b30905e76f70c7a31bc61a2520ec71",
+        "archive_sha256": "f7bd9669442428a3eff08e15c779558856ff7b76d886a23192027130e26e69f8",
+        "archive_structure_sha256": "42a151eef5ca9e9b600b0f52155b76faa55c230b2d01b9ccc5a2af0f659d6f5b",
+        "page_tree_sha256": "f30afe8bd8e60bf1aad22a49c3e1cc01a31555e856dba456688c7007bbcdd067"
+      },
+      "upload": {
+        "method": "rclone",
+        "remote": "animeplex.lol:extended/works/Imouto_wa_Mesu_Orc_2_1",
+        "uploaded_at": "2026-08-17T01:05:21Z",
+        "status": "uploaded"
+      },
+      "generated_at": "2026-08-17T01:05:21Z",
       "generator": "ingest-work.py"
     },
     {
@@ -9832,6 +12031,67 @@
     },
     {
       "schema_version": 1,
+      "slug": "Kakkou_no_Hi_Takuran_Sareta_Tsuma_Sono_2",
+      "display": "Kakkou no Hi Takuran Sareta Tsuma Sono 2",
+      "parent_work_id": 5706561472,
+      "source": "e",
+      "public": true,
+      "tags": [],
+      "storage": {
+        "provider": "cloudflare-r2",
+        "remote": "animeplex.lol:extended/works/Kakkou_no_Hi_Takuran_Sareta_Tsuma_Sono_2",
+        "prefix": "works/Kakkou_no_Hi_Takuran_Sareta_Tsuma_Sono_2",
+        "cdn_base_url": "https://cdn.564578634.xyz/works"
+      },
+      "urls": {
+        "work": "https://cdn.564578634.xyz/works/Kakkou_no_Hi_Takuran_Sareta_Tsuma_Sono_2/",
+        "manifest": "works/Kakkou_no_Hi_Takuran_Sareta_Tsuma_Sono_2.json",
+        "thumb": "https://cdn.564578634.xyz/works/Kakkou_no_Hi_Takuran_Sareta_Tsuma_Sono_2/chapter_1/thumb.webp",
+        "details": "https://cdn.564578634.xyz/works/Kakkou_no_Hi_Takuran_Sareta_Tsuma_Sono_2/chapter_1/details.json",
+        "archive": "https://cdn.564578634.xyz/works/Kakkou_no_Hi_Takuran_Sareta_Tsuma_Sono_2/chapter_1/Kakkou no Hi Takuran Sareta Tsuma Sono 2.cbz"
+      },
+      "item_json": {
+        "count": 1,
+        "urls": [
+          "https://cdn.564578634.xyz/works/Kakkou_no_Hi_Takuran_Sareta_Tsuma_Sono_2/chapter_1/item.json"
+        ]
+      },
+      "content": {
+        "chapter_count": 1,
+        "page_count": 68,
+        "page_bytes": 17390596
+      },
+      "archive": {
+        "exists": true,
+        "filename": "Kakkou no Hi Takuran Sareta Tsuma Sono 2.cbz",
+        "format": "cbz",
+        "size_bytes": 17396738,
+        "sha256": "1f74ddb3cd996c5f4324cb650384626e45b16cf550fc5b9a76b60d70c6a2a9e4"
+      },
+      "files": {
+        "thumb_exists": true,
+        "details_exists": true,
+        "archive_exists": true,
+        "item_json_count": 1,
+        "non_image_file_count": 4
+      },
+      "fingerprints": {
+        "work_identity_sha256": "7a1898b09886d01557a22ca9dfc54e2ddc54d3bd18152ea8484d8cd2aae17457",
+        "archive_sha256": "1f74ddb3cd996c5f4324cb650384626e45b16cf550fc5b9a76b60d70c6a2a9e4",
+        "archive_structure_sha256": "cebcb3d11a16107efbe13556f4978231c4ec9c9112f41f9b04694ce248cb4179",
+        "page_tree_sha256": "a8d3daee2104a6052191f65240d5fbfb9ce361556de47c3a94a45f84f7d414c5"
+      },
+      "upload": {
+        "method": "rclone",
+        "remote": "animeplex.lol:extended/works/Kakkou_no_Hi_Takuran_Sareta_Tsuma_Sono_2",
+        "uploaded_at": "2026-08-17T01:05:21Z",
+        "status": "uploaded"
+      },
+      "generated_at": "2026-08-17T01:05:21Z",
+      "generator": "ingest-work.py"
+    },
+    {
+      "schema_version": 1,
       "slug": "Kami-sama_no_Tsukurikata_The_Making_of_a_Cult_Leader",
       "display": "Kami-sama no Tsukurikata The Making of a Cult Leader",
       "parent_work_id": 8812307805,
@@ -10017,6 +12277,67 @@
         "status": "uploaded"
       },
       "generated_at": "2026-07-27T23:10:27Z",
+      "generator": "ingest-work.py"
+    },
+    {
+      "schema_version": 1,
+      "slug": "Karamare_Tsuma_no_Kyouko-san_10",
+      "display": "Karamare Tsuma no Kyouko-san 10",
+      "parent_work_id": 5710039118,
+      "source": "e",
+      "public": true,
+      "tags": [],
+      "storage": {
+        "provider": "cloudflare-r2",
+        "remote": "animeplex.lol:extended/works/Karamare_Tsuma_no_Kyouko-san_10",
+        "prefix": "works/Karamare_Tsuma_no_Kyouko-san_10",
+        "cdn_base_url": "https://cdn.564578634.xyz/works"
+      },
+      "urls": {
+        "work": "https://cdn.564578634.xyz/works/Karamare_Tsuma_no_Kyouko-san_10/",
+        "manifest": "works/Karamare_Tsuma_no_Kyouko-san_10.json",
+        "thumb": "https://cdn.564578634.xyz/works/Karamare_Tsuma_no_Kyouko-san_10/chapter_1/thumb.webp",
+        "details": "https://cdn.564578634.xyz/works/Karamare_Tsuma_no_Kyouko-san_10/chapter_1/details.json",
+        "archive": "https://cdn.564578634.xyz/works/Karamare_Tsuma_no_Kyouko-san_10/chapter_1/Karamare Tsuma no Kyouko-san 10.cbz"
+      },
+      "item_json": {
+        "count": 1,
+        "urls": [
+          "https://cdn.564578634.xyz/works/Karamare_Tsuma_no_Kyouko-san_10/chapter_1/item.json"
+        ]
+      },
+      "content": {
+        "chapter_count": 1,
+        "page_count": 32,
+        "page_bytes": 4616602
+      },
+      "archive": {
+        "exists": true,
+        "filename": "Karamare Tsuma no Kyouko-san 10.cbz",
+        "format": "cbz",
+        "size_bytes": 4619678,
+        "sha256": "f478f8339618a6763ee6819184c84fb486eb5c1bdcbe29ffdc0975084be01658"
+      },
+      "files": {
+        "thumb_exists": true,
+        "details_exists": true,
+        "archive_exists": true,
+        "item_json_count": 1,
+        "non_image_file_count": 4
+      },
+      "fingerprints": {
+        "work_identity_sha256": "8c254b28e87d972c02cd7739d3cb116b028be7fa2a9d3de7b969046d441a8b6e",
+        "archive_sha256": "f478f8339618a6763ee6819184c84fb486eb5c1bdcbe29ffdc0975084be01658",
+        "archive_structure_sha256": "378467ac2f480c9ef01a3fa08bf864fa22b0a82918c8801d7d0f78577ddbe181",
+        "page_tree_sha256": "b1f65b97829a8dbd00946f23f3a7542bf3da7d8cf858123b0fb7e6f9f9a7d2e7"
+      },
+      "upload": {
+        "method": "rclone",
+        "remote": "animeplex.lol:extended/works/Karamare_Tsuma_no_Kyouko-san_10",
+        "uploaded_at": "2026-08-17T01:05:21Z",
+        "status": "uploaded"
+      },
+      "generated_at": "2026-08-17T01:05:21Z",
       "generator": "ingest-work.py"
     },
     {
@@ -11403,6 +13724,67 @@
         "status": "uploaded"
       },
       "generated_at": "2026-07-27T23:10:27Z",
+      "generator": "ingest-work.py"
+    },
+    {
+      "schema_version": 1,
+      "slug": "Kyonyuu_no_Tomodachi_to_Tsukiau_made_no_Hanashi_Zenpen",
+      "display": "Kyonyuu no Tomodachi to Tsukiau made no Hanashi Zenpen",
+      "parent_work_id": 9887400047,
+      "source": "e",
+      "public": true,
+      "tags": [],
+      "storage": {
+        "provider": "cloudflare-r2",
+        "remote": "animeplex.lol:extended/works/Kyonyuu_no_Tomodachi_to_Tsukiau_made_no_Hanashi_Zenpen",
+        "prefix": "works/Kyonyuu_no_Tomodachi_to_Tsukiau_made_no_Hanashi_Zenpen",
+        "cdn_base_url": "https://cdn.564578634.xyz/works"
+      },
+      "urls": {
+        "work": "https://cdn.564578634.xyz/works/Kyonyuu_no_Tomodachi_to_Tsukiau_made_no_Hanashi_Zenpen/",
+        "manifest": "works/Kyonyuu_no_Tomodachi_to_Tsukiau_made_no_Hanashi_Zenpen.json",
+        "thumb": "https://cdn.564578634.xyz/works/Kyonyuu_no_Tomodachi_to_Tsukiau_made_no_Hanashi_Zenpen/chapter_1/thumb.webp",
+        "details": "https://cdn.564578634.xyz/works/Kyonyuu_no_Tomodachi_to_Tsukiau_made_no_Hanashi_Zenpen/chapter_1/details.json",
+        "archive": "https://cdn.564578634.xyz/works/Kyonyuu_no_Tomodachi_to_Tsukiau_made_no_Hanashi_Zenpen/chapter_1/Kyonyuu no Tomodachi to Tsukiau made no Hanashi Zenpen.cbz"
+      },
+      "item_json": {
+        "count": 1,
+        "urls": [
+          "https://cdn.564578634.xyz/works/Kyonyuu_no_Tomodachi_to_Tsukiau_made_no_Hanashi_Zenpen/chapter_1/item.json"
+        ]
+      },
+      "content": {
+        "chapter_count": 1,
+        "page_count": 62,
+        "page_bytes": 40857790
+      },
+      "archive": {
+        "exists": true,
+        "filename": "Kyonyuu no Tomodachi to Tsukiau made no Hanashi Zenpen.cbz",
+        "format": "cbz",
+        "size_bytes": 40865126,
+        "sha256": "03b55df648e0a9d0f767b70cb57605c59ecf8d6cdfc66d1bca1eb6e8978fc0f4"
+      },
+      "files": {
+        "thumb_exists": true,
+        "details_exists": true,
+        "archive_exists": true,
+        "item_json_count": 1,
+        "non_image_file_count": 4
+      },
+      "fingerprints": {
+        "work_identity_sha256": "4a8cb147c9a5bf6e9d3824ac820e8254234fd91e2d7b6bccd8c4168d5817832d",
+        "archive_sha256": "03b55df648e0a9d0f767b70cb57605c59ecf8d6cdfc66d1bca1eb6e8978fc0f4",
+        "archive_structure_sha256": "2ede527845f0b10f6cbe94f1b7dd520ce1e7149be3501b2fc1bc30eec5546b38",
+        "page_tree_sha256": "0d9d973e7ece0828ec1e35ea603bfff25b53533eca82e0fee67d4d0d3f1100ff"
+      },
+      "upload": {
+        "method": "rclone",
+        "remote": "animeplex.lol:extended/works/Kyonyuu_no_Tomodachi_to_Tsukiau_made_no_Hanashi_Zenpen",
+        "uploaded_at": "2026-08-17T01:05:21Z",
+        "status": "uploaded"
+      },
+      "generated_at": "2026-08-17T01:05:21Z",
       "generator": "ingest-work.py"
     },
     {
@@ -13045,6 +15427,67 @@
     },
     {
       "schema_version": 1,
+      "slug": "Mirror_Image",
+      "display": "Mirror Image",
+      "parent_work_id": 3145982827,
+      "source": "e",
+      "public": true,
+      "tags": [],
+      "storage": {
+        "provider": "cloudflare-r2",
+        "remote": "animeplex.lol:extended/works/Mirror_Image",
+        "prefix": "works/Mirror_Image",
+        "cdn_base_url": "https://cdn.564578634.xyz/works"
+      },
+      "urls": {
+        "work": "https://cdn.564578634.xyz/works/Mirror_Image/",
+        "manifest": "works/Mirror_Image.json",
+        "thumb": "https://cdn.564578634.xyz/works/Mirror_Image/chapter_1/thumb.webp",
+        "details": "https://cdn.564578634.xyz/works/Mirror_Image/chapter_1/details.json",
+        "archive": "https://cdn.564578634.xyz/works/Mirror_Image/chapter_1/Mirror Image.cbz"
+      },
+      "item_json": {
+        "count": 1,
+        "urls": [
+          "https://cdn.564578634.xyz/works/Mirror_Image/chapter_1/item.json"
+        ]
+      },
+      "content": {
+        "chapter_count": 1,
+        "page_count": 25,
+        "page_bytes": 13416512
+      },
+      "archive": {
+        "exists": true,
+        "filename": "Mirror Image.cbz",
+        "format": "cbz",
+        "size_bytes": 13418784,
+        "sha256": "2fc9e40fdc848857a36b8abfd5ec6e80459d460482795be9da2e83268290f2d4"
+      },
+      "files": {
+        "thumb_exists": true,
+        "details_exists": true,
+        "archive_exists": true,
+        "item_json_count": 1,
+        "non_image_file_count": 4
+      },
+      "fingerprints": {
+        "work_identity_sha256": "fd92ea4e6ef9f75f8c1ad35990d249810d472ee484f839caf75039890cc71df8",
+        "archive_sha256": "2fc9e40fdc848857a36b8abfd5ec6e80459d460482795be9da2e83268290f2d4",
+        "archive_structure_sha256": "b50da89b5455282d1000114963e9e6147332c5ff8f764699d16d943442b872c7",
+        "page_tree_sha256": "0af40706ff4ee1d49d41823ae560c57a2b39a6c2bf43dc86f5ca015428915554"
+      },
+      "upload": {
+        "method": "rclone",
+        "remote": "animeplex.lol:extended/works/Mirror_Image",
+        "uploaded_at": "2026-08-17T01:05:21Z",
+        "status": "uploaded"
+      },
+      "generated_at": "2026-08-17T01:05:21Z",
+      "generator": "ingest-work.py"
+    },
+    {
+      "schema_version": 1,
       "slug": "MISATO_x_SHINJI_BABY_MAKING",
       "display": "MISATO x SHINJI BABY MAKING",
       "parent_work_id": 6831019199,
@@ -13608,6 +16051,67 @@
         "status": "uploaded"
       },
       "generated_at": "2026-07-27T23:10:27Z",
+      "generator": "ingest-work.py"
+    },
+    {
+      "schema_version": 1,
+      "slug": "Mujikaku_na_Osananajimi_to_Kyoumi_Honi_de_Yatte_Mitara_2_I_Tried_Getting_Laid_With_My_Oblivious_Childhood_Friend_Just_Out_of_Curiosity_2",
+      "display": "Mujikaku na Osananajimi to Kyoumi Honi de Yatte Mitara 2 I Tried Getting Laid With My Oblivious Childhood Friend Just Out of Curiosity 2",
+      "parent_work_id": 9000303214,
+      "source": "e",
+      "public": true,
+      "tags": [],
+      "storage": {
+        "provider": "cloudflare-r2",
+        "remote": "animeplex.lol:extended/works/Mujikaku_na_Osananajimi_to_Kyoumi_Honi_de_Yatte_Mitara_2_I_Tried_Getting_Laid_With_My_Oblivious_Childhood_Friend_Just_Out_of_Curiosity_2",
+        "prefix": "works/Mujikaku_na_Osananajimi_to_Kyoumi_Honi_de_Yatte_Mitara_2_I_Tried_Getting_Laid_With_My_Oblivious_Childhood_Friend_Just_Out_of_Curiosity_2",
+        "cdn_base_url": "https://cdn.564578634.xyz/works"
+      },
+      "urls": {
+        "work": "https://cdn.564578634.xyz/works/Mujikaku_na_Osananajimi_to_Kyoumi_Honi_de_Yatte_Mitara_2_I_Tried_Getting_Laid_With_My_Oblivious_Childhood_Friend_Just_Out_of_Curiosity_2/",
+        "manifest": "works/Mujikaku_na_Osananajimi_to_Kyoumi_Honi_de_Yatte_Mitara_2_I_Tried_Getting_Laid_With_My_Oblivious_Childhood_Friend_Just_Out_of_Curiosity_2.json",
+        "thumb": "https://cdn.564578634.xyz/works/Mujikaku_na_Osananajimi_to_Kyoumi_Honi_de_Yatte_Mitara_2_I_Tried_Getting_Laid_With_My_Oblivious_Childhood_Friend_Just_Out_of_Curiosity_2/chapter_1/thumb.webp",
+        "details": "https://cdn.564578634.xyz/works/Mujikaku_na_Osananajimi_to_Kyoumi_Honi_de_Yatte_Mitara_2_I_Tried_Getting_Laid_With_My_Oblivious_Childhood_Friend_Just_Out_of_Curiosity_2/chapter_1/details.json",
+        "archive": "https://cdn.564578634.xyz/works/Mujikaku_na_Osananajimi_to_Kyoumi_Honi_de_Yatte_Mitara_2_I_Tried_Getting_Laid_With_My_Oblivious_Childhood_Friend_Just_Out_of_Curiosity_2/chapter_1/Mujikaku na Osananajimi to Kyoumi Honi de Yatte Mitara 2 _ I Tried Getting Laid With My Oblivious Childhood Friend Just Out of Curiosity 2.cbz"
+      },
+      "item_json": {
+        "count": 1,
+        "urls": [
+          "https://cdn.564578634.xyz/works/Mujikaku_na_Osananajimi_to_Kyoumi_Honi_de_Yatte_Mitara_2_I_Tried_Getting_Laid_With_My_Oblivious_Childhood_Friend_Just_Out_of_Curiosity_2/chapter_1/item.json"
+        ]
+      },
+      "content": {
+        "chapter_count": 1,
+        "page_count": 68,
+        "page_bytes": 54198152
+      },
+      "archive": {
+        "exists": true,
+        "filename": "Mujikaku na Osananajimi to Kyoumi Honi de Yatte Mitara 2 _ I Tried Getting Laid With My Oblivious Childhood Friend Just Out of Curiosity 2.cbz",
+        "format": "cbz",
+        "size_bytes": 54204294,
+        "sha256": "5d505d532a010ea2a40ab61de58239793c76cc8dff981bb7d6c31e88f75e9778"
+      },
+      "files": {
+        "thumb_exists": true,
+        "details_exists": true,
+        "archive_exists": true,
+        "item_json_count": 1,
+        "non_image_file_count": 4
+      },
+      "fingerprints": {
+        "work_identity_sha256": "f9370a31ca4f94f4b4984521df2af38a7850e6b86c725d96ff717d918accb77f",
+        "archive_sha256": "5d505d532a010ea2a40ab61de58239793c76cc8dff981bb7d6c31e88f75e9778",
+        "archive_structure_sha256": "90bb1f1088e537167933ac6c787fc64e8996bc3a95ad96344c1d4f4d99ba1a6a",
+        "page_tree_sha256": "e42e5e7223508cff485f229447937fd815b129b27e3866acb546d2637100f765"
+      },
+      "upload": {
+        "method": "rclone",
+        "remote": "animeplex.lol:extended/works/Mujikaku_na_Osananajimi_to_Kyoumi_Honi_de_Yatte_Mitara_2_I_Tried_Getting_Laid_With_My_Oblivious_Childhood_Friend_Just_Out_of_Curiosity_2",
+        "uploaded_at": "2026-08-17T01:05:21Z",
+        "status": "uploaded"
+      },
+      "generated_at": "2026-08-17T01:05:21Z",
       "generator": "ingest-work.py"
     },
     {
@@ -16573,6 +19077,67 @@
     },
     {
       "schema_version": 1,
+      "slug": "Otaku_no_Boku_ga_Ichigun_Gal_to_Tsukiaerumade_no_Hanashi_decensored",
+      "display": "Otaku no Boku ga Ichigun Gal to Tsukiaerumade no Hanashi (decensored)",
+      "parent_work_id": 6471960442,
+      "source": "e",
+      "public": true,
+      "tags": [],
+      "storage": {
+        "provider": "cloudflare-r2",
+        "remote": "animeplex.lol:extended/works/Otaku_no_Boku_ga_Ichigun_Gal_to_Tsukiaerumade_no_Hanashi_decensored",
+        "prefix": "works/Otaku_no_Boku_ga_Ichigun_Gal_to_Tsukiaerumade_no_Hanashi_decensored",
+        "cdn_base_url": "https://cdn.564578634.xyz/works"
+      },
+      "urls": {
+        "work": "https://cdn.564578634.xyz/works/Otaku_no_Boku_ga_Ichigun_Gal_to_Tsukiaerumade_no_Hanashi_decensored/",
+        "manifest": "works/Otaku_no_Boku_ga_Ichigun_Gal_to_Tsukiaerumade_no_Hanashi_decensored.json",
+        "thumb": "https://cdn.564578634.xyz/works/Otaku_no_Boku_ga_Ichigun_Gal_to_Tsukiaerumade_no_Hanashi_decensored/chapter_1/thumb.webp",
+        "details": "https://cdn.564578634.xyz/works/Otaku_no_Boku_ga_Ichigun_Gal_to_Tsukiaerumade_no_Hanashi_decensored/chapter_1/details.json",
+        "archive": "https://cdn.564578634.xyz/works/Otaku_no_Boku_ga_Ichigun_Gal_to_Tsukiaerumade_no_Hanashi_decensored/chapter_1/Otaku no Boku ga Ichigun Gal to Tsukiaerumade no Hanashi (decensored).cbz"
+      },
+      "item_json": {
+        "count": 1,
+        "urls": [
+          "https://cdn.564578634.xyz/works/Otaku_no_Boku_ga_Ichigun_Gal_to_Tsukiaerumade_no_Hanashi_decensored/chapter_1/item.json"
+        ]
+      },
+      "content": {
+        "chapter_count": 1,
+        "page_count": 93,
+        "page_bytes": 52583034
+      },
+      "archive": {
+        "exists": true,
+        "filename": "Otaku no Boku ga Ichigun Gal to Tsukiaerumade no Hanashi (decensored).cbz",
+        "format": "cbz",
+        "size_bytes": 52591426,
+        "sha256": "6c61571dd1568d76c1f96ff7a647a6b189289f465b2a686fb8c9e36a5baf1fc7"
+      },
+      "files": {
+        "thumb_exists": true,
+        "details_exists": true,
+        "archive_exists": true,
+        "item_json_count": 1,
+        "non_image_file_count": 4
+      },
+      "fingerprints": {
+        "work_identity_sha256": "e91b30e182832cb03893fc956fffc41789030b96e96c618392b3e70e48a77bb4",
+        "archive_sha256": "6c61571dd1568d76c1f96ff7a647a6b189289f465b2a686fb8c9e36a5baf1fc7",
+        "archive_structure_sha256": "9604b7064e33ccabb15224a22fee6c11f7252009695ff30bc4790c64d6beb263",
+        "page_tree_sha256": "98cef43a118b298ee1178a923efeba06aa6daf2da17fd82c0a3bec7266eb2d20"
+      },
+      "upload": {
+        "method": "rclone",
+        "remote": "animeplex.lol:extended/works/Otaku_no_Boku_ga_Ichigun_Gal_to_Tsukiaerumade_no_Hanashi_decensored",
+        "uploaded_at": "2026-08-17T01:05:21Z",
+        "status": "uploaded"
+      },
+      "generated_at": "2026-08-17T01:05:21Z",
+      "generator": "ingest-work.py"
+    },
+    {
+      "schema_version": 1,
       "slug": "Otoko_o_Mesu_ni_Suru_AI_Mama_The_A.I._Mommy_who_turns_Boys_into_Bitches",
       "display": "Otoko o Mesu ni Suru AI Mama The A.I. Mommy who turns Boys into Bitches",
       "parent_work_id": 4802859188,
@@ -17010,6 +19575,67 @@
         "status": "uploaded"
       },
       "generated_at": "2026-07-27T23:10:27Z",
+      "generator": "ingest-work.py"
+    },
+    {
+      "schema_version": 1,
+      "slug": "OYOME_SAMBA",
+      "display": "OYOME SAMBA",
+      "parent_work_id": 6980618350,
+      "source": "e",
+      "public": true,
+      "tags": [],
+      "storage": {
+        "provider": "cloudflare-r2",
+        "remote": "animeplex.lol:extended/works/OYOME_SAMBA",
+        "prefix": "works/OYOME_SAMBA",
+        "cdn_base_url": "https://cdn.564578634.xyz/works"
+      },
+      "urls": {
+        "work": "https://cdn.564578634.xyz/works/OYOME_SAMBA/",
+        "manifest": "works/OYOME_SAMBA.json",
+        "thumb": "https://cdn.564578634.xyz/works/OYOME_SAMBA/chapter_1/thumb.webp",
+        "details": "https://cdn.564578634.xyz/works/OYOME_SAMBA/chapter_1/details.json",
+        "archive": "https://cdn.564578634.xyz/works/OYOME_SAMBA/chapter_1/OYOME SAMBA.cbz"
+      },
+      "item_json": {
+        "count": 1,
+        "urls": [
+          "https://cdn.564578634.xyz/works/OYOME_SAMBA/chapter_1/item.json"
+        ]
+      },
+      "content": {
+        "chapter_count": 1,
+        "page_count": 30,
+        "page_bytes": 21513360
+      },
+      "archive": {
+        "exists": true,
+        "filename": "OYOME SAMBA.cbz",
+        "format": "cbz",
+        "size_bytes": 21516142,
+        "sha256": "7eac7c2b7f5f59792c42f085d8973ba39061ad7807bf859d10cea7c411d9b7ba"
+      },
+      "files": {
+        "thumb_exists": true,
+        "details_exists": true,
+        "archive_exists": true,
+        "item_json_count": 1,
+        "non_image_file_count": 4
+      },
+      "fingerprints": {
+        "work_identity_sha256": "0a4af706b9ea6acdac52d1d48719a1049307439efada6e99939876540ae9ff75",
+        "archive_sha256": "7eac7c2b7f5f59792c42f085d8973ba39061ad7807bf859d10cea7c411d9b7ba",
+        "archive_structure_sha256": "a43c95fa347ebae01fc373d7ba1bc3ee5aea392f10a81abae68ef5c23ec351db",
+        "page_tree_sha256": "3929bcf41b55cca28e624684aaff9badd77379da17713322e6ee7efb8b204663"
+      },
+      "upload": {
+        "method": "rclone",
+        "remote": "animeplex.lol:extended/works/OYOME_SAMBA",
+        "uploaded_at": "2026-08-17T01:05:21Z",
+        "status": "uploaded"
+      },
+      "generated_at": "2026-08-17T01:05:21Z",
       "generator": "ingest-work.py"
     },
     {
@@ -19280,6 +21906,67 @@
     },
     {
       "schema_version": 1,
+      "slug": "Senpai_with_itchy_pussy_has_her_futanari_junior_scrape_it",
+      "display": "Senpai with itchy pussy has her futanari junior scrape it",
+      "parent_work_id": 6452490200,
+      "source": "e",
+      "public": true,
+      "tags": [],
+      "storage": {
+        "provider": "cloudflare-r2",
+        "remote": "animeplex.lol:extended/works/Senpai_with_itchy_pussy_has_her_futanari_junior_scrape_it",
+        "prefix": "works/Senpai_with_itchy_pussy_has_her_futanari_junior_scrape_it",
+        "cdn_base_url": "https://cdn.564578634.xyz/works"
+      },
+      "urls": {
+        "work": "https://cdn.564578634.xyz/works/Senpai_with_itchy_pussy_has_her_futanari_junior_scrape_it/",
+        "manifest": "works/Senpai_with_itchy_pussy_has_her_futanari_junior_scrape_it.json",
+        "thumb": "https://cdn.564578634.xyz/works/Senpai_with_itchy_pussy_has_her_futanari_junior_scrape_it/chapter_1/thumb.webp",
+        "details": "https://cdn.564578634.xyz/works/Senpai_with_itchy_pussy_has_her_futanari_junior_scrape_it/chapter_1/details.json",
+        "archive": "https://cdn.564578634.xyz/works/Senpai_with_itchy_pussy_has_her_futanari_junior_scrape_it/chapter_1/Senpai with itchy pussy has her futanari junior scrape it.cbz"
+      },
+      "item_json": {
+        "count": 1,
+        "urls": [
+          "https://cdn.564578634.xyz/works/Senpai_with_itchy_pussy_has_her_futanari_junior_scrape_it/chapter_1/item.json"
+        ]
+      },
+      "content": {
+        "chapter_count": 1,
+        "page_count": 17,
+        "page_bytes": 10121758
+      },
+      "archive": {
+        "exists": true,
+        "filename": "Senpai with itchy pussy has her futanari junior scrape it.cbz",
+        "format": "cbz",
+        "size_bytes": 10123310,
+        "sha256": "7b1b7f62b1ec5aecef215cc422d4e4dbf35e973325815dfd57e97ab5000e4a69"
+      },
+      "files": {
+        "thumb_exists": true,
+        "details_exists": true,
+        "archive_exists": true,
+        "item_json_count": 1,
+        "non_image_file_count": 4
+      },
+      "fingerprints": {
+        "work_identity_sha256": "22bc1d68629ae9bd6f2a98222daa4db3a78ba98666ca2d55010545cf85f64457",
+        "archive_sha256": "7b1b7f62b1ec5aecef215cc422d4e4dbf35e973325815dfd57e97ab5000e4a69",
+        "archive_structure_sha256": "e6cd16f0228488925336e954d91a02e9a9e257b4527af1e8876fbb0497d62a77",
+        "page_tree_sha256": "2a0e602d26c5b1803ec3be6ceb499829f7c16d79fb3f0e8804f501f1e695da9f"
+      },
+      "upload": {
+        "method": "rclone",
+        "remote": "animeplex.lol:extended/works/Senpai_with_itchy_pussy_has_her_futanari_junior_scrape_it",
+        "uploaded_at": "2026-08-17T01:05:21Z",
+        "status": "uploaded"
+      },
+      "generated_at": "2026-08-17T01:05:21Z",
+      "generator": "ingest-work.py"
+    },
+    {
+      "schema_version": 1,
       "slug": "Senri-chan_Souryo_no_Onee-san_ya_Mahoutsukai_no_Onee-san_to_Asobu_Nakayoshi_Onna_Boukensha_Senri-chan_playing_with_the_Priest_and_Wizard_Friendly_Female_Adventurers",
       "display": "Senri-chan, Souryo no Onee-san ya Mahoutsukai no Onee-san to Asobu Nakayoshi Onna Boukensha Senri-chan playing with the Priest and Wizard Friendly Female Adventurers",
       "parent_work_id": 6271971905,
@@ -20666,6 +23353,67 @@
     },
     {
       "schema_version": 1,
+      "slug": "The_Altered_Student_Council",
+      "display": "The Altered Student Council",
+      "parent_work_id": 6512761541,
+      "source": "e",
+      "public": true,
+      "tags": [],
+      "storage": {
+        "provider": "cloudflare-r2",
+        "remote": "animeplex.lol:extended/works/The_Altered_Student_Council",
+        "prefix": "works/The_Altered_Student_Council",
+        "cdn_base_url": "https://cdn.564578634.xyz/works"
+      },
+      "urls": {
+        "work": "https://cdn.564578634.xyz/works/The_Altered_Student_Council/",
+        "manifest": "works/The_Altered_Student_Council.json",
+        "thumb": "https://cdn.564578634.xyz/works/The_Altered_Student_Council/chapter_1/thumb.webp",
+        "details": "https://cdn.564578634.xyz/works/The_Altered_Student_Council/chapter_1/details.json",
+        "archive": "https://cdn.564578634.xyz/works/The_Altered_Student_Council/chapter_1/The Altered Student Council.cbz"
+      },
+      "item_json": {
+        "count": 1,
+        "urls": [
+          "https://cdn.564578634.xyz/works/The_Altered_Student_Council/chapter_1/item.json"
+        ]
+      },
+      "content": {
+        "chapter_count": 1,
+        "page_count": 7,
+        "page_bytes": 1239068
+      },
+      "archive": {
+        "exists": true,
+        "filename": "The Altered Student Council.cbz",
+        "format": "cbz",
+        "size_bytes": 1239706,
+        "sha256": "29f8d9ae8cc6e1869a0965ea4c0f123889abf33789f34a9b45412ea992646493"
+      },
+      "files": {
+        "thumb_exists": true,
+        "details_exists": true,
+        "archive_exists": true,
+        "item_json_count": 1,
+        "non_image_file_count": 4
+      },
+      "fingerprints": {
+        "work_identity_sha256": "dd895f9a1c977cc380bfbcbbcccbd51c138dc19ed3c9a9dcb4880d35407cf7de",
+        "archive_sha256": "29f8d9ae8cc6e1869a0965ea4c0f123889abf33789f34a9b45412ea992646493",
+        "archive_structure_sha256": "85654b96687d89b99d9a77de84f680b0631df0fd0b070f8c042d17f8190edef1",
+        "page_tree_sha256": "d17afda75f589f8c43882137e40ee5795dd0c25dc5de2c4a1a94d1fc1d00c930"
+      },
+      "upload": {
+        "method": "rclone",
+        "remote": "animeplex.lol:extended/works/The_Altered_Student_Council",
+        "uploaded_at": "2026-08-17T01:05:21Z",
+        "status": "uploaded"
+      },
+      "generated_at": "2026-08-17T01:05:21Z",
+      "generator": "ingest-work.py"
+    },
+    {
+      "schema_version": 1,
       "slug": "The_Archons_Love",
       "display": "The Archon's Love",
       "parent_work_id": 9216357652,
@@ -20788,6 +23536,67 @@
         "status": "uploaded"
       },
       "generated_at": "2026-07-27T23:10:27Z",
+      "generator": "ingest-work.py"
+    },
+    {
+      "schema_version": 1,
+      "slug": "The_Melancholy_of_Carlo_Malvezzi",
+      "display": "The Melancholy of Carlo Malvezzi",
+      "parent_work_id": 1131474402,
+      "source": "e",
+      "public": true,
+      "tags": [],
+      "storage": {
+        "provider": "cloudflare-r2",
+        "remote": "animeplex.lol:extended/works/The_Melancholy_of_Carlo_Malvezzi",
+        "prefix": "works/The_Melancholy_of_Carlo_Malvezzi",
+        "cdn_base_url": "https://cdn.564578634.xyz/works"
+      },
+      "urls": {
+        "work": "https://cdn.564578634.xyz/works/The_Melancholy_of_Carlo_Malvezzi/",
+        "manifest": "works/The_Melancholy_of_Carlo_Malvezzi.json",
+        "thumb": "https://cdn.564578634.xyz/works/The_Melancholy_of_Carlo_Malvezzi/chapter_1/thumb.webp",
+        "details": "https://cdn.564578634.xyz/works/The_Melancholy_of_Carlo_Malvezzi/chapter_1/details.json",
+        "archive": "https://cdn.564578634.xyz/works/The_Melancholy_of_Carlo_Malvezzi/chapter_1/The Melancholy of Carlo Malvezzi.cbz"
+      },
+      "item_json": {
+        "count": 1,
+        "urls": [
+          "https://cdn.564578634.xyz/works/The_Melancholy_of_Carlo_Malvezzi/chapter_1/item.json"
+        ]
+      },
+      "content": {
+        "chapter_count": 1,
+        "page_count": 32,
+        "page_bytes": 17230326
+      },
+      "archive": {
+        "exists": true,
+        "filename": "The Melancholy of Carlo Malvezzi.cbz",
+        "format": "cbz",
+        "size_bytes": 17233402,
+        "sha256": "6b8898a4f40e4d925c7c4d553e75176bb0465d1672f0a59484da86c6e3a484f0"
+      },
+      "files": {
+        "thumb_exists": true,
+        "details_exists": true,
+        "archive_exists": true,
+        "item_json_count": 1,
+        "non_image_file_count": 4
+      },
+      "fingerprints": {
+        "work_identity_sha256": "4e08c686a2658c3e541c056ab6cdf0573bde3e139aed10ce27e222aaa78e7d17",
+        "archive_sha256": "6b8898a4f40e4d925c7c4d553e75176bb0465d1672f0a59484da86c6e3a484f0",
+        "archive_structure_sha256": "e8ae40bad2cf4c3dfc5a173de95cd3504b315f0344cb071ef5ce44045dce4bc9",
+        "page_tree_sha256": "13935874ab858d5b576c671519e7fe2a0adfb196ae16b9d3c566cca87d273036"
+      },
+      "upload": {
+        "method": "rclone",
+        "remote": "animeplex.lol:extended/works/The_Melancholy_of_Carlo_Malvezzi",
+        "uploaded_at": "2026-08-17T01:05:21Z",
+        "status": "uploaded"
+      },
+      "generated_at": "2026-08-17T01:05:21Z",
       "generator": "ingest-work.py"
     },
     {
@@ -21926,6 +24735,189 @@
     },
     {
       "schema_version": 1,
+      "slug": "Tsukiichi_Bed_Mei_King",
+      "display": "Tsukiichi Bed Mei King",
+      "parent_work_id": 7148183656,
+      "source": "e",
+      "public": true,
+      "tags": [],
+      "storage": {
+        "provider": "cloudflare-r2",
+        "remote": "animeplex.lol:extended/works/Tsukiichi_Bed_Mei_King",
+        "prefix": "works/Tsukiichi_Bed_Mei_King",
+        "cdn_base_url": "https://cdn.564578634.xyz/works"
+      },
+      "urls": {
+        "work": "https://cdn.564578634.xyz/works/Tsukiichi_Bed_Mei_King/",
+        "manifest": "works/Tsukiichi_Bed_Mei_King.json",
+        "thumb": "https://cdn.564578634.xyz/works/Tsukiichi_Bed_Mei_King/chapter_1/thumb.webp",
+        "details": "https://cdn.564578634.xyz/works/Tsukiichi_Bed_Mei_King/chapter_1/details.json",
+        "archive": "https://cdn.564578634.xyz/works/Tsukiichi_Bed_Mei_King/chapter_1/Tsukiichi Bed Mei King.cbz"
+      },
+      "item_json": {
+        "count": 1,
+        "urls": [
+          "https://cdn.564578634.xyz/works/Tsukiichi_Bed_Mei_King/chapter_1/item.json"
+        ]
+      },
+      "content": {
+        "chapter_count": 1,
+        "page_count": 16,
+        "page_bytes": 12326400
+      },
+      "archive": {
+        "exists": true,
+        "filename": "Tsukiichi Bed Mei King.cbz",
+        "format": "cbz",
+        "size_bytes": 12327862,
+        "sha256": "58e1bda3ac0617e8f7548d5cae9f005337a510eb8c5ab54ea6142921da5dfed8"
+      },
+      "files": {
+        "thumb_exists": true,
+        "details_exists": true,
+        "archive_exists": true,
+        "item_json_count": 1,
+        "non_image_file_count": 4
+      },
+      "fingerprints": {
+        "work_identity_sha256": "dd87d74087a3fc1345720a7ea4dff8aa837cef73db2fc6c360a26374cbe982bb",
+        "archive_sha256": "58e1bda3ac0617e8f7548d5cae9f005337a510eb8c5ab54ea6142921da5dfed8",
+        "archive_structure_sha256": "2b9a6cafb6c6a37cd1e7b2a8e31ef260838836c07f33cc9b5b25593cadc878c7",
+        "page_tree_sha256": "0fede8ce8d54275a9f7fcd198d05c3b2c22590d0a0cd4cc2272e087cc1e2de12"
+      },
+      "upload": {
+        "method": "rclone",
+        "remote": "animeplex.lol:extended/works/Tsukiichi_Bed_Mei_King",
+        "uploaded_at": "2026-08-17T01:05:21Z",
+        "status": "uploaded"
+      },
+      "generated_at": "2026-08-17T01:05:21Z",
+      "generator": "ingest-work.py"
+    },
+    {
+      "schema_version": 1,
+      "slug": "Tsukiichi_Bed_Mei_King_1",
+      "display": "Tsukiichi Bed Mei King (1)",
+      "parent_work_id": 7162463193,
+      "source": "e",
+      "public": true,
+      "tags": [],
+      "storage": {
+        "provider": "cloudflare-r2",
+        "remote": "animeplex.lol:extended/works/Tsukiichi_Bed_Mei_King_1",
+        "prefix": "works/Tsukiichi_Bed_Mei_King_1",
+        "cdn_base_url": "https://cdn.564578634.xyz/works"
+      },
+      "urls": {
+        "work": "https://cdn.564578634.xyz/works/Tsukiichi_Bed_Mei_King_1/",
+        "manifest": "works/Tsukiichi_Bed_Mei_King_1.json",
+        "thumb": "https://cdn.564578634.xyz/works/Tsukiichi_Bed_Mei_King_1/chapter_1/thumb.webp",
+        "details": "https://cdn.564578634.xyz/works/Tsukiichi_Bed_Mei_King_1/chapter_1/details.json",
+        "archive": "https://cdn.564578634.xyz/works/Tsukiichi_Bed_Mei_King_1/chapter_1/Tsukiichi Bed Mei King (1).cbz"
+      },
+      "item_json": {
+        "count": 1,
+        "urls": [
+          "https://cdn.564578634.xyz/works/Tsukiichi_Bed_Mei_King_1/chapter_1/item.json"
+        ]
+      },
+      "content": {
+        "chapter_count": 1,
+        "page_count": 16,
+        "page_bytes": 12326400
+      },
+      "archive": {
+        "exists": true,
+        "filename": "Tsukiichi Bed Mei King (1).cbz",
+        "format": "cbz",
+        "size_bytes": 12327862,
+        "sha256": "4543640af3ea38d49feed9b1ba7c5248dd5cfedc375f9766c48e38c3c9b36322"
+      },
+      "files": {
+        "thumb_exists": true,
+        "details_exists": true,
+        "archive_exists": true,
+        "item_json_count": 1,
+        "non_image_file_count": 4
+      },
+      "fingerprints": {
+        "work_identity_sha256": "69ada0399362549ae3111e97f44d595fce37d527b6f7f4ec19a8381a19068adb",
+        "archive_sha256": "4543640af3ea38d49feed9b1ba7c5248dd5cfedc375f9766c48e38c3c9b36322",
+        "archive_structure_sha256": "2b9a6cafb6c6a37cd1e7b2a8e31ef260838836c07f33cc9b5b25593cadc878c7",
+        "page_tree_sha256": "0fede8ce8d54275a9f7fcd198d05c3b2c22590d0a0cd4cc2272e087cc1e2de12"
+      },
+      "upload": {
+        "method": "rclone",
+        "remote": "animeplex.lol:extended/works/Tsukiichi_Bed_Mei_King_1",
+        "uploaded_at": "2026-08-17T01:05:21Z",
+        "status": "uploaded"
+      },
+      "generated_at": "2026-08-17T01:05:21Z",
+      "generator": "ingest-work.py"
+    },
+    {
+      "schema_version": 1,
+      "slug": "Tsukiichi_Bed_Mei_King_2",
+      "display": "Tsukiichi Bed Mei King (2)",
+      "parent_work_id": 7251125970,
+      "source": "e",
+      "public": true,
+      "tags": [],
+      "storage": {
+        "provider": "cloudflare-r2",
+        "remote": "animeplex.lol:extended/works/Tsukiichi_Bed_Mei_King_2",
+        "prefix": "works/Tsukiichi_Bed_Mei_King_2",
+        "cdn_base_url": "https://cdn.564578634.xyz/works"
+      },
+      "urls": {
+        "work": "https://cdn.564578634.xyz/works/Tsukiichi_Bed_Mei_King_2/",
+        "manifest": "works/Tsukiichi_Bed_Mei_King_2.json",
+        "thumb": "https://cdn.564578634.xyz/works/Tsukiichi_Bed_Mei_King_2/chapter_1/thumb.webp",
+        "details": "https://cdn.564578634.xyz/works/Tsukiichi_Bed_Mei_King_2/chapter_1/details.json",
+        "archive": "https://cdn.564578634.xyz/works/Tsukiichi_Bed_Mei_King_2/chapter_1/Tsukiichi Bed Mei King (2).cbz"
+      },
+      "item_json": {
+        "count": 1,
+        "urls": [
+          "https://cdn.564578634.xyz/works/Tsukiichi_Bed_Mei_King_2/chapter_1/item.json"
+        ]
+      },
+      "content": {
+        "chapter_count": 1,
+        "page_count": 16,
+        "page_bytes": 12326400
+      },
+      "archive": {
+        "exists": true,
+        "filename": "Tsukiichi Bed Mei King (2).cbz",
+        "format": "cbz",
+        "size_bytes": 12327862,
+        "sha256": "123ab386f2ff575b7244f477f186e97b889582bed3ee48135a1327a69089f4b9"
+      },
+      "files": {
+        "thumb_exists": true,
+        "details_exists": true,
+        "archive_exists": true,
+        "item_json_count": 1,
+        "non_image_file_count": 4
+      },
+      "fingerprints": {
+        "work_identity_sha256": "9ee6a0e1c9d25b254635bb1b99ac6ef6c0d59e68f62364f0760a700f05afaf52",
+        "archive_sha256": "123ab386f2ff575b7244f477f186e97b889582bed3ee48135a1327a69089f4b9",
+        "archive_structure_sha256": "2b9a6cafb6c6a37cd1e7b2a8e31ef260838836c07f33cc9b5b25593cadc878c7",
+        "page_tree_sha256": "0fede8ce8d54275a9f7fcd198d05c3b2c22590d0a0cd4cc2272e087cc1e2de12"
+      },
+      "upload": {
+        "method": "rclone",
+        "remote": "animeplex.lol:extended/works/Tsukiichi_Bed_Mei_King_2",
+        "uploaded_at": "2026-08-17T01:05:21Z",
+        "status": "uploaded"
+      },
+      "generated_at": "2026-08-17T01:05:21Z",
+      "generator": "ingest-work.py"
+    },
+    {
+      "schema_version": 1,
       "slug": "Tsundero_decensored",
       "display": "Tsundero (decensored)",
       "parent_work_id": 8432479655,
@@ -22305,7 +25297,7 @@
     {
       "schema_version": 1,
       "slug": "Untitled_Work",
-      "display": "酔ったお母さんはとても可愛い。",
+      "display": "弓崎ちゃん",
       "parent_work_id": 4765056638,
       "source": "e",
       "public": true,
@@ -22323,7 +25315,7 @@
         "manifest": "works/Untitled_Work.json",
         "thumb": "https://cdn.564578634.xyz/works/Untitled_Work/chapter_1/thumb.webp",
         "details": "https://cdn.564578634.xyz/works/Untitled_Work/chapter_1/details.json",
-        "archive": "https://cdn.564578634.xyz/works/Untitled_Work/chapter_1/酔ったお母さんはとても可愛い。.cbz"
+        "archive": "https://cdn.564578634.xyz/works/Untitled_Work/chapter_1/弓崎ちゃん.cbz"
       },
       "item_json": {
         "count": 1,
@@ -22333,15 +25325,15 @@
       },
       "content": {
         "chapter_count": 1,
-        "page_count": 70,
-        "page_bytes": 13622220
+        "page_count": 16,
+        "page_bytes": 2042238
       },
       "archive": {
         "exists": true,
-        "filename": "酔ったお母さんはとても可愛い。.cbz",
+        "filename": "弓崎ちゃん.cbz",
         "format": "cbz",
-        "size_bytes": 13628542,
-        "sha256": "f332053152cc0b2989899c9b8a8e64d53bf1458b4fc554bbbfb5ed535164c00d"
+        "size_bytes": 2043700,
+        "sha256": "006c372e44c9e0f59992ae8bb96c8a14fbf919df14254d1816bc24153dd9865b"
       },
       "files": {
         "thumb_exists": true,
@@ -22351,18 +25343,18 @@
         "non_image_file_count": 4
       },
       "fingerprints": {
-        "work_identity_sha256": "8de0215e4a09dc79c3d21d6bd8089f3ed7a3b1edce4d6ceb722fc720080d08b4",
-        "archive_sha256": "f332053152cc0b2989899c9b8a8e64d53bf1458b4fc554bbbfb5ed535164c00d",
-        "archive_structure_sha256": "fe888f46c2b566a83a90a4a07545f4896238741b9131516ca57d4b7deedfe98f",
-        "page_tree_sha256": "cdea2d8c78cddc62d34d061e03a478aed61179ac7c747488906b64029f9490e4"
+        "work_identity_sha256": "aaa312f09253570ac07f500ac9670a0a837d5bdaaa42fc0f4723e0a2ef121651",
+        "archive_sha256": "006c372e44c9e0f59992ae8bb96c8a14fbf919df14254d1816bc24153dd9865b",
+        "archive_structure_sha256": "4ee676a1042e5c945e74287cad9b06502ef490e6f0916172d2a0ab7a373603e9",
+        "page_tree_sha256": "252594682133624937450a617eed6221c83bb8632e4448a0bb53ad3e3f793f43"
       },
       "upload": {
         "method": "rclone",
         "remote": "animeplex.lol:extended/works/Untitled_Work",
-        "uploaded_at": "2026-07-29T04:59:26Z",
+        "uploaded_at": "2026-08-17T01:05:21Z",
         "status": "uploaded"
       },
-      "generated_at": "2026-07-29T04:59:26Z",
+      "generated_at": "2026-08-17T01:05:21Z",
       "generator": "ingest-work.py"
     },
     {
