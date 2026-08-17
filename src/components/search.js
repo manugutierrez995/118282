@@ -3,6 +3,7 @@ import tagCatalog from "../data/tags.json";
 import { getLocalProfileState, subscribeLocalProfiles } from "../local-profile/store.js";
 import { personalizeWorks } from "../local-profile/personalization.js";
 import { renderAdRegion } from "../monetization/components/ad-region.js";
+import { navigate, workUrl } from "../router/router.js";
 
 const SEARCH_INDEX_URL = "/data/search.index.json";
 let searchIndexPromise = null;
@@ -28,9 +29,8 @@ function hide(results) {
 }
 
 function emitOpen(entry) {
-    window.dispatchEvent(new CustomEvent("open-reader", {
-        detail: entry
-    }));
+    const slug = entry.work || entry.slug || entry.work_slug;
+    if (slug) navigate(workUrl(slug));
 }
 
 function renderResults(container, matches) {
