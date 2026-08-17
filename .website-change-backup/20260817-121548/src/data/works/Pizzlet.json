@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "slug": "Pizzlet",
+  "display": "Pizzlet",
+  "source": "e",
+  "thumb": "https://cdn.564578634.xyz/works/Pizzlet/chapter_1/thumb.webp",
+  "chapters": [
+    "chapter_1"
+  ],
+  "details": "https://cdn.564578634.xyz/works/Pizzlet/chapter_1/details.json",
+  "archive": "https://cdn.564578634.xyz/works/Pizzlet/chapter_1/Pizzlet.cbz",
+  "tags": [
+    "manifest"
+  ],
+  "parent_work_id": 2381215069
+}

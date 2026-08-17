@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "slug": "Nanami_Sensei",
+  "display": "Nanami Sensei",
+  "source": "e",
+  "thumb": "https://cdn.564578634.xyz/works/Nanami_Sensei/chapter_1/thumb.webp",
+  "chapters": [
+    "chapter_1"
+  ],
+  "details": "https://cdn.564578634.xyz/works/Nanami_Sensei/chapter_1/details.json",
+  "archive": "https://cdn.564578634.xyz/works/Nanami_Sensei/chapter_1/Nanami Sensei.cbz",
+  "tags": [
+    "manifest"
+  ],
+  "parent_work_id": 8004188133
+}

@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "slug": "ROBIN_SP_2",
+  "display": "ROBIN SP 2",
+  "source": "e",
+  "thumb": "https://cdn.564578634.xyz/works/ROBIN_SP_2/chapter_1/thumb.webp",
+  "chapters": [
+    "chapter_1"
+  ],
+  "details": "https://cdn.564578634.xyz/works/ROBIN_SP_2/chapter_1/details.json",
+  "archive": "https://cdn.564578634.xyz/works/ROBIN_SP_2/chapter_1/ROBIN SP 2.zip",
+  "parent_work_id": 9139135838
+}

@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "slug": "MM2-gou",
+  "display": "MM2-gou",
+  "source": "e",
+  "thumb": "https://cdn.564578634.xyz/works/MM2-gou/chapter_1/thumb.webp",
+  "chapters": [
+    "chapter_1"
+  ],
+  "details": "https://cdn.564578634.xyz/works/MM2-gou/chapter_1/details.json",
+  "archive": "https://cdn.564578634.xyz/works/MM2-gou/chapter_1/MM2-gou.cbz",
+  "tags": [
+    "manifest"
+  ],
+  "parent_work_id": 2800911842
+}

@@ -1,0 +1,33 @@
+{
+    "version": 1,
+
+    "active": "production",
+
+    "development": {
+
+        "sources": {
+
+            "a": "https://cdn.test.r2.dev/works",
+            "b": "https://pub-c8b2722cff4d4adb8f15f32075867df5.r2.dev/works",
+            "c": "https://pub-ae2fd7e640274ff2acbc15b6752eee51.r2.dev/works",
+            "d": "https://pub-f78ac228b8f14431804e721a35484412.r2.dev/works",
+            "e": "https://pub-7751cce8ad5b46c6a9533d1c70fc06f9.r2.dev/works"
+
+        }
+
+    },
+
+    "production": {
+
+        "sources": {
+
+            "a": "https://cdn.118282.xyz/works",
+            "b": "https://cdn.example.com/works",
+            "c": "https://cdn.example.com/works",
+            "d": "https://cdn.example.com/works",
+            "e": "https://cdn.118282.xyz/works"
+        }
+
+    }
+
+}

@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "slug": "Nut_Pose",
+  "display": "Nut Pose",
+  "source": "e",
+  "thumb": "https://cdn.564578634.xyz/works/Nut_Pose/chapter_1/thumb.webp",
+  "chapters": [
+    "chapter_1"
+  ],
+  "details": "https://cdn.564578634.xyz/works/Nut_Pose/chapter_1/details.json",
+  "archive": "https://cdn.564578634.xyz/works/Nut_Pose/chapter_1/Nut Pose.cbz",
+  "tags": [
+    "manifest"
+  ],
+  "parent_work_id": 8332046388
+}

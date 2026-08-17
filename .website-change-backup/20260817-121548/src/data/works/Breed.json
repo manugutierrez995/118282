@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "slug": "Breed",
+  "display": "Breed",
+  "source": "e",
+  "thumb": "https://cdn.564578634.xyz/works/Breed/chapter_1/thumb.webp",
+  "chapters": [
+    "chapter_1"
+  ],
+  "details": "https://cdn.564578634.xyz/works/Breed/chapter_1/details.json",
+  "archive": "https://cdn.564578634.xyz/works/Breed/chapter_1/Breed.cbz",
+  "tags": [
+    "manifest"
+  ],
+  "parent_work_id": 8434755374
+}

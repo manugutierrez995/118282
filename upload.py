@@ -27,7 +27,7 @@ from typing import Any
 from urllib.parse import quote
 
 IMAGE_EXTS = {".jpg", ".jpeg", ".png", ".webp", ".gif"}
-DEFAULT_CDN = "https://cdn.564578634.xyz/works"
+DEFAULT_CDN = "https://cdn.118282.xyz/works"
 DEFAULT_UPLOAD_REMOTE = "animeplex.lol:extended/works"
 DEFAULT_TOKEN_ENV = "GITHUB_TOKEN"
 DEFAULT_THUMB_LOCATION = "first-chapter"

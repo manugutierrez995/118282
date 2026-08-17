@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "slug": "Kokiimo",
+  "display": "Kokiimo",
+  "source": "e",
+  "thumb": "https://cdn.564578634.xyz/works/Kokiimo/chapter_1/thumb.webp",
+  "chapters": [
+    "chapter_1"
+  ],
+  "details": "https://cdn.564578634.xyz/works/Kokiimo/chapter_1/details.json",
+  "archive": "https://cdn.564578634.xyz/works/Kokiimo/chapter_1/Kokiimo.zip",
+  "parent_work_id": 9346084124
+}
