@@ -1346,10 +1346,10 @@ def main() -> None:
         args.generate_thumb = ask_bool("Generate thumb.webp?", True)
         args.thumb_location = DEFAULT_THUMB_LOCATION
         args.update_fetch = ask_bool("Update fetch.json?", True)
-        args.update_rotunda = ask_bool("Update rotunda.json?", True)
+        args.update_rotunda = ask_bool("Update rotunda.json?", False)
         args.generate_search = ask_bool("Regenerate search.index.json?", True)
 
-        if ask_bool("Upload to R2/CDN?", True):
+        if ask_bool("Upload to R2/CDN?", False):
             args.upload = ask("Upload method?", "rclone")
             if args.upload == "rclone" and ask_bool("Use pasted/built-in R2 credentials instead of existing rclone config?", False):
                 args.use_r2_values = True
@@ -1379,7 +1379,7 @@ def main() -> None:
                 args.upload_zip = False
                 print("Archive upload: skipped because no source ZIP/CBZ inputs were detected.")
 
-        args.commit_push = ask_bool("Commit/push to GitHub?", True)
+        args.commit_push = ask_bool("Commit/push to GitHub?", False)
         if args.commit_push:
             args.github_repo = ask("GitHub repo? optional; current git origin is used", "")
             token_answer = ask("GitHub token env var OR raw token OR export command", DEFAULT_TOKEN_ENV)
