@@ -10,6 +10,22 @@ export function safeNext(value, fallback = "/account/profile") {
         return `${url.pathname}${url.search}${url.hash}`;
     } catch { return fallback; }
 }
+
+function parseWorkSlugPath(pathname) {
+    if (!pathname.startsWith("/") || pathname === "/") return null;
+
+    const encodedSlug = pathname.slice(1);
+    if (!encodedSlug || encodedSlug.includes("/")) return null;
+
+    try {
+        const work = decodeURIComponent(encodedSlug);
+        if (!work) return null;
+        return { kind: "work-slug", work, pathname };
+    } catch {
+        return { kind: "not-found", pathname };
+    }
+}
+
 export function resolveRoute(locationLike) {
     const pathname = locationLike.pathname || "/";
     // The deployed reader contract is query-based, including on the root path.
@@ -19,8 +35,13 @@ export function resolveRoute(locationLike) {
     if (LEGACY_PROFILE_ROUTES.has(pathname)) return { kind: "redirect", to: "/profiles?from=legacy-account" };
     if (KNOWN.has(pathname)) return { kind: pathname === "/" ? "home" : pathname.slice(1).replaceAll("/", "-"), pathname, private: PRIVATE_ROUTES.has(pathname) };
     if (pathname.startsWith("/account/")) return { kind: "account-not-found", pathname };
+
+    const workRoute = parseWorkSlugPath(pathname);
+    if (workRoute) return workRoute;
+
     return { kind: "not-found", pathname };
 }
+
 let handler;
 export function startRouter(render) {
     if (handler) return;
@@ -35,6 +56,7 @@ export function startRouter(render) {
     });
     handler();
 }
+
 export function navigate(url, { replace = false } = {}) {
     history[replace ? "replaceState" : "pushState"]({}, "", url);
     handler?.();
