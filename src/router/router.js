@@ -10,32 +10,11 @@ export function safeNext(value, fallback = "/account/profile") {
         return `${url.pathname}${url.search}${url.hash}`;
     } catch { return fallback; }
 }
-
-export function workUrl(slug, chapter = null) {
-    const path = `/work/${encodeURIComponent(slug)}`;
-    return chapter ? `${path}?chapter=${encodeURIComponent(chapter)}` : path;
-}
-
-function parseWorkPath(pathname, search = "") {
-    if (!pathname.startsWith("/work/")) return null;
-    const encodedSlug = pathname.slice("/work/".length);
-    if (!encodedSlug || encodedSlug.includes("/")) return { kind: "not-found", pathname };
-    try {
-        const work = decodeURIComponent(encodedSlug);
-        if (!work) return { kind: "not-found", pathname };
-        return { kind: "work", work, chapter: new URLSearchParams(search || "").get("chapter"), pathname };
-    } catch {
-        return { kind: "not-found", pathname };
-    }
-}
-
 export function resolveRoute(locationLike) {
     const pathname = locationLike.pathname || "/";
     // The deployed reader contract is query-based, including on the root path.
     const params = new URLSearchParams(locationLike.search || "");
-    if (params.get("work") && params.get("chapter")) return { kind: "legacy-reader", work: params.get("work"), chapter: params.get("chapter"), pathname };
-    const workRoute = parseWorkPath(pathname, locationLike.search || "");
-    if (workRoute) return workRoute;
+    if (params.get("work") && params.get("chapter")) return { kind: "legacy-reader", pathname };
     if (pathname === "/account") return { kind: "redirect", to: "/account/profile" };
     if (LEGACY_PROFILE_ROUTES.has(pathname)) return { kind: "redirect", to: "/profiles?from=legacy-account" };
     if (KNOWN.has(pathname)) return { kind: pathname === "/" ? "home" : pathname.slice(1).replaceAll("/", "-"), pathname, private: PRIVATE_ROUTES.has(pathname) };
@@ -57,9 +36,6 @@ export function startRouter(render) {
     handler();
 }
 export function navigate(url, { replace = false } = {}) {
-    const next = new URL(url, window.location.href);
-    const current = `${window.location.pathname}${window.location.search}${window.location.hash}`;
-    const target = `${next.pathname}${next.search}${next.hash}`;
-    if (target !== current) history[replace ? "replaceState" : "pushState"]({}, "", target);
+    history[replace ? "replaceState" : "pushState"]({}, "", url);
     handler?.();
 }
