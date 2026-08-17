@@ -1,6 +1,6 @@
 {
     "version": 2,
-    "generated": "2026-07-29T08:59:51.998602+00:00",
+    "generated": "2026-08-17T00:06:35.719231+00:00",
     "environment": "production",
     "source": "e",
     "source_root": "https://cdn.564578634.xyz/works",
@@ -34292,6 +34292,41 @@
                 "manifest"
             ],
             "compact": "生徒えだはyoursuccubusclassmatesaretryingtoseduceyouinbothdreamsandrealityextrachapter1"
+        },
+        {
+            "id": 1450,
+            "type": "work",
+            "source": "e",
+            "display": "test",
+            "work": "test",
+            "chapter": "Dekiai Koubi Blind Love Mating",
+            "reader_url": "/reader?source=e&work=test&chapter=Dekiai%20Koubi%20Blind%20Love%20Mating",
+            "manifest_url": "https://cdn.564578634.xyz/works/test/Dekiai Koubi Blind Love Mating/item.json",
+            "normalized": "test",
+            "tokens": [
+                "test"
+            ],
+            "compact": "test"
+        },
+        {
+            "id": 1451,
+            "type": "chapter",
+            "source": "e",
+            "display": "test Dekiai Koubi Blind Love Mating",
+            "work": "test",
+            "chapter": "Dekiai Koubi Blind Love Mating",
+            "reader_url": "/reader?source=e&work=test&chapter=Dekiai%20Koubi%20Blind%20Love%20Mating",
+            "manifest_url": "https://cdn.564578634.xyz/works/test/Dekiai Koubi Blind Love Mating/item.json",
+            "normalized": "test dekiai koubi blind love mating",
+            "tokens": [
+                "test",
+                "dekiai",
+                "koubi",
+                "blind",
+                "love",
+                "mating"
+            ],
+            "compact": "testdekiaikoubiblindlovemating"
         }
     ],
     "tokens": {
@@ -40505,7 +40540,8 @@
             1006,
             1007,
             1112,
-            1113
+            1113,
+            1451
         ],
         "eccentric": [
             56,
@@ -45705,7 +45741,8 @@
             404,
             405,
             896,
-            897
+            897,
+            1451
         ],
         "experience": [
             404,
@@ -47857,7 +47894,8 @@
         ],
         "koubi": [
             638,
-            639
+            639,
+            1451
         ],
         "being": [
             638,
@@ -53484,6 +53522,16 @@
         "dreams": [
             1448,
             1449
+        ],
+        "test": [
+            1450,
+            1451
+        ],
+        "dekiai": [
+            1451
+        ],
+        "blind": [
+            1451
         ]
     },
     "prefixes": {
@@ -55654,7 +55702,8 @@
             1434,
             1435,
             1448,
-            1449
+            1449,
+            1451
         ],
         "be": [
             0,
@@ -56214,7 +56263,8 @@
             1430,
             1431,
             1448,
-            1449
+            1449,
+            1451
         ],
         "de": [
             0,
@@ -56468,7 +56518,8 @@
             1402,
             1403,
             1424,
-            1425
+            1425,
+            1451
         ],
         "dec": [
             0,
@@ -62490,7 +62541,8 @@
             1428,
             1429,
             1434,
-            1435
+            1435,
+            1451
         ],
         "ka": [
             2,
@@ -63318,7 +63370,9 @@
             1434,
             1435,
             1448,
-            1449
+            1449,
+            1450,
+            1451
         ],
         "to": [
             2,
@@ -69252,7 +69306,8 @@
             1446,
             1447,
             1448,
-            1449
+            1449,
+            1451
         ],
         "my": [
             8,
@@ -70006,7 +70061,8 @@
             1430,
             1431,
             1440,
-            1441
+            1441,
+            1451
         ],
         "le": [
             8,
@@ -76578,7 +76634,8 @@
             1446,
             1447,
             1448,
-            1449
+            1449,
+            1451
         ],
         "man": [
             22,
@@ -81282,7 +81339,8 @@
             1308,
             1309,
             1412,
-            1413
+            1413,
+            1451
         ],
         "blo": [
             26,
@@ -84406,7 +84464,9 @@
             1348,
             1349,
             1434,
-            1435
+            1435,
+            1450,
+            1451
         ],
         "das": [
             36,
@@ -87608,7 +87668,8 @@
             1180,
             1181,
             1336,
-            1337
+            1337,
+            1451
         ],
         "lov": [
             54,
@@ -87650,7 +87711,8 @@
             1112,
             1113,
             1180,
-            1181
+            1181,
+            1451
         ],
         "love": [
             54,
@@ -87692,7 +87754,8 @@
             1112,
             1113,
             1180,
-            1181
+            1181,
+            1451
         ],
         "ec": [
             56,
@@ -91484,7 +91547,8 @@
             1328,
             1329,
             1386,
-            1387
+            1387,
+            1451
         ],
         "kon": [
             90,
@@ -93344,7 +93408,8 @@
             1328,
             1329,
             1386,
-            1387
+            1387,
+            1451
         ],
         "kouh": [
             98,
@@ -95144,7 +95209,8 @@
             1114,
             1115,
             1232,
-            1233
+            1233,
+            1451
         ],
         "matc": [
             122,
@@ -108166,7 +108232,8 @@
             386,
             387,
             1308,
-            1309
+            1309,
+            1451
         ],
         "blis": [
             386,
@@ -108642,19 +108709,22 @@
             404,
             405,
             896,
-            897
+            897,
+            1451
         ],
         "matin": [
             404,
             405,
             896,
-            897
+            897,
+            1451
         ],
         "mating": [
             404,
             405,
             896,
-            897
+            897,
+            1451
         ],
         "expe": [
             404,
@@ -116562,13 +116632,15 @@
             1262,
             1263,
             1328,
-            1329
+            1329,
+            1451
         ],
         "koubi": [
             638,
             639,
             1262,
-            1263
+            1263,
+            1451
         ],
         "bein": [
             638,
@@ -120278,7 +120350,8 @@
             780,
             781,
             994,
-            995
+            995,
+            1451
         ],
         "deka": [
             780,
@@ -125160,7 +125233,8 @@
         ],
         "deki": [
             994,
-            995
+            995,
+            1451
         ],
         "dekic": [
             994,
@@ -130766,7 +130840,8 @@
         ],
         "blin": [
             1308,
-            1309
+            1309,
+            1451
         ],
         "blink": [
             1308,
@@ -134139,6 +134214,23 @@
         "dreams": [
             1448,
             1449
+        ],
+        "tes": [
+            1450,
+            1451
+        ],
+        "test": [
+            1450,
+            1451
+        ],
+        "dekia": [
+            1451
+        ],
+        "dekiai": [
+            1451
+        ],
+        "blind": [
+            1451
         ]
     },
     "compact": {
@@ -138469,6 +138561,12 @@
         ],
         "生徒えだはyoursuccubusclassmatesaretryingtoseduceyouinbothdreamsandrealityextrachapter1": [
             1449
+        ],
+        "test": [
+            1450
+        ],
+        "testdekiaikoubiblindlovemating": [
+            1451
         ]
     },
     "skipped": []

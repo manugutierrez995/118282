@@ -6924,6 +6924,15 @@
         "manifest"
       ],
       "public": true
+    },
+    {
+      "slug": "test",
+      "display": "test",
+      "source": "e",
+      "manifest": "works/test.json",
+      "thumb": "https://cdn.564578634.xyz/works/test/Dekiai Koubi Blind Love Mating/thumb.webp",
+      "tags": [],
+      "public": true
     }
   ]
 }
