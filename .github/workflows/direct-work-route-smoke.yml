@@ -1,0 +1,59 @@
+name: Direct work URL smoke test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  direct-work-url:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install project dependencies
+        run: npm ci
+
+      - name: Run existing tests
+        run: npm test
+
+      - name: Build site
+        run: npm run build
+
+      - name: Install Playwright Chromium
+        run: |
+          npm install --no-save @playwright/test@1.55.0
+          npx playwright install --with-deps chromium
+
+      - name: Start Vite preview
+        run: |
+          npm run preview -- --host 127.0.0.1 --port 4173 > /tmp/118282-vite.log 2>&1 &
+          echo $! > /tmp/118282-vite.pid
+          for i in {1..30}; do
+            if curl --fail --silent http://127.0.0.1:4173/ >/dev/null; then
+              exit 0
+            fi
+            sleep 1
+          done
+          cat /tmp/118282-vite.log
+          exit 1
+
+      - name: Test direct work URL in Chromium
+        run: npx playwright test tests/direct_work_url.spec.mjs --reporter=line
+
+      - name: Show preview log on failure
+        if: failure()
+        run: cat /tmp/118282-vite.log || true
