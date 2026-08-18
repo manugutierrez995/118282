@@ -1,6 +1,6 @@
 {
     "version": 2,
-    "generated": "2026-08-17T01:38:03.531008+00:00",
+    "generated": "2026-08-18T03:07:54.181898+00:00",
     "environment": "production",
     "source": "e",
     "source_root": "https://cdn.118282.xyz/works",
@@ -34913,9 +34913,9 @@
             "source": "e",
             "display": "Dekiai Koubi Blind Love Mating",
             "work": "Dekiai_Koubi_Blind_Love_Mating",
-            "chapter": "chapter_1",
-            "reader_url": "/reader?source=e&work=Dekiai_Koubi_Blind_Love_Mating&chapter=chapter_1",
-            "manifest_url": "https://cdn.118282.xyz/works/Dekiai_Koubi_Blind_Love_Mating/chapter_1/item.json",
+            "chapter": "Dekiai Koubi Blind Love Mating",
+            "reader_url": "/reader?source=e&work=Dekiai_Koubi_Blind_Love_Mating&chapter=Dekiai%20Koubi%20Blind%20Love%20Mating",
+            "manifest_url": "https://cdn.118282.xyz/works/Dekiai_Koubi_Blind_Love_Mating/Dekiai Koubi Blind Love Mating/item.json",
             "normalized": "dekiai koubi blind love mating",
             "tokens": [
                 "dekiai",
@@ -34930,22 +34930,20 @@
             "id": 1477,
             "type": "chapter",
             "source": "e",
-            "display": "Dekiai Koubi Blind Love Mating Chapter 1",
+            "display": "Dekiai Koubi Blind Love Mating Dekiai Koubi Blind Love Mating",
             "work": "Dekiai_Koubi_Blind_Love_Mating",
-            "chapter": "chapter_1",
-            "reader_url": "/reader?source=e&work=Dekiai_Koubi_Blind_Love_Mating&chapter=chapter_1",
-            "manifest_url": "https://cdn.118282.xyz/works/Dekiai_Koubi_Blind_Love_Mating/chapter_1/item.json",
-            "normalized": "dekiai koubi blind love mating chapter 1",
+            "chapter": "Dekiai Koubi Blind Love Mating",
+            "reader_url": "/reader?source=e&work=Dekiai_Koubi_Blind_Love_Mating&chapter=Dekiai%20Koubi%20Blind%20Love%20Mating",
+            "manifest_url": "https://cdn.118282.xyz/works/Dekiai_Koubi_Blind_Love_Mating/Dekiai Koubi Blind Love Mating/item.json",
+            "normalized": "dekiai koubi blind love mating dekiai koubi blind love mating",
             "tokens": [
                 "dekiai",
                 "koubi",
                 "blind",
                 "love",
-                "mating",
-                "chapter",
-                "1"
+                "mating"
             ],
-            "compact": "dekiaikoubiblindlovematingchapter1"
+            "compact": "dekiaikoubiblindlovemating"
         },
         {
             "id": 1478,
@@ -37699,6 +37697,59 @@
                 "1"
             ],
             "compact": "はじめてのセフレ第01巻01chapter1"
+        },
+        {
+            "id": 1594,
+            "type": "work",
+            "source": "e",
+            "display": "works",
+            "work": "works",
+            "chapter": "20260817T211206.970Z",
+            "reader_url": "/reader?source=e&work=works&chapter=20260817T211206.970Z",
+            "manifest_url": "https://cdn.118282.xyz/works/works/20260817T211206.970Z/item.json",
+            "normalized": "works",
+            "tokens": [
+                "works"
+            ],
+            "compact": "works"
+        },
+        {
+            "id": 1595,
+            "type": "chapter",
+            "source": "e",
+            "display": "works 20260817T211206.970Z",
+            "work": "works",
+            "chapter": "20260817T211206.970Z",
+            "reader_url": "/reader?source=e&work=works&chapter=20260817T211206.970Z",
+            "manifest_url": "https://cdn.118282.xyz/works/works/20260817T211206.970Z/item.json",
+            "normalized": "works 20260817 t 211206970 z",
+            "tokens": [
+                "works",
+                "20260817",
+                "t",
+                "211206970",
+                "z"
+            ],
+            "compact": "works20260817t211206970z"
+        },
+        {
+            "id": 1596,
+            "type": "chapter",
+            "source": "e",
+            "display": "works 20260818T024925.412Z",
+            "work": "works",
+            "chapter": "20260818T024925.412Z",
+            "reader_url": "/reader?source=e&work=works&chapter=20260818T024925.412Z",
+            "manifest_url": "https://cdn.118282.xyz/works/works/20260818T024925.412Z/item.json",
+            "normalized": "works 20260818 t 024925412 z",
+            "tokens": [
+                "works",
+                "20260818",
+                "t",
+                "024925412",
+                "z"
+            ],
+            "compact": "works20260818t024925412z"
         }
     ],
     "tokens": {
@@ -38599,7 +38650,6 @@
             1471,
             1473,
             1475,
-            1477,
             1479,
             1481,
             1483,
@@ -39410,7 +39460,6 @@
             1473,
             1474,
             1475,
-            1477,
             1479,
             1481,
             1483,
@@ -54421,7 +54470,9 @@
             1547,
             1548,
             1549,
-            1550
+            1550,
+            1595,
+            1596
         ],
         "city": [
             960,
@@ -58236,7 +58287,9 @@
             1547,
             1548,
             1549,
-            1550
+            1550,
+            1595,
+            1596
         ],
         "213516783": [
             1488
@@ -58612,6 +58665,23 @@
         "第01巻": [
             1592,
             1593
+        ],
+        "works": [
+            1594,
+            1595,
+            1596
+        ],
+        "20260817": [
+            1595
+        ],
+        "211206970": [
+            1595
+        ],
+        "20260818": [
+            1596
+        ],
+        "024925412": [
+            1596
         ]
     },
     "prefixes": {
@@ -59574,7 +59644,6 @@
             1472,
             1473,
             1475,
-            1477,
             1479,
             1481,
             1482,
@@ -60466,7 +60535,6 @@
             1472,
             1473,
             1475,
-            1477,
             1479,
             1481,
             1482,
@@ -63586,7 +63654,6 @@
             1472,
             1473,
             1475,
-            1477,
             1479,
             1481,
             1483,
@@ -64379,7 +64446,6 @@
             1471,
             1473,
             1475,
-            1477,
             1479,
             1481,
             1483,
@@ -65170,7 +65236,6 @@
             1471,
             1473,
             1475,
-            1477,
             1479,
             1481,
             1483,
@@ -65961,7 +66026,6 @@
             1471,
             1473,
             1475,
-            1477,
             1479,
             1481,
             1483,
@@ -66752,7 +66816,6 @@
             1471,
             1473,
             1475,
-            1477,
             1479,
             1481,
             1483,
@@ -67570,7 +67633,6 @@
             1473,
             1474,
             1475,
-            1477,
             1479,
             1481,
             1483,
@@ -69078,7 +69140,9 @@
             1588,
             1589,
             1590,
-            1591
+            1591,
+            1595,
+            1596
         ],
         "to": [
             2,
@@ -71870,7 +71934,9 @@
             1570,
             1571,
             1578,
-            1579
+            1579,
+            1595,
+            1596
         ],
         "20": [
             6,
@@ -71950,7 +72016,9 @@
             1547,
             1548,
             1549,
-            1550
+            1550,
+            1595,
+            1596
         ],
         "202": [
             6,
@@ -72028,7 +72096,9 @@
             1547,
             1548,
             1549,
-            1550
+            1550,
+            1595,
+            1596
         ],
         "2022": [
             6,
@@ -76147,7 +76217,10 @@
             1578,
             1579,
             1584,
-            1585
+            1585,
+            1594,
+            1595,
+            1596
         ],
         "wi": [
             8,
@@ -88952,7 +89025,9 @@
             1562,
             1563,
             1574,
-            1575
+            1575,
+            1595,
+            1596
         ],
         "ze": [
             28,
@@ -96065,7 +96140,8 @@
             1322,
             1323,
             1592,
-            1593
+            1593,
+            1596
         ],
         "04": [
             66,
@@ -97365,7 +97441,10 @@
             1464,
             1465,
             1480,
-            1481
+            1481,
+            1594,
+            1595,
+            1596
         ],
         "wok": [
             78,
@@ -108378,7 +108457,10 @@
             1188,
             1189,
             1334,
-            1335
+            1335,
+            1594,
+            1595,
+            1596
         ],
         "work": [
             226,
@@ -108388,7 +108470,10 @@
             490,
             491,
             1188,
-            1189
+            1189,
+            1594,
+            1595,
+            1596
         ],
         "母": [
             228,
@@ -126590,7 +126675,9 @@
             1547,
             1548,
             1549,
-            1550
+            1550,
+            1595,
+            1596
         ],
         "20260": [
             692,
@@ -126658,7 +126745,9 @@
             1547,
             1548,
             1549,
-            1550
+            1550,
+            1595,
+            1596
         ],
         "202605": [
             692,
@@ -134787,7 +134876,8 @@
             1504,
             1505,
             1506,
-            1507
+            1507,
+            1595
         ],
         "casu": [
             1042,
@@ -137613,7 +137703,8 @@
         ],
         "02": [
             1168,
-            1169
+            1169,
+            1596
         ],
         "hatsuk": [
             1170,
@@ -144485,7 +144576,9 @@
             1547,
             1548,
             1549,
-            1550
+            1550,
+            1595,
+            1596
         ],
         "2026081": [
             1487,
@@ -144551,7 +144644,9 @@
             1547,
             1548,
             1549,
-            1550
+            1550,
+            1595,
+            1596
         ],
         "20260816": [
             1487,
@@ -146457,6 +146552,59 @@
         "第01巻": [
             1592,
             1593
+        ],
+        "works": [
+            1594,
+            1595,
+            1596
+        ],
+        "20260817": [
+            1595
+        ],
+        "211": [
+            1595
+        ],
+        "2112": [
+            1595
+        ],
+        "21120": [
+            1595
+        ],
+        "211206": [
+            1595
+        ],
+        "2112069": [
+            1595
+        ],
+        "21120697": [
+            1595
+        ],
+        "211206970": [
+            1595
+        ],
+        "20260818": [
+            1596
+        ],
+        "024": [
+            1596
+        ],
+        "0249": [
+            1596
+        ],
+        "02492": [
+            1596
+        ],
+        "024925": [
+            1596
+        ],
+        "0249254": [
+            1596
+        ],
+        "02492541": [
+            1596
+        ],
+        "024925412": [
+            1596
         ]
     },
     "compact": {
@@ -150867,9 +151015,7 @@
             1475
         ],
         "dekiaikoubiblindlovemating": [
-            1476
-        ],
-        "dekiaikoubiblindlovematingchapter1": [
+            1476,
             1477
         ],
         "dobashigentei": [
@@ -151217,6 +151363,15 @@
         ],
         "はじめてのセフレ第01巻01chapter1": [
             1593
+        ],
+        "works": [
+            1594
+        ],
+        "works20260817t211206970z": [
+            1595
+        ],
+        "works20260818t024925412z": [
+            1596
         ]
     },
     "skipped": []
