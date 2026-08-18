@@ -4,11 +4,6 @@
 Single mode: behaves like the original wizard.
 Batch mode: point it at a parent folder containing many work folders. Each immediate
 subfolder becomes one work. Slug/display/parent_work_id are inferred automatically.
-
-Public work IDs:
-After catalog changes, this script automatically runs scripts/generate_ids.py so
-src/data/ID.json stays synchronized. Existing/manual 7-digit IDs are preserved by
-the canonical ID generator. Use --no-id-update to opt out.
 """
 from __future__ import annotations
 
@@ -39,11 +34,6 @@ DEFAULT_THUMB_LOCATION = "first-chapter"
 DEFAULT_DETAILS_FILENAME = "details.json"
 HASH_CHUNK_SIZE = 4 * 1024 * 1024
 LINUX_TAG_XATTR = "user.xdg.tags"
-
-PUBLIC_ID_START = 1_199_999
-PUBLIC_ID_STEP = 23
-PUBLIC_ID_MIN = 1_000_000
-PUBLIC_ID_MAX = 9_999_999
 
 HARDCODED_GITHUB_TOKEN = ""
 HARDCODED_R2_REMOTE_NAME = "animeplex.lol"
@@ -866,215 +856,6 @@ def upsert_pointer_merge(path: Path, entry: dict[str, Any], dry: bool, add: bool
     return True
 
 
-
-
-def _clean_public_id(value: Any) -> str:
-    return "" if value is None else str(value).strip()
-
-
-def _validate_public_id(value: str, context: str) -> None:
-    if not value:
-        return
-    if not re.fullmatch(r"\d{7}", value):
-        raise SystemExit(f"{context}: public ID must be exactly 7 digits, got {value!r}")
-    number = int(value)
-    if not PUBLIC_ID_MIN <= number <= PUBLIC_ID_MAX:
-        raise SystemExit(f"{context}: public ID is outside the 7-digit range: {value}")
-
-
-def check_and_plan_public_ids(data_dir: Path, specs: list[WorkSpec]) -> dict[str, str]:
-    """CHECK ID.json first, then reserve IDs in memory for this run.
-
-    Nothing is written here. Existing/manual IDs win. Missing or blank entries get
-    the next unused number from settings.start_id/step. The planned assignment is
-    written only after the upload stage succeeds.
-    """
-    path = data_dir / "ID.json"
-    current = load_json(
-        path,
-        {
-            "version": 1,
-            "settings": {"start_id": PUBLIC_ID_START, "step": PUBLIC_ID_STEP},
-            "works": [],
-        },
-    )
-    if not isinstance(current, dict):
-        raise SystemExit(f"Invalid public ID file: {path}")
-
-    settings = current.get("settings") if isinstance(current.get("settings"), dict) else {}
-    start_id = int(settings.get("start_id", PUBLIC_ID_START))
-    step = int(settings.get("step", PUBLIC_ID_STEP))
-    if not PUBLIC_ID_MIN <= start_id <= PUBLIC_ID_MAX:
-        raise SystemExit(f"{path}: settings.start_id must be a 7-digit integer")
-    if step <= 0:
-        raise SystemExit(f"{path}: settings.step must be greater than zero")
-
-    rows = current.get("works") if isinstance(current.get("works"), list) else []
-    by_slug: dict[str, dict[str, Any]] = {}
-    used: dict[str, str] = {}
-
-    for row in rows:
-        if not isinstance(row, dict):
-            continue
-        slug = str(row.get("slug") or "").strip()
-        if not slug:
-            continue
-        if slug in by_slug:
-            raise SystemExit(f"{path}: duplicate slug {slug!r}")
-        by_slug[slug] = row
-
-        pid = _clean_public_id(row.get("id"))
-        _validate_public_id(pid, f"{path} work {slug!r}")
-        if pid:
-            owner = used.get(pid)
-            if owner and owner != slug:
-                raise SystemExit(f"{path}: duplicate public ID {pid} for {owner!r} and {slug!r}")
-            used[pid] = slug
-
-    planned: dict[str, str] = {}
-    candidate = start_id
-
-    print(f"\nChecking public IDs first: {path}")
-    for spec in specs:
-        old = by_slug.get(spec.slug) or {}
-        existing = _clean_public_id(old.get("id"))
-        if existing:
-            planned[spec.slug] = existing
-            print(f"ID KEEP  {existing}  {spec.slug}")
-            continue
-
-        while candidate >= PUBLIC_ID_MIN:
-            pid = f"{candidate:07d}"
-            candidate -= step
-            if pid not in used and pid not in planned.values():
-                planned[spec.slug] = pid
-                used[pid] = spec.slug
-                print(f"ID NEW   {pid}  {spec.slug}  (reserved; write after successful upload)")
-                break
-        else:
-            raise SystemExit("Ran out of available 7-digit public IDs")
-
-    return planned
-
-
-def write_planned_public_ids(
-    data_dir: Path,
-    specs: list[WorkSpec],
-    planned: dict[str, str],
-    dry: bool = False,
-) -> Path:
-    """Write this run's planned IDs after successful upload, then canonicalize."""
-    path = data_dir / "ID.json"
-    current = load_json(
-        path,
-        {
-            "version": 1,
-            "settings": {"start_id": PUBLIC_ID_START, "step": PUBLIC_ID_STEP},
-            "works": [],
-        },
-    )
-    if not isinstance(current, dict):
-        raise SystemExit(f"Invalid public ID file: {path}")
-
-    works = current.get("works")
-    if not isinstance(works, list):
-        works = []
-        current["works"] = works
-
-    by_slug: dict[str, dict[str, Any]] = {}
-    owner_by_id: dict[str, str] = {}
-    for row in works:
-        if not isinstance(row, dict):
-            continue
-        slug = str(row.get("slug") or "").strip()
-        if slug:
-            by_slug[slug] = row
-        pid = _clean_public_id(row.get("id"))
-        if pid:
-            _validate_public_id(pid, f"{path} work {slug!r}")
-            owner_by_id[pid] = slug
-
-    for spec in specs:
-        row = by_slug.get(spec.slug)
-        if row is None:
-            row = {}
-            works.append(row)
-            by_slug[spec.slug] = row
-
-        # A manual non-empty ID changed while this run was in progress wins.
-        current_id = _clean_public_id(row.get("id"))
-        pid = current_id or planned[spec.slug]
-        _validate_public_id(pid, f"planned work {spec.slug!r}")
-
-        owner = owner_by_id.get(pid)
-        if owner and owner != spec.slug:
-            raise SystemExit(
-                f"Cannot write public ID {pid} for {spec.slug!r}; it is now used by {owner!r}"
-            )
-
-        owner_by_id[pid] = spec.slug
-        row.update(
-            {
-                "id": pid,
-                "title": spec.display,
-                "slug": spec.slug,
-                "work_url": "/" + quote(spec.slug, safe="-._~"),
-            }
-        )
-        row.pop("active", None)
-
-    if dry:
-        print(f"DRY write planned public IDs -> {path}")
-        return path
-
-    atomic_write_json(path, current)
-    print(f"Public ID assignments committed to {path}")
-
-    # Run the canonical generator afterward to refresh titles/URLs, preserve all
-    # existing IDs, retire disappeared works, and fill any other blank catalog rows.
-    return update_public_ids(data_dir, False)
-
-
-def update_public_ids(data_dir: Path, dry: bool = False) -> Path:
-    """Synchronize ID.json from fetch.json using the repo's canonical generator.
-
-    This deliberately delegates allocation/preservation rules to
-    scripts/generate_ids.py so ingestion never has a second competing ID allocator.
-    Existing non-empty/manual IDs therefore remain stable.
-    """
-    generator = repo_root() / "scripts" / "generate_ids.py"
-    catalog = data_dir / "fetch.json"
-    output = data_dir / "ID.json"
-
-    if not generator.exists():
-        raise SystemExit(
-            f"Public ID generator not found: {generator}\n"
-            "Expected scripts/generate_ids.py in the repository."
-        )
-    if not catalog.exists():
-        raise SystemExit(
-            f"Cannot update public IDs because the catalog does not exist: {catalog}"
-        )
-
-    cmd = [
-        sys.executable,
-        str(generator),
-        "--catalog",
-        str(catalog),
-        "--output",
-        str(output),
-    ]
-
-    if dry:
-        print("DRY public IDs: " + safe_cmd(cmd))
-        return output
-
-    print("\nUpdating public 7-digit work IDs...")
-    run(cmd, False)
-    print(f"Public IDs: {output}")
-    return output
-
-
 def metadata_only_update(args: argparse.Namespace) -> list[Path]:
     if not args.slug:
         raise SystemExit("--metadata-only requires --slug")
@@ -1102,8 +883,6 @@ def metadata_only_update(args: argparse.Namespace) -> list[Path]:
         written.append(rotunda_policy_path)
     if upsert_pointer_merge(data / "fetch.json", entry, args.dry_run, add=False):
         written.append(data / "fetch.json")
-    if not getattr(args, "no_id_update", False):
-        written.append(update_public_ids(data, args.dry_run))
     if args.update_rotunda or any(isinstance(w, dict) and w.get("slug") == args.slug for w in load_json(data / "rotunda.json", {}).get("works", [])):
         if upsert_pointer_merge(data / "rotunda.json", entry, args.dry_run, add=args.update_rotunda):
             written.append(data / "rotunda.json")
@@ -1228,10 +1007,7 @@ def parse_github_token_answer(answer: str) -> tuple[str, str | None]:
 
 
 def git_push_with_optional_token(token: str | None, dry: bool) -> None:
-    """Push with a token when supplied, otherwise fall back to SSH automatically."""
-    def handle_push(cmd: list[str], *, display: str | None = None) -> None:
-        if display:
-            print(display)
+    def handle_push(cmd: list[str]) -> None:
         try:
             run(cmd, dry)
         except subprocess.CalledProcessError as e:
@@ -1240,45 +1016,24 @@ def git_push_with_optional_token(token: str | None, dry: bool) -> None:
             print("git pull --rebase --autostash origin main")
             print("git push origin main")
             raise SystemExit(e.returncode) from None
-
-    remote_url = subprocess.check_output(
-        ["git", "remote", "get-url", "origin"],
-        text=True,
-    ).strip()
-
-    # Prefer an explicitly supplied token for HTTPS GitHub remotes.
-    if token and remote_url.startswith("https://github.com/"):
-        authed_url = remote_url.replace(
-            "https://github.com/",
-            f"https://x-access-token:{quote(token, safe='')}@github.com/",
-            1,
-        )
-        handle_push(
-            ["git", "push", authed_url, "HEAD"],
-            display="$ git push origin HEAD  # token hidden",
-        )
+    if not token:
+        handle_push(["git", "push"])
         return
-
-    # If origin is already SSH, simply use it.
-    if remote_url.startswith(("git@github.com:", "ssh://git@github.com/")):
-        print("GitHub token not supplied; using configured SSH origin.")
-        handle_push(["git", "push", "origin", "HEAD"])
-        return
-
-    # If origin is GitHub HTTPS but no token was supplied, derive the equivalent
-    # SSH URL for this push. This does not rewrite the user's configured origin.
+    remote_url = subprocess.check_output(["git", "remote", "get-url", "origin"], text=True).strip()
     if remote_url.startswith("https://github.com/"):
-        repo_path = remote_url[len("https://github.com/"):].rstrip("/")
-        if repo_path.endswith(".git"):
-            repo_path = repo_path[:-4]
-        ssh_url = f"git@github.com:{repo_path}.git"
-        print(f"GitHub token not supplied; trying SSH push via {ssh_url}")
-        handle_push(["git", "push", ssh_url, "HEAD"])
-        return
-
-    # Non-GitHub or other remotes: use the configured origin normally.
-    print("GitHub token not supplied; using configured git remote.")
-    handle_push(["git", "push", "origin", "HEAD"])
+        authed_url = remote_url.replace("https://github.com/", f"https://x-access-token:{quote(token, safe='')}@github.com/", 1)
+        print("$ git push origin HEAD  # token hidden")
+        if not dry:
+            try:
+                subprocess.run(["git", "push", authed_url, "HEAD"], check=True)
+            except subprocess.CalledProcessError as e:
+                print("Git push failed; local commit remains intact.")
+                print("Resolve remote changes, then run:")
+                print("git pull --rebase --autostash origin main")
+                print("git push origin main")
+                raise SystemExit(e.returncode) from None
+    else:
+        handle_push(["git", "push"])
 
 
 def has_staged_changes() -> bool:
@@ -1333,7 +1088,7 @@ def make_work_spec(root: Path, data_dir: Path, slug: str | None = None, display:
 
 
 def ingest_one_work(spec: WorkSpec, args: argparse.Namespace) -> tuple[dict[str, Any], list[Path], list[Chapter], dict[str, Any] | None]:
-    data = resolve_repo_path(args.repo_data)
+    data = Path(args.repo_data)
     chapters = detect_chapters(spec.root)
     if not chapters and args.dry_run and not args.no_auto_chapter:
         loose = root_page_images(spec.root)
@@ -1510,11 +1265,6 @@ def main() -> None:
     ap.add_argument("--no-search", action="store_true")
     ap.add_argument("--no-rotunda", action="store_true")
     ap.add_argument("--no-fetch-update", action="store_true")
-    ap.add_argument(
-        "--no-id-update",
-        action="store_true",
-        help="Do not synchronize src/data/ID.json with fetch.json after ingestion.",
-    )
     ap.add_argument("--force", action="store_true")
     ap.add_argument("--commit-push", action="store_true")
     ap.add_argument("--github-repo")
@@ -1632,7 +1382,7 @@ def main() -> None:
         args.commit_push = ask_bool("Commit/push to GitHub?", True)
         if args.commit_push:
             args.github_repo = ask("GitHub repo? optional; current git origin is used", "")
-            token_answer = ask("GitHub token env var OR raw token OR export command (blank = use SSH if available)", DEFAULT_TOKEN_ENV)
+            token_answer = ask("GitHub token env var OR raw token OR export command", DEFAULT_TOKEN_ENV)
             args.github_token_env, parsed_token = parse_github_token_answer(token_answer)
             token_value = parsed_token or token_value
 
@@ -1680,11 +1430,6 @@ def main() -> None:
     print("\nWorks to ingest:")
     for spec in specs:
         print(f"- {spec.display} -> {spec.slug}")
-
-    # IMPORTANT: inspect ID.json before fetch.json, manifests, R2, or Git are changed.
-    planned_public_ids = (
-        {} if args.no_id_update else check_and_plan_public_ids(data, specs)
-    )
 
     all_written: list[Path] = []
     all_summaries: list[tuple[WorkSpec, list[Chapter]]] = []
@@ -1736,19 +1481,10 @@ def main() -> None:
                 deleted_local_zips += int(zip_deleted)
         uploaded = True
 
-    # Only now write the IDs reserved before ingestion. Upload commands use
-    # check=True, so a failed upload exits before ID.json can be changed.
-    if not args.no_id_update:
-        id_path = write_planned_public_ids(
-            data,
-            specs,
-            planned_public_ids,
-            args.dry_run,
-        )
-        all_written.append(id_path)
-
     if args.commit_push:
         token = token_value or os.getenv(args.github_token_env or DEFAULT_TOKEN_ENV) or HARDCODED_GITHUB_TOKEN or None
+        if not token:
+            raise SystemExit(f"GitHub token not found. Set {args.github_token_env}=... or paste the raw token when prompted.")
         paths = sorted({str(p) for p in all_written})
         run(["git", "add", *paths], args.dry_run)
         if args.dry_run or has_staged_changes():
@@ -1765,7 +1501,6 @@ def main() -> None:
     print(f"Uploaded: {'yes' if uploaded else 'skipped'}")
     print(f"Source archives uploaded: {uploaded_zips}")
     print(f"Verified local archives deleted: {deleted_local_zips}")
-    print(f"Public ID.json: {'skipped' if args.no_id_update else 'updated'}")
     if args.generate_search and not args.no_search:
         print("Search indexes updated:")
         print(f"- {data / 'search.index.json'}")
