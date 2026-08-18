@@ -2,16 +2,41 @@ import { Landing } from "./landing.js";
 import { Reader } from "./reader.js";
 import { loadWork, workSource } from "../storage/work_manifest.js";
 import { getLocalProfileState, subscribeLocalProfiles } from "../local-profile/store.js";
-import { startRouter, navigate } from "../router/router.js";
+import { resolveRoute, startRouter, navigate } from "../router/router.js";
 import { bookmarksView, notFoundView, profileView, profilesView, settingsView } from "../account/views.js";
 
 let currentRoute, generation = 0;
+let readerUrlSyncInstalled = false;
 const root = () => document.getElementById("reader-container");
 const focus = () => requestAnimationFrame(() => root()?.querySelector("h1")?.focus());
 
 function showNotFound(account = false) {
     notFoundView(root(), account);
     return focus();
+}
+
+function workSlugPath(work) {
+    return `/${encodeURIComponent(String(work))}`;
+}
+
+function syncOpenedWorkUrl(entry) {
+    const work = entry?.work || entry?.slug || entry?.work_slug;
+    if (!work) return;
+
+    const nextPath = workSlugPath(work);
+    const currentPath = `${window.location.pathname}${window.location.search}${window.location.hash}`;
+
+    // A direct /<slug> visit is already canonical. Chapter changes within the
+    // same work also keep the same work-level URL, so do not add duplicate
+    // history entries for them.
+    if (currentPath !== nextPath) {
+        history.pushState({}, "", nextPath);
+    }
+
+    // Keep Page's logical route aligned with the address bar without invoking
+    // the router renderer. The existing open-reader listener owns the reader
+    // render, so rerendering here would wipe/rebuild the landing shell.
+    currentRoute = resolveRoute(window.location);
 }
 
 async function openWorkSlugRoute(route, id) {
@@ -63,6 +88,11 @@ async function render(route) {
 
 export class Page {
     static async start() {
+        if (!readerUrlSyncInstalled) {
+            readerUrlSyncInstalled = true;
+            window.addEventListener("open-reader", event => syncOpenedWorkUrl(event.detail));
+        }
+
         subscribeLocalProfiles(() => currentRoute && render(currentRoute));
         startRouter(route => {
             currentRoute = route;
