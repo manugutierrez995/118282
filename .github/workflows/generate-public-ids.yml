@@ -1,0 +1,41 @@
+name: Generate public work IDs
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "src/data/fetch.json"
+      - "scripts/generate_ids.py"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  generate-public-ids:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Generate ID.json
+        run: python scripts/generate_ids.py
+
+      - name: Commit generated mapping
+        run: |
+          if git diff --quiet -- src/data/ID.json; then
+            echo "ID.json is already current."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/data/ID.json
+          git commit -m "Generate public work IDs"
+          git push

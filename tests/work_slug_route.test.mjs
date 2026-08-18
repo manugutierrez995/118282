@@ -2,6 +2,17 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { resolveRoute } from "../src/router/router.js";
 
+test("a 7-digit public work ID resolves as a work-id route", () => {
+    assert.deepEqual(
+        resolveRoute({ pathname: "/1199999", search: "" }),
+        {
+            kind: "work-id",
+            id: "1199999",
+            pathname: "/1199999"
+        }
+    );
+});
+
 test("a root-level work slug resolves as a work-slug route", () => {
     assert.deepEqual(
         resolveRoute({ pathname: "/Chu_Berozu_decensored", search: "" }),
@@ -20,7 +31,7 @@ test("encoded root-level work slugs decode before lookup", () => {
     );
 });
 
-test("existing application routes keep priority over work slugs", () => {
+test("existing application routes keep priority over work IDs and slugs", () => {
     assert.equal(resolveRoute({ pathname: "/", search: "" }).kind, "home");
     assert.equal(resolveRoute({ pathname: "/profiles", search: "" }).kind, "profiles");
     assert.equal(resolveRoute({ pathname: "/account/profile", search: "" }).kind, "account-profile");
@@ -28,7 +39,7 @@ test("existing application routes keep priority over work slugs", () => {
 
 test("legacy query reader URLs keep priority", () => {
     assert.equal(
-        resolveRoute({ pathname: "/anything", search: "?work=foo&chapter=chapter_1" }).kind,
+        resolveRoute({ pathname: "/1199999", search: "?work=foo&chapter=chapter_1" }).kind,
         "legacy-reader"
     );
 });

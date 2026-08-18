@@ -1,6 +1,7 @@
 import { Landing } from "./landing.js";
 import { Reader } from "./reader.js";
 import { loadWork, workSource } from "../storage/work_manifest.js";
+import { publicWorkPath, slugForPublicId } from "../storage/public_ids.js";
 import { getLocalProfileState, subscribeLocalProfiles } from "../local-profile/store.js";
 import { resolveRoute, startRouter, navigate } from "../router/router.js";
 import { bookmarksView, notFoundView, profileView, profilesView, settingsView } from "../account/views.js";
@@ -15,7 +16,7 @@ function showNotFound(account = false) {
     return focus();
 }
 
-function workSlugPath(work) {
+function internalWorkPath(work) {
     return `/${encodeURIComponent(String(work))}`;
 }
 
@@ -23,14 +24,15 @@ function syncOpenedWorkUrl(entry) {
     const work = entry?.work || entry?.slug || entry?.work_slug;
     if (!work) return;
 
-    const nextPath = workSlugPath(work);
+    const nextPath = publicWorkPath(work);
     const currentPath = `${window.location.pathname}${window.location.search}${window.location.hash}`;
 
-    // A direct /<slug> visit is already canonical. Chapter changes within the
-    // same work also keep the same work-level URL, so do not add duplicate
-    // history entries for them.
+    // Work URLs are work-level for now, so chapter changes inside the same
+    // work do not create duplicate history entries. A pasted legacy slug route
+    // is canonicalized with replaceState so Back does not bounce slug -> ID.
     if (currentPath !== nextPath) {
-        history.pushState({}, "", nextPath);
+        const replace = currentPath === internalWorkPath(work);
+        history[replace ? "replaceState" : "pushState"]({}, "", nextPath);
     }
 
     // Keep Page's logical route aligned with the address bar without invoking
@@ -39,8 +41,8 @@ function syncOpenedWorkUrl(entry) {
     currentRoute = resolveRoute(window.location);
 }
 
-async function openWorkSlugRoute(route, id) {
-    const work = await loadWork(route.work);
+async function openCatalogWork(workSlug, id) {
+    const work = await loadWork(workSlug);
     if (id !== generation) return;
     if (!work) return showNotFound();
 
@@ -55,10 +57,20 @@ async function openWorkSlugRoute(route, id) {
     window.dispatchEvent(new CustomEvent("open-reader", {
         detail: {
             source: workSource(work),
-            work: work.slug || route.work,
+            work: work.slug || workSlug,
             chapter: chapters[0]
         }
     }));
+}
+
+async function openWorkIdRoute(route, id) {
+    const workSlug = slugForPublicId(route.id);
+    if (!workSlug) return showNotFound();
+    return openCatalogWork(workSlug, id);
+}
+
+async function openWorkSlugRoute(route, id) {
+    return openCatalogWork(route.work, id);
 }
 
 async function render(route) {
@@ -72,6 +84,7 @@ async function render(route) {
         return Reader.start(p.get("work"), p.get("chapter"));
     }
 
+    if (route.kind === "work-id") return openWorkIdRoute(route, id);
     if (route.kind === "work-slug") return openWorkSlugRoute(route, id);
     if (route.kind === "home") return Landing.start();
     if (route.kind === "account-not-found" || route.kind === "not-found") return showNotFound(route.kind === "account-not-found");
