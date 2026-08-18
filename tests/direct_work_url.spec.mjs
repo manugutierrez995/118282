@@ -31,7 +31,7 @@ test("legacy direct slug remains compatible and canonicalizes to the public ID",
     await expect(page.locator("body")).toHaveClass(/reader-active/);
 });
 
-test("the generic open-reader flow exposes the public ID without rerouting", async ({ page }) => {
+test("the generic open-reader flow exposes the public ID and Back returns home", async ({ page }) => {
     const response = await page.goto(
         "http://127.0.0.1:4173/",
         { waitUntil: "domcontentloaded" }
@@ -55,4 +55,8 @@ test("the generic open-reader flow exposes the public ID without rerouting", asy
     await expect(page.locator("#chapter-start")).toBeAttached({ timeout: 15000 });
     await expect(page.locator(".reader-page").first()).toBeAttached({ timeout: 15000 });
     await expect(page.locator("body")).toHaveClass(/reader-active/);
+
+    await page.goBack();
+    await expect(page).toHaveURL("http://127.0.0.1:4173/");
+    await expect(page.locator(".landing-rotunda")).toBeVisible();
 });
