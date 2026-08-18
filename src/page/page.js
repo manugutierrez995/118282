@@ -16,6 +16,10 @@ function showNotFound(account = false) {
     return focus();
 }
 
+function internalWorkPath(work) {
+    return `/${encodeURIComponent(String(work))}`;
+}
+
 function syncOpenedWorkUrl(entry) {
     const work = entry?.work || entry?.slug || entry?.work_slug;
     if (!work) return;
@@ -24,9 +28,11 @@ function syncOpenedWorkUrl(entry) {
     const currentPath = `${window.location.pathname}${window.location.search}${window.location.hash}`;
 
     // Work URLs are work-level for now, so chapter changes inside the same
-    // work do not create duplicate history entries.
+    // work do not create duplicate history entries. A pasted legacy slug route
+    // is canonicalized with replaceState so Back does not bounce slug -> ID.
     if (currentPath !== nextPath) {
-        history.pushState({}, "", nextPath);
+        const replace = currentPath === internalWorkPath(work);
+        history[replace ? "replaceState" : "pushState"]({}, "", nextPath);
     }
 
     // Keep Page's logical route aligned with the address bar without invoking
