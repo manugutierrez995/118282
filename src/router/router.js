@@ -11,6 +11,12 @@ export function safeNext(value, fallback = "/account/profile") {
     } catch { return fallback; }
 }
 
+function parsePublicWorkIdPath(pathname) {
+    const match = /^\/(\d{7})$/.exec(pathname);
+    if (!match) return null;
+    return { kind: "work-id", id: match[1], pathname };
+}
+
 function parseWorkSlugPath(pathname) {
     if (!pathname.startsWith("/") || pathname === "/") return null;
 
@@ -35,6 +41,9 @@ export function resolveRoute(locationLike) {
     if (LEGACY_PROFILE_ROUTES.has(pathname)) return { kind: "redirect", to: "/profiles?from=legacy-account" };
     if (KNOWN.has(pathname)) return { kind: pathname === "/" ? "home" : pathname.slice(1).replaceAll("/", "-"), pathname, private: PRIVATE_ROUTES.has(pathname) };
     if (pathname.startsWith("/account/")) return { kind: "account-not-found", pathname };
+
+    const publicIdRoute = parsePublicWorkIdPath(pathname);
+    if (publicIdRoute) return publicIdRoute;
 
     const workRoute = parseWorkSlugPath(pathname);
     if (workRoute) return workRoute;
