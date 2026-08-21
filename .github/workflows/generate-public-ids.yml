@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - "src/data/fetch.json"
+      - "src/data/ID.json"
       - "scripts/generate_ids.py"
   workflow_dispatch:
 

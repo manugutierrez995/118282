@@ -1228,10 +1228,7 @@ def parse_github_token_answer(answer: str) -> tuple[str, str | None]:
 
 
 def git_push_with_optional_token(token: str | None, dry: bool) -> None:
-    """Push with a token when supplied, otherwise fall back to SSH automatically."""
-    def handle_push(cmd: list[str], *, display: str | None = None) -> None:
-        if display:
-            print(display)
+    def handle_push(cmd: list[str]) -> None:
         try:
             run(cmd, dry)
         except subprocess.CalledProcessError as e:
@@ -1240,45 +1237,24 @@ def git_push_with_optional_token(token: str | None, dry: bool) -> None:
             print("git pull --rebase --autostash origin main")
             print("git push origin main")
             raise SystemExit(e.returncode) from None
-
-    remote_url = subprocess.check_output(
-        ["git", "remote", "get-url", "origin"],
-        text=True,
-    ).strip()
-
-    # Prefer an explicitly supplied token for HTTPS GitHub remotes.
-    if token and remote_url.startswith("https://github.com/"):
-        authed_url = remote_url.replace(
-            "https://github.com/",
-            f"https://x-access-token:{quote(token, safe='')}@github.com/",
-            1,
-        )
-        handle_push(
-            ["git", "push", authed_url, "HEAD"],
-            display="$ git push origin HEAD  # token hidden",
-        )
+    if not token:
+        handle_push(["git", "push"])
         return
-
-    # If origin is already SSH, simply use it.
-    if remote_url.startswith(("git@github.com:", "ssh://git@github.com/")):
-        print("GitHub token not supplied; using configured SSH origin.")
-        handle_push(["git", "push", "origin", "HEAD"])
-        return
-
-    # If origin is GitHub HTTPS but no token was supplied, derive the equivalent
-    # SSH URL for this push. This does not rewrite the user's configured origin.
+    remote_url = subprocess.check_output(["git", "remote", "get-url", "origin"], text=True).strip()
     if remote_url.startswith("https://github.com/"):
-        repo_path = remote_url[len("https://github.com/"):].rstrip("/")
-        if repo_path.endswith(".git"):
-            repo_path = repo_path[:-4]
-        ssh_url = f"git@github.com:{repo_path}.git"
-        print(f"GitHub token not supplied; trying SSH push via {ssh_url}")
-        handle_push(["git", "push", ssh_url, "HEAD"])
-        return
-
-    # Non-GitHub or other remotes: use the configured origin normally.
-    print("GitHub token not supplied; using configured git remote.")
-    handle_push(["git", "push", "origin", "HEAD"])
+        authed_url = remote_url.replace("https://github.com/", f"https://x-access-token:{quote(token, safe='')}@github.com/", 1)
+        print("$ git push origin HEAD  # token hidden")
+        if not dry:
+            try:
+                subprocess.run(["git", "push", authed_url, "HEAD"], check=True)
+            except subprocess.CalledProcessError as e:
+                print("Git push failed; local commit remains intact.")
+                print("Resolve remote changes, then run:")
+                print("git pull --rebase --autostash origin main")
+                print("git push origin main")
+                raise SystemExit(e.returncode) from None
+    else:
+        handle_push(["git", "push"])
 
 
 def has_staged_changes() -> bool:
@@ -1632,7 +1608,7 @@ def main() -> None:
         args.commit_push = ask_bool("Commit/push to GitHub?", True)
         if args.commit_push:
             args.github_repo = ask("GitHub repo? optional; current git origin is used", "")
-            token_answer = ask("GitHub token env var OR raw token OR export command (blank = use SSH if available)", DEFAULT_TOKEN_ENV)
+            token_answer = ask("GitHub token env var OR raw token OR export command", DEFAULT_TOKEN_ENV)
             args.github_token_env, parsed_token = parse_github_token_answer(token_answer)
             token_value = parsed_token or token_value
 
@@ -1749,6 +1725,8 @@ def main() -> None:
 
     if args.commit_push:
         token = token_value or os.getenv(args.github_token_env or DEFAULT_TOKEN_ENV) or HARDCODED_GITHUB_TOKEN or None
+        if not token:
+            raise SystemExit(f"GitHub token not found. Set {args.github_token_env}=... or paste the raw token when prompted.")
         paths = sorted({str(p) for p in all_written})
         run(["git", "add", *paths], args.dry_run)
         if args.dry_run or has_staged_changes():
