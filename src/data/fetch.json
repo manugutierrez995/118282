@@ -7047,7 +7047,7 @@
       "display": "Dekiai Koubi Blind Love Mating",
       "source": "e",
       "manifest": "works/Dekiai_Koubi_Blind_Love_Mating.json",
-      "thumb": "https://cdn.118282.xyz/works/Dekiai_Koubi_Blind_Love_Mating/chapter_1/thumb.webp",
+      "thumb": "https://cdn.118282.xyz/works/Dekiai_Koubi_Blind_Love_Mating/Dekiai Koubi Blind Love Mating/thumb.webp",
       "tags": [],
       "public": true
     },
@@ -7282,6 +7282,15 @@
       "source": "e",
       "manifest": "works/01.json",
       "thumb": "https://cdn.118282.xyz/works/01/chapter_1/thumb.webp",
+      "tags": [],
+      "public": true
+    },
+    {
+      "slug": "works",
+      "display": "works",
+      "source": "e",
+      "manifest": "works/works.json",
+      "thumb": "https://cdn.118282.xyz/works/works/20260817T211206.970Z/thumb.webp",
       "tags": [],
       "public": true
     }
