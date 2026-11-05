@@ -1,28 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>Maintenance</title>
-<style>
-body {
-    margin: 0;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: #111;
-}
 
-img {
-    max-width: 100%;
-    max-height: 100vh;
-    object-fit: contain;
-}
-</style>
+<head>
+    <meta name="6a97888e-site-verification" content="ded9c53e6a5c4ffe65fb63e2fcab0f85">
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#090909">
+    <style>
+        :root { color-scheme: dark; background-color: #090909; }
+        html, body {
+            min-height: 100%; margin: 0; background-color: #090909; color: #f7f7fb;
+            font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        }
+        #app, #layout, #reader-column, #reader-container { min-height: 100vh; background-color: #090909; }
+        .startup-shell {
+            display: grid; min-height: 100vh; place-items: center; color: rgba(247, 247, 251, .42);
+            font-size: .78rem; letter-spacing: .18em; text-transform: uppercase;
+        }
+        .startup-shell[aria-busy="true"] span { animation: startup-pulse 1.8s ease-in-out infinite alternate; }
+        .startup-shell-error { color: #f7f7fb; letter-spacing: normal; text-align: center; text-transform: none; }
+        @keyframes startup-pulse { to { opacity: .48; } }
+        @media (prefers-reduced-motion: reduce) { .startup-shell[aria-busy="true"] span { animation: none; } }
+    </style>
+    <script>
+        (() => {
+            const fail = () => {
+                const shell = document.querySelector(".startup-shell");
+                if (!shell) return;
+                shell.classList.add("startup-shell-error");
+                shell.setAttribute("aria-busy", "false");
+                shell.innerHTML = "<div><strong>Unable to start Doku-Doujin.</strong><br><span>Please reload the page.</span></div>";
+            };
+            const resourceError = event => {
+                if (event.target?.tagName === "SCRIPT") fail();
+            };
+            window.addEventListener("error", resourceError, true);
+            window.addEventListener("unhandledrejection", fail);
+            window.__finishStartup = () => {
+                window.removeEventListener("error", resourceError, true);
+                window.removeEventListener("unhandledrejection", fail);
+                delete window.__finishStartup;
+            };
+        })();
+    </script>
+
+    <title>Doku-Doujin</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Geist+Pixel&display=swap" rel="stylesheet">
+
 </head>
+
 <body>
 
-<img src="Images/15gzfnndqaod1.jpeg" alt="Maintenance">
+    <div id="app">
+
+        <main id="layout">
+
+            <aside id="left-sidebar">
+
+                <div id="left-top"></div>
+
+                <div id="left-middle"></div>
+
+                <div id="left-bottom"></div>
+
+            </aside>
+
+            <section id="reader-column">
+
+                <div id="reader-container">
+                    <div class="startup-shell" role="status" aria-live="polite" aria-busy="true">
+                        <span>Doku-Doujin</span>
+                    </div>
+
+                </div>
+
+            </section>
+
+            <aside id="right-sidebar">
+
+                <div id="right-top"></div>
+
+                <div id="right-middle"></div>
+
+                <div id="right-bottom"></div>
+
+            </aside>
+
+        </main>
+
+        <footer id="footer">
+
+            <div id="footer-left"></div>
+
+            <div id="footer-center"></div>
+
+            <div id="footer-right"></div>
+
+        </footer>
+
+    </div>
+
+
+    <script type="module" src="/src/main.js"></script>
 
 </body>
+
 </html>
